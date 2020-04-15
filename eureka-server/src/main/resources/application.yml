@@ -1,0 +1,104 @@
+
+server:
+  port: 8761
+
+tomcat:
+  max-threads: 1000
+  connection-timeout: 5000
+
+spring:
+  application:
+    name: eurekaServer
+  datasource:
+    url: jdbc:mysql://localhost:3306/boottest?useUnicode=true&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&characterEncoding=UTF-8&serverTimezone=GMT
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  # 使用druid数据源
+  type: com.alibaba.druid.pool.DruidDataSource
+  ##cloud
+  cloud:
+    inetutils:
+      preferred-networks: 127.0.0.1
+    client:
+      ip-address: 127.0.0.1
+  #redis配置
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    database: 9
+    timeout: 6000
+    pool:
+      max-active: 8
+      max-idle: 8
+      max-wait: -1
+      min-idle: 0
+  #quartz
+  quartz:
+    org:
+      quartz:
+        scheduler:
+          instanceName: clusteredScheduler
+          instanceId: AUTO
+        jobStore:
+          class: org.quartz.impl.jdbcjobstore.JobStoreTX
+          driverDelegateClass: org.quartz.impl.jdbcjobstore.StdJDBCDelegate
+          tablePrefix: QRTZ_
+          isClustered: true
+          clusterCheckinInterval: 10000
+          useProperties: false
+        threadPool:
+          class: org.quartz.simpl.SimpleThreadPool
+          threadCount: 10
+          threadPriority: 5
+          threadsInheritContextClassLoaderOfInitializingThread: true
+    ##quartz数据存储方式 memory 和jdbc方式
+    job-store-type: jdbc
+
+
+##RocketMq
+rocketmq:
+  nameServer: 192.168.1.18:9876
+  producer:
+    group: eurekaServer-group
+
+##注册中心配置
+eureka:
+  server:
+    ##节点超时时间 毫秒
+    peer-node-read-timeout-ms: 3000
+    #是否开启自动我保护 默认 true 节点失效自动删除 负载均衡使用
+    enable-self-preservation: false
+  ##实例ID
+  instance:
+    #是否以 IP 注册到注册中心
+    prefer-ip-address: false
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}
+  client:
+    ## 表示是否可以注册自己到server上
+    registerWithEureka: true
+    ##是否需要去检索寻找服务,因为是注册中心，他的任务是维护服务实例，所以不需要去寻找服务
+    fetchRegistry: false
+    healthcheck:
+      enabled: true
+    ##注册中心默认地址
+    serviceUrl:
+      defaultZone: http://127.0.0.1:8761/eureka/
+
+mybatis:
+  typeAliasesPackage: com.server.domain
+  #mapperLocations指的路径是src/main/resources
+  mapperLocations: classpath:mapper/*.xml
+  configuration:
+    #配置项：开启下划线到驼峰的自动转换. 作用：将数据库字段根据驼峰规则自动注入到对象属性。
+    map-underscore-to-camel-case: true
+
+##应用配置
+application:
+
+  ##阿里云配置
+  aliyun:
+    appKey: 19999
+    appSecret: 1
+    bucket: lynn
+    endPoint: https://www.aliyun.com

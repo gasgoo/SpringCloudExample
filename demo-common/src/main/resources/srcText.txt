@@ -1,0 +1,14 @@
+
+
+getCusIndivAssData.do-----getCusIndivAssData----CusIndivAssCRUDOp.queryCusIndivAssList
+http://192.168.1.32:9560/getCusIndivAssData.do?equals.cus_id=CS201907090000006488&EMP_SID=BHHIJAGAEQDOHGAEETAKELACJIFFEPGZJKDBFWEY
+http://192.168.1.32:9560/getCusIndivAssData.do?equals.cus_id=CS201810100000006484&EMP_SID=BHHIJAGAEQDOHGAEETAKELACJIFFEPGZJKDBFWEY
+
+客户 com/yucheng/cmis/business/cus/com/rel/assdebt/component/CusIndivAssComponent.java:251
+
+
+
+http://192.168.1.32:9560/getIqpIndivAssData.do?equals.app_no=IQP201911150000010385&EMP_SID=BHHIJAGAEQDOHGAEETAKELACJIFFEPGZJKDBFWEY
+
+getIqpIndivAssData.do  ---getIqpIndivAssData---IqpIndivAssCRUDOp.queryIqpIndivAssList
+com/yucheng/cmis/business/busimanage/iqp/component/IqpIndivAssComponent.java:279

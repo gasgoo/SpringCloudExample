@@ -1,0 +1,14 @@
+syntax="proto3";
+package com.crazymakercircle.netty.protocol;
+
+
+option java_package ="com.crazymakercircle.netty.protocol";
+option java_outer_classname= "MsgProtos";
+
+
+//开始消息定义
+message msg{
+    uint32 id=1;
+    string content =2;
+
+}
