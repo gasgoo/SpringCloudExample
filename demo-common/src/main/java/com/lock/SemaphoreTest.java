@@ -32,7 +32,7 @@ public class SemaphoreTest {
                         TimeUnit.SECONDS.sleep(2000);
                         s.release();
                     } catch (InterruptedException e) {
-                        System.out.println(e.getMessage());
+                        System.out.println("中断 "+e.getMessage());
                     }
 
                 }

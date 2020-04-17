@@ -14,8 +14,8 @@ IOC的核心部分是 解析XML文件，注册bean  ，对于有依赖对象的b
   xml配置解析+反射
   
   
-===Spring容器初始化 
-===
+##Spring容器初始化 
+
  定位-加载-注册-初始化
   实例化Spring容器--> 扫描类-->解析类-->实例化BeanDefinition-->注册BeanDefinition 放到一个map中(beanName,DeanDef)
   调用bean工厂的后置处理器--验证
@@ -23,8 +23,8 @@ IOC的核心部分是 解析XML文件，注册bean  ，对于有依赖对象的b
   
  
   
-===bean周期开始
-===
+***bean周期开始***
+
 推断构造方法-通过反射实例化对象- 缓存、注解信息-暴露一个bean工厂--判断bean是否需要完成属性的注入
 完成属性注入- 回调Aware接口--生命周期回调方法(@PostConstruct)初始化--完成代理AOP--put单例池 ---销毁对象
 

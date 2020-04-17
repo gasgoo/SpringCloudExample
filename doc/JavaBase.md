@@ -23,8 +23,6 @@ resize对数组进行了实例化操作
 
 HashMap怎么解决碰撞问题的？
 
-
-
 conCurrentHashMap(线程安全的高效的)
 ConcurrentHashMap如何保证 线程安全？  内部有一个Segment段，它将大的HashMap切分成若干个段（小的HashMap），然后让数据在每一段上Hash，这样多个线程在不同段上的Hash操作一定是线程安全的
 TreeMap
@@ -132,14 +130,6 @@ public @Interface LogAnnotin{
 
 3）用过并发包的哪些类；  底层就实现是volatile和CAS。整个并发包其实都是由这两种思想构成的。
 
-
-5）Excutors可以产生哪些线程池；
-
-newCachedThreadPool  可缓存的线程池  可灵活回收空闲线程
-newFixedThreadPool 定长线程池  控制线程的最大并发数  超出会在队列中等待
-newScheduledThreadPool 创建一个定长线程池 支持定时和周期性任务
-newSingleThreadExecutor 单线程化的线程池 只有一个工作线程来执行任务 有顺序的执行
-
 6）为什么要用线程池；ExecutorService 线程池接口
 服务端要求在短时间内处理 巨量的 耗时的线程，如果为每个请求新建线程然后销毁线程 这个过程很浪费资源，通过线程池去
 管理线程的新建和销毁，减少 这个过程的次数，实现线程可复用，自动调节线程的数量。
@@ -149,10 +139,6 @@ newSingleThreadExecutor 单线程化的线程池 只有一个工作线程来执�
  保证有序性  通过内存屏障禁止指令重排序。
  Synchronized 保证三个。
 并发的 原子性 可见性 有序性
-
-8） 多线程的作用:
- 使用多线程 主要是需要处理大量的IO操作或处理的情况需要花大量的时间等;
-可以解决负载均衡问题,充分利用CPU的资源,为了提高Cpu的使用,采用多线程的方法去同时完成几件事情而互不干扰
 
 
 Java 中用到的线程调度算法是什么？ 如何上下文切换
@@ -164,16 +150,6 @@ Java 中用到的线程调度算法是什么？ 如何上下文切换
  Web.xml文件中的 配置DispatchServlet类路径
 
 HandelMapping: URl和程序进行映射关联 先扫描出相关联的类  basePacking
-
-
-12) Spring项目体系 core 依赖common-logjar
-core核心 容器   spring-core  spring-beans spring-context spring-express
-aop面向切换   spring-aop 
-数据访问  spring-jdbc spring-orm spring-oxm spring-tx spring-jms
-spring web项目 spring-web  spring-mvc
-test 测试 
-
-
 
 13)例如：在浏览器地址栏键入URL，按下回车之后会经历以下流程：
 
@@ -244,7 +220,7 @@ String str=new String("abc");
  再字符串常量池中查看是否有abc字符串对象，没有则创建。
  如存在字符串abc，则将new出来的对象和常量池中的对象连接起来。
 
-==============JVM模型 
+##JVM模型 
 GC Roots 可达性分析  判断对象是否存活。
 哪些对象可以当作根对象:  1. 虚拟机栈中引用的对象；2.方法区中的静态变量引用的对象  常量的引用对象。  3.本地方法栈中引用的对象。
 
@@ -258,12 +234,13 @@ javap 反编译附加信息
 程序计数器：当前线程正在执行的字节码指令的地址
 本地方法栈
 
-对象内存分配原则：
+#对象内存分配原则：
 1. 优先分配eden区
 2. 大对象直接分配老年代  如 超过配置的值则认为是大对象。
 3. 长期存活的对象直接分配老年代  年龄15进入老年代
 4. 动态判断对象年龄进入老年代
 5. 空间分配担保 
+6. 满足逃逸分析或标量替换还可以再栈上分配
 
 
 3）java虚拟机运行时数据区
