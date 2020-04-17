@@ -19,7 +19,6 @@ public class LeetCodeTwoSum {
     public static void main(String[] args) {
         int[] arr=new int[]{3,4,6,7,8,2,1,9};
         List<Integer[]> integers = LeetCodeTwoSum.twoSum(arr, 10);
-        integers.stream().forEach(System.out::println);
         int[] nums1 = new int[]{1,2,3,0,0,0};
         int[] nums2 = new int[]{2,5,6};
         int[] ints = LeetCodeTwoSum.mergeSortArray(nums1, nums2);
@@ -41,6 +40,11 @@ public class LeetCodeTwoSum {
                 list.add(new Integer[]{i,map.get(result)});
             }
             map.put(arr[i],i);
+        }
+        for(Integer[] ing:list){
+            for(int i=0;i<ing.length;i++){
+                System.out.println("{"+ing[i]);
+            }
         }
         return list;
     }
@@ -76,5 +80,7 @@ public class LeetCodeTwoSum {
 
         return newArray;
     }
+
+
 }
 

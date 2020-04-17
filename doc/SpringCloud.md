@@ -1,7 +1,7 @@
 Spring Cloud生态
 
-Spring Cloud Config 是分布式水平扩展集中式配置服务，使用本地存储、Git等存储配置； 通常体现未 application.yml配置文件。 只需要使用sprng-cloud-starter-config依赖构建Spring Boot应用，自动配置将会完成其它工作。 只需要配合bootstrap.yml就可以完成自动配置工作。
-
+Spring Cloud Config 是分布式水平扩展集中式配置服务，使用本地存储、Git等存储配置； 通常体现未 application.yml配置文件。 只需要使用sprng-cloud-starter-config依赖构建Spring Boot应用，自动配置将会完成其它工作。 
+只需要配合bootstrap.yml就可以完成自动配置工作。
 API网关 系统的单个入口点，将请求路由到后端服务或聚合后端服务处理用户请求， @EnabledZuulProxy注解来启用它 
 Zuul是Netflix出品的一个基于JVM路由和服务端的负载均衡器. 路由 Zuul配置 
 zuul: 
@@ -71,3 +71,21 @@ void updateStatistics(@PathVariable("accountName") String accountName, Account a
   场景四：分布式通知与协调 
   场景五：分布式锁、分布式队列 
   场景六：集群监控与Leader竞选 kubernetes用etcd来存储docker集群的配置信息等。
+  
+##SpringCloud alibaba
+nacos注册流程:
+1.  client端启动tomcat发布事件 容器启动事件 WebServierInitializedEvent;初始化spring容器
+ServletWebServerInitializedEvent implements WebServerInitializedEvent  web容器初始化事件
+
+2.通过自动配置spring.factories中配置了一个AutoServiceRegistrationAutoConfiguration类
+ 注入实例NacosAutoServiceRegistration extents AbstractAutoServiceRegistration监听到容器启动事件则开始注册流程
+ 并且通过构造方法注入了ServiceRegistry接口的某个实现类. 
+ 实例NacosServiceRegistery implements ServiceRegistry.register()开始服务注册流程。
+
+3. 注册过程中发布InstancePreRegisteredEvent 实例注册事件;然后实例化 NacosServiceRegistry对象开始注册流程,
+    调用NacosNamingService#registerInstance()方法
+4. 注册流程中主要是 发送两个http请求给nacos服务端,心跳请求、注册请求，把client实例信息封装成 Instance
+5. 服务器端是先创建注册的服务、然后默认创建一个集群、然后集群中包含所有的实例列表。
+
+ 
+ 
