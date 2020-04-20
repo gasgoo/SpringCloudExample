@@ -87,5 +87,7 @@ ServletWebServerInitializedEvent implements WebServerInitializedEvent  web容器
 4. 注册流程中主要是 发送两个http请求给nacos服务端,心跳请求、注册请求，把client实例信息封装成 Instance
 5. 服务器端是先创建注册的服务、然后默认创建一个集群、然后集群中包含所有的实例列表。
 
+nacos服务端处理注册流程:
+ 
  
  
