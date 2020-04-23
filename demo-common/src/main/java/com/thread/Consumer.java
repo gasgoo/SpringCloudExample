@@ -43,8 +43,8 @@ public class Consumer implements Runnable{
 
     public static void main(String[] args) {
         Queue<Integer> queue=new LinkedList<>();
-        Produer produer=new Produer(queue,5);
-        Consumer consumer=new Consumer(queue,10);
+        Produer produer=new Produer(queue,10);
+        Consumer consumer=new Consumer(queue,5);
         Thread p=new Thread(produer);
         Thread c=new Thread(consumer);
         p.start();
