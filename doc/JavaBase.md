@@ -10,6 +10,7 @@ hashMap put方法 根据 key做hash算法 得到 一个hashcode
 key.hashCode()%16   & 运算 
 key.hashCode>>>16  异或运算 得到一个位置 存储 entrySet
 高16和低16位进行异或运算  
+
 n-1&hash   =====hash%n（0-15）
 都用二进制表示 	  保证node均匀分散
 
