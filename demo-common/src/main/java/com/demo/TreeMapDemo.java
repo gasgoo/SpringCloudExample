@@ -61,7 +61,6 @@ public class TreeMapDemo  {
             list2.add(new DTO(i,"i"));
         }
         Collections.sort(list,comparator);
-        System.out.println("===="+ JSON.toJSONString(list2));
 
     }
 
@@ -77,6 +76,8 @@ public class TreeMapDemo  {
         int a=hashNum%16384;
         int b=16383 & hashNum;
         System.out.println("a="+a+"<<<>>>b="+b);
+        Object t="2343";
+        System.out.println("===="+ t);
 
     }
 

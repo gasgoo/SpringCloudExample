@@ -92,5 +92,16 @@ DataStore  <String,datum>
 nacos服务端处理注册流程:
 nacos节点之间数据同步、客户端掉线重连后创建服务。
 
- 
+nacos的注册中心包含负载均衡组件 ribbon
+nacos-register服务名称如何变成 IP地址 192.168.4.168
+
+restTemplate-LoadBalancerCommand-
+
+没有加@Configuration的注解的类也可以是配置类 只是不会使用cglib动态代理。
+实例化 SpringClientFactory
+实例化了AnnoationConfigApplicationContext容器对象
+ 容器启动过程中会扫描 NacosRibbonClientConfiguration 相关的ribbon配置类然后添加
+调用注册中心的查询服务实例的接口返回服务对应的实例信息列表;然后放到本地缓存；
+每10秒更新一次map缓存;
+
  

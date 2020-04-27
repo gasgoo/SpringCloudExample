@@ -54,9 +54,6 @@ public class DBPoolTest {
                     if (connection != null) {
                         try {
                             connection.createStatement();
-//                            PreparedStatement preparedStatement
-//                                    = connection.prepareStatement("");
-//                            preparedStatement.execute();
                             connection.commit();
                         } finally {
                             pool.release(connection);

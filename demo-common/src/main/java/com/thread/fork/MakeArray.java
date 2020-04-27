@@ -11,7 +11,7 @@ import java.util.Random;
 
 public class MakeArray {
 
-    public static final  int ARRAY_LENGTH=4000000;
+    public static final  int ARRAY_LENGTH=400000;
 
     public final static int THRESHOLD=47;
     public static int[] makeArray() {

@@ -117,16 +117,8 @@ public @Interface LogAnnotin{
  b. 任何数据类型都有一个静态的 class属性
  c.Class的静态方法 forName(String classname)
 
- 
 查看系统可用cpu资源  Runtime.getRuntime().availableProcessors()
 
-
-多线程相关：
-
-1）说说阻塞队列的实现：可以参考ArrayBlockingQueue的底层实现（锁和同步都行）；
-答： 阻塞队列 (BlockingQueue)是Java util.concurrent包下重要的数据结构 线程安全的队列方式，当插入数据时，如果队列已经满了，线程会阻塞直到队列非满，
-如取数据队列为空，线程会等待直到队列非空。其实阻塞队列实现阻塞同步的方式很简单，使用的就是是lock锁的多条件（condition）阻塞控制。
-使用BlockingQueue封装了根据条件阻塞线程的过程，而我们就不用关心繁琐的await/signal操作了
 2）进程通讯的方式：消息队列，共享内存，信号量，socket通讯等；
 
 3）用过并发包的哪些类；  底层就实现是volatile和CAS。整个并发包其实都是由这两种思想构成的。
@@ -187,15 +179,6 @@ Http三次握手建立连接
 			再对key做hash算法得到value1  将这些value都映射到一个圆环上 按顺时针方向 key距离
 			那个节点hash近，就分配到那个节点。  这样避免添加 删除节点影响所有的节点数据。
 
-   高并发 高可用 高性能 
-  8）
-  单列模式 ？
-  public class  demo{
-   private staic  Test test=new Test();
-   public static Test getInstance(){
-     return test;
-   }
-  }
 
   接口和抽象类的区别？
   接口是定义动作的抽象，抽象类是定义对象的本质。
@@ -242,14 +225,20 @@ javap 反编译附加信息
 4. 动态判断对象年龄进入老年代
 5. 空间分配担保 
 6. 满足逃逸分析或标量替换还可以再栈上分配
-
+#CMS收集器和G1收集器的区别  
+cms过程: 初始标记、并发标记、重新标记、并发清除              -基于标记-清除算法
+G1过程:  初始标记、根部区域扫描、并发标记、最终标记、并发清除   -基于标记-整理回收算法
+共同点：都是为了减少停顿时间、并发收集、低停顿
+区别:
+cms会产生浮动垃圾 从而可能英法FUll GC、G1则不会;
+G1把整个Yong区域划分成多个区域、不产生空间碎片  可以准确的控制停顿；
 
 3）java虚拟机运行时数据区
 -XX：+HeapDumpOnOutOfMemoryError  配置显示 内存溢出时的快照
 8）如何排查死锁
 用jps 和jstack  可以分别得到死锁的进程ID和 发生死锁的类位置
  
-CMS收集器和G1收集器的区别  
+
 这些问题可以通过 top(cpu)、free(内存)、df(磁盘)、dstat(网络流量)、pstack、vmstat、strace(底层系统调用)。
 
 jvm问题定位工具
@@ -258,16 +247,6 @@ jstat -class/gc/complier 查看jvm类加载 gc信息
 jmap 内存  jmap -heap pid 输出当前进程 JVM 堆新生代、老年代、持久代等请情况，GC 使用的算法等信息
 jstack 线程堆栈查看
 jinfo参数查看
-
-4）Redis实现分布式session功能
-
-redis介绍：  key-value存储系统，支持数据持久化 内存中保存到磁盘，
-支持数据类型：string hash list set zset 
-服务端拿着用户的cookie作为key去存储里找对应的value(session)。
-
-实现session共享的原理: 业务系统发起请求 把sessionID 当做key存储用户等信息到redis中，把sessionID 返回给
-业务系统，并存放到cookie中。下次请求从cookie中取sessionId 根据ID到redis中取用户数据。
-
 
 
 

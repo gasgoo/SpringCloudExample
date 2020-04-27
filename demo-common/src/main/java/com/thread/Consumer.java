@@ -2,7 +2,6 @@ package com.thread;
 
 import java.util.LinkedList;
 import java.util.Queue;
-import java.util.concurrent.LinkedBlockingQueue;
 
 /**
  * wait 和notify 实现消费者
