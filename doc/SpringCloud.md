@@ -86,22 +86,42 @@ ServletWebServerInitializedEvent implements WebServerInitializedEvent  web容器
     调用NacosNamingService#registerInstance()方法
 4. 注册流程中主要是 发送两个http请求给nacos服务端,心跳请求、注册请求，把client实例信息封装成 Instance
 5. 服务器端是先创建注册的服务、然后默认创建一个集群、然后集群中包含所有的实例列表。
+6. 一个新的服务注册到nacos服务器后会开一个任务向其他节点同步新注册的服务。
+服务消费者
+7. 客户端启动后向nacos服务订阅需要的服务；然后再实际发生调用的时候查询服务列表，nacos则把当前客户端添加到内存的clientMap。
+8. 服务端有事件发生时，nacos服务器会给客户端发送udp socket通知客户端事件内容，或新的服务列表。
 
 Services 中包含心跳任务、集群ClusterMap 
 DataStore  <String,datum>
 nacos服务端处理注册流程:
 nacos节点之间数据同步、客户端掉线重连后创建服务。
 
-nacos的注册中心包含负载均衡组件 ribbon
+没有加@Configuration的注解的类也可以是配置类 只是不会使用cglib动态代理。
+
+#nacos如何实现一致性？  支持AP和CP 可以切换但是不能同时存在
+cp 强一致性  ap最终一致性 
+一致性协议 ZAB(zk)   paxos  raft(nacos 的CP模型)   Distro（alibaba）弱一致性 nacos的AP模型
+
+
+
+#nacos的注册中心包含负载均衡组件 ribbon
 nacos-register服务名称如何变成 IP地址 192.168.4.168
 
-restTemplate-LoadBalancerCommand-
+restTemplate.getForObject()-LoadBalancerCommand-
+实例化 SpringClientFactory Spring容器-读取配置类-bean定义-初始化bean
 
-没有加@Configuration的注解的类也可以是配置类 只是不会使用cglib动态代理。
-实例化 SpringClientFactory
 实例化了AnnoationConfigApplicationContext容器对象
- 容器启动过程中会扫描 NacosRibbonClientConfiguration 相关的ribbon配置类然后添加
-调用注册中心的查询服务实例的接口返回服务对应的实例信息列表;然后放到本地缓存；
-每10秒更新一次map缓存;
+ 容器启动过程中会扫描 NacosRibbonClientConfiguration 相关的ribbon配置类然后 初始化
+ LoadBalancer loadBalancer = this.getLoadBalancer(serviceId); 
+ 从Spring中得到负载均衡器实现类ZoneAwareLoadBalancer。
+ 
+调用注册中心的查询服务实例的接口返回服务对应的实例信息列表;然后放到本地缓存;
+每10秒更新一次查询服务注册列表更新map缓存;
+ribbon实例化了多个Spring容器 容器根据不同的微服务区分，不同的服务放在不同容器中。
+ 
+
+    
+
+sentinel
 
  

@@ -23,24 +23,40 @@ sqlSession的四大对象 executor statementHandler(声明处理器) parameterHa
 MappedStatement 动态SQL的封装
 
 #Mybatis原理
-InputStream inputStream = Resources.getResourceAsStream("mybatis.xml"); SqlSessionFactory sqlSessionFactory =new SqlSessionFactoryBuilder().build(inputStream); SqlSession sqlSession = sqlSessionFactory.openSession();
+InputStream inputStream = Resources.getResourceAsStream("mybatis.xml"); 
+SqlSessionFactory sqlSessionFactory =new SqlSessionFactoryBuilder().build(inputStream); 
+SqlSession sqlSession = sqlSessionFactory.openSession();
 
-// 以下使我们需要关注的重点 UserMapper mapper = sqlSession.getMapper(UserMapper.class); Integer id = 1; User user = mapper.selectById(id);
+// 以下使我们需要关注的重点 
+UserMapper mapper = sqlSession.getMapper(UserMapper.class);
+ Integer id = 1; 
+ User user = mapper.selectById(id);
 
-加载mybatis全局配置文件（数据源、mapper映射文件等），解析配置文件，MyBatis基于XML配置文件生成Configuration， 和一个个MappedStatement SqlSessionFactoryBuilder通过Configuration对象生成SqlSessionFactory， SqlSessionFactory调用Configuration的方法用来开启SqlSession、并生成执行器Executor对象。 org.apache.ibatis.session.defaults.DefaultSqlSession.getMapper org.apache.ibatis.binding.MapperRegistry.getMapper 通过MapperProxyFactory工厂对象 通过Proxy.newInstances()实例化Dao接口生成代理对象MapperProxy
+加载mybatis全局配置文件（数据源、mapper映射文件等），解析配置文件，MyBatis基于XML配置文件生成Configuration， 
+和一个个MappedStatement SqlSessionFactoryBuilder通过Configuration对象生成SqlSessionFactory，
+ SqlSessionFactory调用Configuration的方法用来开启SqlSession、并生成执行器Executor对象。
+  org.apache.ibatis.session.defaults.DefaultSqlSession.getMapper 
+  org.apache.ibatis.binding.MapperRegistry.getMapper 通过MapperProxyFactory工厂对象
+   Proxy.newInstances()实例化Dao接口生成代理对象MapperProxy
 
 生成MapperProxy代理对象后需要把bean放到ioc容器中。
 
 如何把Mybatis的代理对象作为一个bean放入Spring容器中？ 通过 FactoryBean把Mybatis生成的代理对象放入容器中
 
-MapperFactoryBean 用来把代理对象生成bean对象。 MapperScannerRegistrar 生成不同对象的 MapperFactoryBean @Mapper注解 扫描@mapper注解获取注解的value包路径;生成BeanDefinition放入容器中。
+MapperFactoryBean 用来把代理对象生成bean对象。 MapperScannerRegistrar 生成不同对象的 MapperFactoryBean @Mapper注解
+ 扫描@mapper注解获取注解的value包路径;生成BeanDefinition放入容器中。
 
-===SpringBoot-mybatis整合过程
-SpringBoot自动配置 EnableAutoConfiguration 通过AutoConfigurationImportSelect导入mybatis自动配置类 通过反射加载Spring.factories中指定的 MybatisAutoConfiguration配置类 生成sqlSessionFactory和SqlSessionTemplate SqlSessionTemplate中的getConfiguration().getMapper() getMapper实际上是从MapperRegistry对象中通过 mapperProxyFactory工厂newInstance来创建一个mapperProxy 这个mapperProxy就是在使用userdao的时候的代理类
+#SpringBoot-mybatis整合过程
+SpringBoot自动配置 EnableAutoConfiguration 通过AutoConfigurationImportSelect导入mybatis自动配置类 
+通过反射加载Spring.factories中指定的 MybatisAutoConfiguration配置类 
+生成sqlSessionFactory和SqlSessionTemplate SqlSessionTemplate中的getConfiguration().getMapper()
+ getMapper实际上是从MapperRegistry对象中通过 mapperProxyFactory工厂newInstance来创建一个mapperProxy 
+ 这个mapperProxy就是在使用userdao的时候的代理类
 
 ===Dao接口如何变成对象-- jdk动态代理 产生代理对象 ===执行sql InvocationHandler invoke得到注解 或解析xml文件
 
 过程： 读取mybatis配置文件创建 SqlSessoinFactory 获取sqlSession 获取对应mapper executes 执行sql返回结果
-Spring加载MyBatis这个过程，其实就是把MyBatis的Mapper转换成Bean，注入到Spring容器的过程。 也是 FactoryBean的使用 其中使用到 MapperFactoryBean SqlSessionFactoryBean
+Spring加载MyBatis这个过程，其实就是把MyBatis的Mapper转换成Bean，注入到Spring容器的过程。
+ 也是 FactoryBean的使用 其中使用到 MapperFactoryBean SqlSessionFactoryBean
 
 数据存储在文件系统 （柱面 磁道 扇区） 2）mysql的语句优化，使用什么工具； 优化的方向：减少联合多表查询 建立正确的索引 减少统计类查询 重点是拆分表 减少 联合查询 拆分成短sql 3）mysql的索引分类：B+，hash；什么情况用什么索引；
