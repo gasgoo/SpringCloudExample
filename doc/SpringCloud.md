@@ -80,7 +80,13 @@ ServletWebServerInitializedEvent implements WebServerInitializedEvent  web容器
 2.通过自动配置spring.factories中配置了一个AutoServiceRegistrationAutoConfiguration类
  注入实例NacosAutoServiceRegistration extents AbstractAutoServiceRegistration监听到容器启动事件则开始注册流程
  并且通过构造方法注入了ServiceRegistry接口的某个实现类. 
- 实例NacosServiceRegistery implements ServiceRegistry.register()开始服务注册流程。
+ 实例 NacosServiceRegistry implements ServiceRegistry.register()开始服务注册流程。
+ NacosServiceRegistry中构造方法注入了NamingService接口的实现类 NacosNamingService；
+ NacosNamingService 中的init()方法中开启了一个HostReactor实例，该实例中开启了一个PushReceiver线程
+ 监听nacos服务端发送的udp消息，消息包括服务端 注册实例的变化、配置信息的变化实现配置实施生效。
+ 
+ NacosNamingService服务中包含 
+ 心跳线程BeatReactor、  HostReactor接受服务端的消息线程、服务注册 registerInstance()
 
 3. 注册过程中发布InstancePreRegisteredEvent 实例注册事件;然后实例化 NacosServiceRegistry对象开始注册流程,
     调用NacosNamingService#registerInstance()方法
@@ -90,6 +96,13 @@ ServletWebServerInitializedEvent implements WebServerInitializedEvent  web容器
 服务消费者
 7. 客户端启动后向nacos服务订阅需要的服务；然后再实际发生调用的时候查询服务列表，nacos则把当前客户端添加到内存的clientMap。
 8. 服务端有事件发生时，nacos服务器会给客户端发送udp socket通知客户端事件内容，或新的服务列表。
+9. 客户端每10秒读取nacos服务端查询服务注册列表更新map缓存; 同时服务端会把当前client添加到消息发送列表。
+-----nacos服务端需要做的几件事:
+10. nacos server接收到服务注册请求后数据写入，然后异步的通知其他节点，实现同步。
+11. server节点启动是会判断集群节点是否大于1，如果大于1则会执行同步，否则等待1秒继续判断是否有其他节点。
+12. distro协议判断一个请求属于某个节点是采用非常简单的hash算法，如果某个节点挂了会重新hash;可以采用一致性hash算法。
+13. 客户端注册到server如果发送失败会自动切换到其他server节点。 
+14. 健康检查 每个server节点 主动发送checkHealth 给其他节点，如果有response则标识响应节点是健康。
 
 Services 中包含心跳任务、集群ClusterMap 
 DataStore  <String,datum>
@@ -116,12 +129,12 @@ restTemplate.getForObject()-LoadBalancerCommand-
  从Spring中得到负载均衡器实现类ZoneAwareLoadBalancer。
  
 调用注册中心的查询服务实例的接口返回服务对应的实例信息列表;然后放到本地缓存;
-每10秒更新一次查询服务注册列表更新map缓存;
+客户端每10秒读取nacos服务端查询服务注册列表更新map缓存;
 ribbon实例化了多个Spring容器 容器根据不同的微服务区分，不同的服务放在不同容器中。
  
 
     
 
-sentinel
+#sentinel
 
  

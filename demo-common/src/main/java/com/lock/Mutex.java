@@ -28,6 +28,7 @@ public class Mutex implements Lock {
         public boolean tryAcquire(int acquires){
             //状态为0则获取锁成功
             if(compareAndSetState(0,1)){
+                //设置独占
                 setExclusiveOwnerThread(Thread.currentThread());
                 return true;
             }

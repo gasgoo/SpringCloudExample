@@ -22,7 +22,7 @@ public class AppTomcat {
         tomcat.start();
 
         IndexServlet servlet=new IndexServlet();
-        log.info("start the tomcat on prot:9070");
+        //log.info("start the tomcat on prot:9070");
         Context context=tomcat.addWebapp("/app","d:\\temp\\");
         tomcat.addServlet("/app","index",servlet);
         context.addServletMappingDecoded("/index.do","index");
