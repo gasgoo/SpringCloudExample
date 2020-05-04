@@ -75,9 +75,7 @@ public class TreeMapDemo  {
         int hashNum = Objects.hash("raogugen");
         int a=hashNum%16384;
         int b=16383 & hashNum;
-        System.out.println("a="+a+"<<<>>>b="+b);
-        Object t="2343";
-        System.out.println("===="+ t);
+        System.out.println("a="+a+"<<<>>>b="+b+"====="+(2<<2));
 
     }
 

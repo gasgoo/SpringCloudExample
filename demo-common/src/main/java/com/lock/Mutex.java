@@ -26,11 +26,15 @@ public class Mutex implements Lock {
 
         @Override
         public boolean tryAcquire(int acquires){
+
             //状态为0则获取锁成功
             if(compareAndSetState(0,1)){
                 //设置独占
                 setExclusiveOwnerThread(Thread.currentThread());
                 return true;
+            }else if(getExclusiveOwnerThread() ==Thread.currentThread()){
+                    setState(getState()+1);
+                    return true;
             }
             return false;
         }
@@ -38,11 +42,17 @@ public class Mutex implements Lock {
         //释放锁 状态为0  占有锁的状态是1
         @Override
         protected  boolean tryRelease(int release){
+            if(!Thread.currentThread().equals(getExclusiveOwnerThread())){
+                System.out.println("占用锁的线程不是当前线程!");
+                return false;
+            }
             if(getState() ==0 ){
                 throw new IllegalMonitorStateException();
             }
-            setExclusiveOwnerThread(null);
-            setState(0);
+            setState(getState()-1);
+            if(getState()==0){
+                setExclusiveOwnerThread(null);
+            }
             return true;
         }
 
