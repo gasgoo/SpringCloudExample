@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
+import java.math.BigDecimal;
 import java.util.*;
 
 /**
@@ -64,7 +65,6 @@ public class TreeMapDemo  {
 
     }
 
-
     public static void main(String[] args) throws InterruptedException {
         TreeMapDemo dto=new TreeMapDemo();
         dto.testComparable();
@@ -76,15 +76,16 @@ public class TreeMapDemo  {
         int a=hashNum%16384;
         int b=16383 & hashNum;
         System.out.println("a="+a+"<<<>>>b="+b);
-        Object t="2343";
-        System.out.println("===="+ t);
+        BigDecimal d=new BigDecimal(0.8);
+        BigDecimal d1=new BigDecimal(0.5);
+        if(d.compareTo(d1)>0){
+            System.out.println("bigggggg");
+        }
 
-    }
 
-    static final int hash(Object key) {
-        int h;
-        return (key == null) ? 0 : (h = key.hashCode()) ^ (h >>> 16);
-    }
+        }
+
+
 
 
 

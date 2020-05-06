@@ -72,7 +72,7 @@ void updateStatistics(@PathVariable("accountName") String accountName, Account a
   场景五：分布式锁、分布式队列 
   场景六：集群监控与Leader竞选 kubernetes用etcd来存储docker集群的配置信息等。
   
-##SpringCloud alibaba
+##SpringCloud alibaba nacos
 nacos注册流程:
 1.  client端启动tomcat发布事件 容器启动事件 WebServierInitializedEvent;初始化spring容器
 ServletWebServerInitializedEvent implements WebServerInitializedEvent  web容器初始化事件
@@ -100,7 +100,7 @@ nacos节点之间数据同步、客户端掉线重连后创建服务。
 
 #nacos如何实现一致性？  支持AP和CP 可以切换但是不能同时存在
 cp 强一致性  ap最终一致性 
-一致性协议 ZAB(zk)   paxos  raft(nacos 的CP模型)   Distro（alibaba）弱一致性 nacos的AP模型
+一致性协议 ZAB(zk)   paxos  raft(nacos 的CP模型)   Distro协议（alibaba）弱一致性 nacos的AP模型
 
 
 
@@ -118,10 +118,8 @@ restTemplate.getForObject()-LoadBalancerCommand-
 调用注册中心的查询服务实例的接口返回服务对应的实例信息列表;然后放到本地缓存;
 每10秒更新一次查询服务注册列表更新map缓存;
 ribbon实例化了多个Spring容器 容器根据不同的微服务区分，不同的服务放在不同容器中。
- 
 
-    
-
-sentinel
-
+#sentinel
+配置类型：
+warmup 预热   某个时间点之前 大于阈值可以报错 时间点之后就不会报错。
  

@@ -23,7 +23,7 @@ public class ListStreamDemo {
 
     public static void main(String[] args) {
 
-        //ListStream();
+        ListStream();
 
         //ListsTools();
         //testPredicate();
@@ -85,7 +85,7 @@ public class ListStreamDemo {
         System.out.println("-----------"+names.size());
 
         Map<String, List<Employee>> collect2 = employees.stream()
-                .collect(Collectors.groupingBy(employee -> employee.getName()));
+                .collect(Collectors.groupingBy(Employee::getName));
         System.out.println("group by"+JSON.toJSON(collect2));
         Map<Long, Employee> employeeMap = employees.stream().collect(Collectors.toMap(Employee::getEmpno, Function.identity()));
         System.out.println("+++toMap:  "+JSON.toJSONString(employeeMap));
