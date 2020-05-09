@@ -58,7 +58,6 @@ public class DBConnection implements Connection{
 
     @Override
     public void close() throws SQLException {
-
     }
 
     @Override

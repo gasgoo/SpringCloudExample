@@ -57,5 +57,6 @@ public class CyclicBarrierDemo {
             Thread thread = new Thread(new SubThread());
             thread.start();
         }
+        Thread.interrupted();
     }
 }

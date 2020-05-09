@@ -2,6 +2,7 @@ package com.thread.pool;
 
 import java.sql.Connection;
 import java.util.LinkedList;
+import java.util.Random;
 import java.util.concurrent.Semaphore;
 
 /**
@@ -14,42 +15,53 @@ import java.util.concurrent.Semaphore;
 public class DBPoolSemaphore {
 
 
-    private final static  int pool_size=10;
+    private final static  int POOL_SIZE=10;
     //可用连接
     private final Semaphore useFull=new Semaphore(10);
-   //已用连接
+    //已用连接
     private final Semaphore useLess=new Semaphore(0);
+
+
     private static LinkedList<Connection> pool=new LinkedList<>();
-    //初始化池
-    static {
-        for (int i = 0; i < pool_size; i++) {
+    //初始化连接池
+    static{
+        for(int i=0;i<POOL_SIZE;i++){
             pool.addLast(DBConnection.fetchConnection());
         }
     }
 
-
-    //归还连接
-    public void releaseConn(Connection connection) throws InterruptedException {
+    //用完归还连接
+    public void returnConnection(Connection connection) throws InterruptedException {
         if(connection!=null){
-            System.out.println("可用连接数:"+useFull.getQueueLength()+"  已用连接数"+useFull.availablePermits());
-            //要操作的信号先获取
+            System.out.println("当前有"+useFull.getQueueLength()+"个线程等待数据库的连接!");
             useLess.acquire();
             synchronized (pool){
-                pool.add(connection);
+                pool.addLast(connection);
             }
-            //往池中添加连接
-            useFull.release();
         }
     }
-    //获取连接
-    public Connection getConnection() throws InterruptedException {
+
+    /**
+     * @Description  从池中取数据库连接
+     * @Date 2020/5/6 11:37
+     **/
+    public Connection takeConnection() throws InterruptedException {
+        //获取许可证
         useFull.acquire();
         Connection connection;
         synchronized (pool){
-            connection=pool.removeFirst();
+             connection = pool.removeFirst();
         }
+        //归还许可证
         useLess.release();
         return connection;
+    }
+
+    public void closeConnnection(){
+        if(useFull.getQueueLength()>0){
+            useFull.release();
+        }
+
     }
 
 }
