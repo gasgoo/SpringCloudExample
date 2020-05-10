@@ -133,8 +133,8 @@ restTemplate.getForObject()-LoadBalancerCommand-
 ribbon实例化了多个Spring容器 容器根据不同的微服务区分，不同的服务放在不同容器中。
  
 
-    
-
 #sentinel
-
+  blockHandler和FallBack的降级区别
+  blockHandler是触发流控规则后的降级响应。
+  FallBack是系统异常后的降级响应。
  

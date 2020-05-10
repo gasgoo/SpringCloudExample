@@ -20,7 +20,7 @@ public class WebConfig extends WebMvcConfigurationSupport {
     public void addInterceptors(InterceptorRegistry registry) {
         super.addInterceptors(registry);
         //registry.addInterceptor(new ApiInterceptor());
-        registry.addInterceptor(new DempotentInterceptor());
+        //registry.addInterceptor(new DempotentInterceptor());
     }
 
 

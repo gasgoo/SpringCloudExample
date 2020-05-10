@@ -4,7 +4,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.catalina.Context;
 import org.apache.catalina.LifecycleException;
 import org.apache.catalina.startup.Tomcat;
-import org.jboss.jandex.Index;
 
 import javax.servlet.ServletException;
 

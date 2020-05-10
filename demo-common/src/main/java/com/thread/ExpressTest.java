@@ -1,5 +1,7 @@
 package com.thread;
 
+import org.omg.SendingContext.RunTime;
+
 /**
  * @Date 2020/4/20 17:54
  * @name ExpressTest
@@ -33,5 +35,7 @@ public class ExpressTest {
         Thread.sleep(1000);
         express.checkKm();
         express.checkSite();
+        System.out.println("cpu核数:"+ Runtime.getRuntime().availableProcessors());
+        System.out.println("=="+Runtime.getRuntime().totalMemory()/2014);
     }
 }

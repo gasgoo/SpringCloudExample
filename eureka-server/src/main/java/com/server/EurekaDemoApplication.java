@@ -30,12 +30,12 @@ public class EurekaDemoApplication extends SpringBootServletInitializer {
     public static void main(String[] args) throws InterruptedException {
         ApplicationContext context=SpringApplication.run(EurekaDemoApplication.class, args);
 
-        StringRedisTemplate redisTemplate=context.getBean(StringRedisTemplate.class);
+       /* StringRedisTemplate redisTemplate=context.getBean(StringRedisTemplate.class);
         CountDownLatch latch=context.getBean(CountDownLatch.class);
         log.info("发送消息======");
         redisTemplate.convertAndSend("testTopic","Hello redis Message");
         //线程阻塞 等待消息接收后计数器值=0唤醒
-        latch.await();
+        latch.await();*/
 
     }
 

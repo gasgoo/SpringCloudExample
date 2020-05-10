@@ -13,11 +13,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.web.ServerProperties;
+import org.springframework.boot.autoconfigure.webservices.WebServicesProperties;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
 
 /**
@@ -44,11 +47,13 @@ public class HelloController {
     private ApplicationProperties applicationProperties;
     @Autowired
     private MyContextEventPublisher myContextEventPublisher;
+    @Autowired
+    private ServerProperties serverProperties;
 
     @RequestMapping(value = "/hello", method = RequestMethod.GET)
     public String hello() {
         log.info("feign test");
-        return "Hello World!";
+        return "Hello World!"+serverProperties.getPort();
     }
 
     @RequestMapping("lock")
