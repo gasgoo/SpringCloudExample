@@ -4,7 +4,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.catalina.Context;
 import org.apache.catalina.LifecycleException;
 import org.apache.catalina.startup.Tomcat;
-import org.jboss.jandex.Index;
 
 import javax.servlet.ServletException;
 
@@ -22,7 +21,7 @@ public class AppTomcat {
         tomcat.start();
 
         IndexServlet servlet=new IndexServlet();
-        log.info("start the tomcat on prot:9070");
+        //log.info("start the tomcat on prot:9070");
         Context context=tomcat.addWebapp("/app","d:\\temp\\");
         tomcat.addServlet("/app","index",servlet);
         context.addServletMappingDecoded("/index.do","index");

@@ -48,7 +48,7 @@ public class TwinsLock implements Lock {
         public int tryAcquireShared(int reduceCount) {
             for (; ; ) {
                 int current = getState();
-                //最新可用资源数
+                //最新可用资源数  newCount小于0表示获取同步状态失败。
                 int newCount = current - reduceCount;
                 if (newCount < 0 || compareAndSetState(current, newCount)) {
                     return newCount;
