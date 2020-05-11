@@ -21,9 +21,9 @@ AbstractAutowireCapableBeanFactory.determineConstructorsFromBeanPostProcessors()
   有参和无参构造函数的实例化
 AbstractAutowireCapableBeanFactory.applyMergedBeanDefinitionPostProcessors()
  ---后置处理器执行  收集各种带有注解的方法或属性  放入InjectionMetaData的一个set容器中。
- ---循环依赖处理---只会出现在单例无参构造函数实例化的情况
+ ---循环依赖处理---只会出现在单例无参构造函数实例化的情况  **非单例 无参的循环依赖都会抛出异常**
  addSingletonFactory() --从创建中的bean对象缓存中取对象注入依赖的对象
-   正在创建的对象缓存(singletonsCurrentlyInCreation)。
+   正在创建的对象缓存(singletonsCurrentlyInCreation)---作用 用来阻断循环依赖  
    
  ---属性注入  根据上面收集的各种注解 如@PostStructured
  AbstractAutowireCapableBeanFactory.populateBean() 依赖注册 属性填充
@@ -32,7 +32,8 @@ AbstractAutowireCapableBeanFactory.applyMergedBeanDefinitionPostProcessors()
  InitializingBean  类实例化之后做一些事情的接口 加载预热
 
  ---注册对象销毁
-单例对象放入对象销毁池 disposableBeans
+单例对象放入对象销毁池 disposableBeans  注册一个销毁bean的对象 DisposableBeanAdapter
+@PreDestory
 ---
 ##bean周期开始end
 
@@ -68,7 +69,6 @@ parseLookupOverrideSubElements()
 DefaultListableBeanFactory.registerBeanDefinition()
 5. BeanDefinitin 对象有了可以开始 Bean的实例化
 
-
 #自定义标签解析 Namespacehandler接口
 每个标签都对应一个解析类。 spring.handlers文件中配置了命名空间uri和标签处理类的对应
 加载配置文件 spi的思想。
@@ -77,9 +77,8 @@ ContextNamespaceHandler 自定义的一些标签和对应的处理类
 最终要调用NameSpaceHandler.init()方法，其中表明了标签对应的标签处理类。
 <context:component-scan base-package="com.xx">
 
+## @ComponentScan  @Bean @import 注解的支持
 
-#Spring中的标签
-<bean></bean>
 
 
 

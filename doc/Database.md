@@ -46,9 +46,15 @@ INNODB在做SELECT的时候，要维护的东西比MYISAM引擎多很多；
 3）INNODB还需要维护MVCC一致；虽然你的场景没有，但他还是需要去检查和维护
 ====innodb替代 MYLsam的原因？ MylSAM只支持表锁，不支持事物。 innodb支持行锁，支持事物;看具体的适用场景。
 
-RC读已提交 隔离级别下的锁情况 a.字段没有索引，则表中所有记录都会加锁，变成了表锁。 所以修改数据需要尽可能的走索引。 b. 条件字段是唯一索引字段时则只锁一条记录。 c. 条件字段非唯一索引则会锁满足条件的所有记录。
+RC读已提交 隔离级别下的锁情况 
+a.字段没有索引，则表中所有记录都会加锁，变成了表锁。 所以修改数据需要尽可能的走索引。 
+b. 条件字段是唯一索引字段时则只锁一条记录。
+ c. 条件字段非唯一索引则会锁满足条件的所有记录。
 
-==可重复读(RR)的级别下 innodb引入了间隙锁解决了 幻读的问题。 a.非索引字段做条件的当前读，不但会把每条记录添加锁，还会再每个间隙添加间隙锁。 其他事物不能做写操作。 b. 唯一索引当条件添加for update 锁，则只锁当前这一条记录。 c. 非唯一索引会锁满足条件的记录，并且会添加间隙锁。
+==可重复读(RR)的级别下 innodb引入了间隙锁解决了 幻读的问题。 
+a.非索引字段做条件的当前读，不但会把每条记录添加锁，还会再每个间隙添加间隙锁。 其他事物不能做写操作。
+ b. 唯一索引当条件添加for update 锁，则只锁当前这一条记录。
+  c. 非唯一索引会锁满足条件的记录，并且会添加间隙锁。
 
 优化的原因： 性能低 执行时间长 sql语句欠佳 索引失效 服务器参数设置不合理 编写过程： select.. from..join.. on.. where ..group by ..having..order by ..limit 解析过程： from..on..join..where ..group by..having ..select..order by ..limit SQl优化主题：就是索引优化 索引===提高数据访问速度的数据结构（B树、hash树） 影响 insert update delete的效率 索引的弊端： 1. 索引本身很大 占用空间，2. 不是所有情况下都使用， 少量数据 频繁更新的字段，不常使用的字段。 优势： 提高查询效率降低IO、降低CPU使用率 B+树 默认就有排序功能 只要遍历出来就有排序
 
@@ -108,9 +114,19 @@ undo log (回滚日志)保证事物一致性A 基础 对现有数据备份 锁�
 
 事物commit必须先持久化redo log
 
-redo log 重做日志 两部分组成：重做日志缓冲-易丢失的、重做日志文件-持久的;顺序写 innodb层的日志 物理格式的日志 对页的修改。 日志缓冲 fsync 刷盘到日志文件持久化的性能是由磁盘性能决定的，故决定了事物提交的性能从而影响DB的性能。 innodb_flush_log_at_trx_commit 参数控制重做日志刷盘策略 默认为1 参数值 0、1、2 1=提交一次事物立即刷盘; 0=事物提交不刷盘，由master线程每隔一秒刷一次; 2=刷新到日志缓存并没有到文件。 redo log 结构 头部12字节-body 492字节--尾部8字节。 log block 日志块 重做日志块大小512字节；追加写入。 log buffer 日志缓冲 中存储的是 log block LSN Log Sequence Number 日志序列号，可表示重做日志的总量 页的版本
+redo log 重做日志 两部分组成：重做日志缓冲-易丢失的、重做日志文件-持久的;顺序写 innodb层的日志 物理格式的日志 对页的修改。
+ 日志缓冲 fsync 刷盘到日志文件持久化的性能是由磁盘性能决定的，故决定了事物提交的性能从而影响DB的性能。 
+ innodb_flush_log_at_trx_commit 参数控制重做日志刷盘策略 默认为1 参数值 0、1、2 1=提交一次事物立即刷盘; 
+ 0=事物提交不刷盘，由master线程每隔一秒刷一次; 2=刷新到日志缓存并没有到文件。
+  redo log 结构 头部12字节-body 492字节--尾部8字节。 
+  log block 日志块 重做日志块大小512字节；追加写入。 
+  log buffer 日志缓冲 中存储的是 log block LSN Log Sequence Number 日志序列号，可表示重做日志的总量 页的版本
 
-undo log 回滚日志 事物回滚 MVCC功能 逻辑日志 随机读写;存放在表空间的undo段； rollback segemnt 中放 1024个undo log段 undo 页可以重用，事物提交时，将undo log放入链表中，判断是否可以重用，可以则记录undo log。 undo log 保留了行的历史快照数据，从而实现MVCC非锁定读；保证了隔离性。 RC和RR隔离级别下，如果查询一些被其他事物正在更新的行，看到的是这些记录被更新前的值。MVCC实现的。 行数据有一个隐藏的回滚指针，用于指向修改前的最后一个历史版本，保存在undo log中。
+undo log 回滚日志 事物回滚 MVCC功能 逻辑日志 随机读写;存放在表空间的undo段；
+ rollback segemnt 中放 1024个undo log段 undo 页可以重用，事物提交时，将undo log放入链表中，判断是否可以重用，可以则记录undo log。
+ undo log 保留了行的历史快照数据，从而实现MVCC非锁定读；保证了隔离性。
+  RC和RR隔离级别下，如果查询一些被其他事物正在更新的行，看到的是这些记录被更新前的值。
+  MVCC实现的。 行数据有一个隐藏的回滚指针，用于指向修改前的最后一个历史版本，保存在undo log中。
 
 binlog 二进制日志 数据库层产生的、逻辑操作日志 sql语句；事物提交完成后一次性写入。 作用： 恢复、复制、审计 sync_binlog 来控制累积多少个事务后才将二进制日志 fsync 到磁盘。
 
@@ -118,9 +134,14 @@ mysql事物数据修改之前先写入事物日志； 事物日志的记录过�
 
 log buffer --buffer pool---os buffer--log file
 
-现在来看看MySQL数据库为我们提供的四种隔离级别isolation： 　　① Serializable (串行化)：可避免脏读、不可重复读、幻读(insert)的发生。 　　② Repeatable read (可重复读)：可避免脏读、不可重复读的发生(修改)。 　　③ Read committed (读已提交)：可避免脏读的发生。 　　④ Read uncommitted (读未提交)：最低级别，任何情况都无法保证。
+现在来看看MySQL数据库为我们提供的四种隔离级别isolation： 　　
+① Serializable (串行化)：可避免脏读、不可重复读、幻读(insert)的发生。 　
+　② Repeatable read (可重复读)：可避免脏读、不可重复读的发生(修改)。 　　
+③ Read committed (读已提交)：可避免脏读的发生。 　
+　④ Read uncommitted (读未提交)：最低级别，任何情况都无法保证。
 
 Spring事物的传播propagation行为：默认 REQUIRED
-SUPPORTS MANDATORY REQUIRES_NEW NOT_SUPPORTED NEVER NESTED 注解事物实例 设置传播级别 隔离级别 产生异常时不回滚 @Transactional(propagation = Propagation.REQUIRES_NEW,isolation=Isolation.DEFAULT,rollbackFor=Exception.class)
+SUPPORTS MANDATORY REQUIRES_NEW NOT_SUPPORTED NEVER NESTED 注解事物实例 设置传播级别 隔离级别 
+产生异常时不回滚 @Transactional(propagation = Propagation.REQUIRES_NEW,isolation=Isolation.DEFAULT,rollbackFor=Exception.class)
 
 ====================transaction end==================== mysql query cache 查询缓存 开启配置 在配置文件 my.cnf 中设置： query_cache_type = 1 query_cache_size = 50M
