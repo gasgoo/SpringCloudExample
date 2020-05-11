@@ -1,19 +1,7 @@
 spring-boot配置
 http://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html
 https://www.cnblogs.com/ITtangtang/p/3978349.html 源码解读
-https://springcloud.cc/  
 
-
-spring IOC本质上就是一个大的map  
-ioc：把自己创建对象和维护依赖对象的过程交给外部容器。
-DI：依赖注入； 在对象运行期间动态的将依赖的对象注入到对象中。
-方式：
-构造器和setter方法注入方式
-注解注入
-IOC的核心部分是 解析XML文件，注册bean  ，对于有依赖对象的bean则利用反射给setter方法赋值。
-  xml配置解析+反射
-  
-  
 ##Spring容器初始化 
 
  定位-加载-注册-初始化
@@ -21,20 +9,78 @@ IOC的核心部分是 解析XML文件，注册bean  ，对于有依赖对象的b
   调用bean工厂的后置处理器--验证
   验证:如判断这个bean是否是Lazy，是否prototype多列模式，是否是抽象类等。
   
- 
   
-***bean周期开始***
+#bean周期开始*** 实例化过程
+AbstractAutowireCapableBeanFactory.createBean()
+AbstractAutowireCapableBeanFactory.doCreateBean()
 
-推断构造方法-通过反射实例化对象- 缓存、注解信息-暴露一个bean工厂--判断bean是否需要完成属性的注入
+AbstractAutowireCapableBeanFactory.createBeanInstance()---
+AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethodfatcory()-method工厂的实例化对象、
+AbstractAutowireCapableBeanFactory.determineConstructorsFromBeanPostProcessors() 构造函数的处理
+首次调用beanPostProcessor,会扫描找出所有带注解的构造函数然后完成装配
+  有参和无参构造函数的实例化
+AbstractAutowireCapableBeanFactory.applyMergedBeanDefinitionPostProcessors()
+ ---后置处理器执行  收集各种带有注解的方法或属性  放入InjectionMetaData的一个set容器中。
+ ---循环依赖处理---只会出现在单例无参构造函数实例化的情况
+ addSingletonFactory() --从创建中的bean对象缓存中取对象注入依赖的对象
+   正在创建的对象缓存(singletonsCurrentlyInCreation)。
+   
+ ---属性注入  根据上面收集的各种注解 如@PostStructured
+ AbstractAutowireCapableBeanFactory.populateBean() 依赖注册 属性填充
+ ---初始化  initializeBean()  顺序如下 
+ aware类型的接口调用、@PostContruct 、InitializingBean.AfterPropertiesSet() 、 initMethod()
+ InitializingBean  类实例化之后做一些事情的接口 加载预热
+
+ ---注册对象销毁
+单例对象放入对象销毁池 disposableBeans
+---
+##bean周期开始end
+
+推断构造方法-通过反射实例化对象- 收集注解信息-暴露一个bean工厂--判断bean是否需要完成属性的注入
 完成属性注入- 回调Aware接口--生命周期回调方法(@PostConstruct)初始化--完成代理AOP--put单例池 ---销毁对象
 
 实例化---属性填充---初始化---销毁
 
-Spring中bean的生成步骤:
-1. 扫描指定的包路劲下的class
-2.根据class信息生成beanDefinition 注册到BeanDefinion的Map中 可以用工厂后置处理修改BD
-3. 根据BeanDefinition生成bean实例
-4.生成的bean注册put到IOC容器中
+#@Autowired注解原理  依赖注入
+Spring容器启动时会注册 AutowiredAnnoationBeanPostProcessor对象；
+扫描所有bean如果带有@Autowired注解，将该bean和注解信息封装到InjectionMetadata对象中
+bean在实例化和初始化时，会调用BeanPostProcessor对bean初始化 然后注入依赖的bean；
+如果注入的时引用类型则会触发 getBean()调用
+
+##Spring容器启动细节: refreshBeanFactory  其中涉及 模板模式 委托模式、装饰者模式
+org.springframework.context.support.AbstractApplicationContext.refresh
+
+1.实例化bean工厂 DefaultListableBeanFactory=createBeanFactory()
+2.加载xml配置文件 XmlBeanDefinitionReader.loadBeanDefinitions() 
+ResourceLoader加载配置文件抽象为Resource资源,资源编码为InputResource
+经过 XmlBeanDefintionReader.registerBeanDefinitions()解析文件资源变为Document  
+BeanDefinitionDocumentReader.registerBeanDefinitions()
+解析xml文件 DefaultBeanDefinitionDocumentReader.registerBeanDefinitions()委托给
+BeanDefinitionParserDelegate.parseBeanDefinitionElement()
+ 自定义标签和默认标签
+3. xml标签解析  
+DefaultBeanDefinitionDocumentReader.parseBeanDefinitions
+解析其他标签设置BeanDefinition的属性 如 meta、 lookup-method、replace-method最后返回 bd对象。
+BeanDefinitionParserDelegate.parseMetaElements
+parseLookupOverrideSubElements()
+ bean标签的子标签解析出来后设置到 BeanDefinitin 中使用了装饰者模式。
+4.解析出来的bean标签放入BeanDefinitionMap中,beanName添加到beanDefinitionNames
+DefaultListableBeanFactory.registerBeanDefinition()
+5. BeanDefinitin 对象有了可以开始 Bean的实例化
+
+
+#自定义标签解析 Namespacehandler接口
+每个标签都对应一个解析类。 spring.handlers文件中配置了命名空间uri和标签处理类的对应
+加载配置文件 spi的思想。
+解析到标签然后通过标签取到对应的标签处理类。
+ContextNamespaceHandler 自定义的一些标签和对应的处理类
+最终要调用NameSpaceHandler.init()方法，其中表明了标签对应的标签处理类。
+<context:component-scan base-package="com.xx">
+
+
+#Spring中的标签
+<bean></bean>
+
 
 
 IOC体系结构  
@@ -47,7 +93,7 @@ DefaultListableBeanFactory  默认实现 实现了其他的三个接口
  ClasspathXmlApplicationContext
  ApplicationContext   高级的IOC容器
 
-2) BeanDefinition  Spring扫描类解析类信息实例化 BeanDefiniton对象，
+# BeanDefinition  Spring扫描类解析类信息实例化 BeanDefiniton对象，
 IOC管理了我们定义的各种bean对象和对象的关系，bean对象在Spring中是以BeanDefinition来描述的；
 bean解析就是对配置文件的解析， 涉及到的类：
  BeanDefinitionReader
@@ -66,14 +112,14 @@ Class-beanDefinition-put到Map中---BeanDefinition--new --bean
 
 
 
-===============AOP原理：
+#AOP原理：
   编译器织入
   类加载时织入
   运行时织入（AOP是运行时织入） 如何实现？代理模式
   代理模式
   静态代理：
   动态代理：
-		jdk代理 实现InvocationHandler接口 利用反射生成代理对象字节码文件。 只能针对有接口的类做代理。
+jdk代理 实现InvocationHandler接口 利用反射生成代理对象字节码文件。 只能针对有接口的类做代理。
   Proxy.newProxyInstance获取代理对象
   Cglib代理：实现MethodInterceptor接口
       不能对static private 方法代理。
@@ -90,8 +136,7 @@ Spring如何创建动态代理Bean？？
 
 
 
-===SpringMvc也是一个map
-===
+#SpringMvc也是一个map
 
 运行流程：  DispatchServlet 是调度中枢
  1. 用户发送请求到DispatchServlet前端控制器
@@ -119,6 +164,7 @@ DispatcherServlet机制和原理
 ===如何把一个对象bean交给Spring管理
 1.@Bean
 2.FactoryBean
+3. beanFactory.registerBeanDefinition
 
 FactoryBean 是Spring提供的工厂bean的一个接口 定制化bean的创建逻辑。
  FactoryBean接口有三个方法用来创建对象
