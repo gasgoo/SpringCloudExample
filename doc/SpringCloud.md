@@ -132,9 +132,12 @@ restTemplate.getForObject()-LoadBalancerCommand-
 客户端每10秒读取nacos服务端查询服务注册列表更新map缓存;
 ribbon实例化了多个Spring容器 容器根据不同的微服务区分，不同的服务放在不同容器中。
  
-
+java -Dserver.port=8090 -Dcsp.sentinel.dashboard.server=localhost:8090 -Dproject.name=sentinel-dashboard -jar sentinel-dashboard.jar
 #sentinel
   blockHandler和FallBack的降级区别
   blockHandler是触发流控规则后的降级响应。
   FallBack是系统异常后的降级响应。
  
+# seata 分布式事物解决方案
+缺课 5.12
+

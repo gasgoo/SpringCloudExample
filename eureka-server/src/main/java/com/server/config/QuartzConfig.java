@@ -23,7 +23,7 @@ public class QuartzConfig {
     @Bean
     public Trigger myFirstTrigger(){
         SimpleScheduleBuilder scheduleBuilder = SimpleScheduleBuilder.simpleSchedule()
-                .withIntervalInMinutes(3).repeatForever();
+                .withIntervalInMinutes(5).repeatForever();
 
         return TriggerBuilder.newTrigger()
                 .forJob(MyFirstJob())
@@ -33,12 +33,12 @@ public class QuartzConfig {
     }
 
 
-    @Bean
+   // @Bean
     public  JobDetail QuartzJobTestJob(){
         return JobBuilder.newJob(QuartzJobTest.class).withIdentity("quartzJobTest").storeDurably().build();
     }
     //可以把cron放在配置中动态读取
-    @Bean
+    //@Bean
     public Trigger quartzTrigger2(){
         return TriggerBuilder.newTrigger().forJob(QuartzJobTestJob())
                 .withIdentity("Trigger2")

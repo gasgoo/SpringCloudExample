@@ -25,19 +25,31 @@ spring:
           enabled: true
       #path路由配置
       routes:
-      #     - id: path_route
-      #       uri: http://eureka-server
-      #       predicates:
-      #       - Path=/api/{segment}
-      # 断言路由
-      - id: after_route
+        ##限流
+      - id: requestratelimiter_route
         uri: lb://eureka-server
         predicates:
         - After=2020-02-20T17:42:47.789+08:00
-
+        filters:
+        - name: RequestRateLimiter
+          args:
+            key-resolver: "#{@userKeyResolver}"
+            #用户每秒允许多少个请求
+            redis-rate-limiter.replenishRate: 1
+            #允许用户在一秒钟内执行的最大请求数
+            redis-rate-limiter.burstCapacity: 2
+            #请求花费多少令牌
+            #redis-rate-limiter.requestedTokens: 1
+      # 断言路由
+      #      - id: after_route
+      #        uri: lb://eureka-server
+      #        predicates:
+      #        - After=2020-02-20T17:42:47.789+08:00
   #redis配置
   redis:
-    host: 127.0.0.1
+    #host: 127.0.0.1
+    host: 192.168.1.9
     port: 6379
-    password: root
+    #password: root
+    password: magfin2018
     database: 9

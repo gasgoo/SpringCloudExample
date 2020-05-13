@@ -3,6 +3,7 @@ package com.server.service.impl;
 import com.server.annotation.WebLog;
 import com.server.dao.NewsUserDao;
 import com.server.domain.UserBean;
+import com.server.redis.RedisUtils;
 import com.server.service.UserService;
 import com.server.web.VM.LoginVO;
 import com.server.web.VM.TokenResponse;
@@ -11,6 +12,7 @@ import com.common.model.Constants;
 import com.common.service.BaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,11 +25,14 @@ import java.util.List;
  */
 @Service
 @Transactional
-public class UserServiceImpl extends BaseService implements UserService  {
+public class UserServiceImpl extends BaseService implements UserService {
 
 
     @Autowired
     private NewsUserDao newsUserDao;
+    @Autowired
+    private RedisUtils redisUtils;
+
     @Override
     public UserBean getUserById(int userId) {
         return newsUserDao.selectByPrimaryKey(userId);
@@ -37,7 +42,7 @@ public class UserServiceImpl extends BaseService implements UserService  {
     public boolean addUser(UserBean record) {
         boolean result = false;
         try {
-            record.setPassword(encryptPassword(record.getPassword()));
+            //record.setPassword(encryptPassword(record.getPassword()));
             newsUserDao.add(record);
             result = true;
         } catch (Exception e) {
@@ -46,27 +51,41 @@ public class UserServiceImpl extends BaseService implements UserService  {
 
         return result;
     }
+
     @Override
     @WebLog
     public BaseResponse<TokenResponse> login(LoginVO request) throws NoSuchAlgorithmException {
-        String password=encryptPassword(request.getPassword());
-        UserBean userBean=new UserBean();
-        userBean.setPassword(password);
+        //String password=encryptPassword(request.getPassword());
+        UserBean userBean = new UserBean();
+        userBean.setPassword(request.getPassword());
         userBean.setMobile(request.getMobile());
         List<UserBean> userList = newsUserDao.selectUser(userBean);
-        if(null != userList && userList.size() > 0){
-                String token = getToken(request.getMobile(),request.getPassword());
+        if (null != userList && userList.size() > 0) {
+            String token = getToken(request.getMobile(), request.getPassword());
+            redisUtils.set("userToken", token, 600);
             TokenResponse response = new TokenResponse();
             response.setToken(token);
             return BaseResponse.success(response);
-        }else {
-            return BaseResponse.fail(Constants.FAIL,"手机号或密码输入不正确！");
+        } else {
+            return BaseResponse.fail(Constants.FAIL, "手机号或密码输入不正确！");
         }
     }
 
     @Override
-    public List<UserBean> getUsers(){
+    public List<UserBean> getUsers() {
         return newsUserDao.getAllUsers();
     }
+
+    @Override
+    public BaseResponse<UserBean> add(UserBean userBean, String token) {
+        String userToken = (String) redisUtils.get("userToken");
+        if (userToken.equals(token)) {
+            this.addUser(userBean);
+            return BaseResponse.success(userBean);
+        } else {
+            return BaseResponse.fail(Constants.FAIL, "用户token无效！");
+        }
+    }
+
 
 }

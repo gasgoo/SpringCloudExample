@@ -5,12 +5,14 @@
         <id column="id" property="id" jdbcType="INTEGER" />
         <result column="mobile" property="mobile" jdbcType="VARCHAR" />
         <result column="password" property="password" jdbcType="VARCHAR" />
+        <result column="age" property="age" jdbcType="INTEGER" />
+        <result column="address" property="address" jdbcType="VARCHAR" />
         <result column="create_date" property="createDate" jdbcType="INTEGER" />
         <result column="update_date" property="updateDate" jdbcType="INTEGER" />
 
     </resultMap>
     <sql id="Base_Column_List" >
-        id, mobile, password,create_date,update_date
+        id, mobile, password,age,address,create_date,update_date
     </sql>
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
         select
@@ -31,8 +33,8 @@
         from news_user
     </select>
    <insert id="add" parameterType="com.server.domain.UserBean" >
-        insert into news_user ( mobile, password,gmt_create,gmt_modified)
-        values ( #{mobile,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},now(),now())
+        insert into news_user ( mobile, password,age,address,create_date,update_date)
+        values ( #{mobile,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},#{age,jdbcType=INTEGER},#{address,jdbcType=VARCHAR},now(),now())
     </insert>
 
     <!--

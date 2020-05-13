@@ -77,11 +77,24 @@ ContextNamespaceHandler 自定义的一些标签和对应的处理类
 最终要调用NameSpaceHandler.init()方法，其中表明了标签对应的标签处理类。
 <context:component-scan base-package="com.xx">
 
-## @ComponentScan  @Bean @import 注解的支持
+## @ComponentScan  @Bean @import 导入一个类   @importResources导入一个xml文件  注解的支持
+@Bean =Factory-mehtod 
+ConfigurationClassPostProcessor
+
+#AOP 原理解读
+<aop:aspectj-autoproxy >开启注解aop配置
+@EnableAspectJAutoProxy 注解中 @Import(AspectJAutoProxyRegistrar.class)
+  AbstractAutoProxyCreator
+  AOP入口类是什么时候注入到容器中的?
+  1. 解析自定义标签  aopNameSpacesHandler init()方法中初始化了标签对应的解析类。
+  AspectJAwareAdvisorAutoProxyCreator 基于xml aop:config标签
+  2. aop注解 @EnableAspectJAutoProxy的解析类
+  AnnotationAwareAspectJAutoProxyCreator 注册了这个类到容器中。
+  
+ 代理实例放入一级缓存,并不是被代理bean.
 
 
-
-
+##aop end
 IOC体系结构  
 1) BeanFactory Bean工厂--帮助开发者管理对象间的依赖关系提供了基础服务
    BeanFactory 的中定义了 基本的行为 如  getBean()  getType()

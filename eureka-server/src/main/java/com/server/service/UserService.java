@@ -19,4 +19,9 @@ public interface UserService {
 
     public List<UserBean> getUsers();
 
+    BaseResponse<UserBean> add(UserBean userBean,String token);
+
+
+
+
 }

@@ -1,12 +1,18 @@
 package com.server.domain;
 
 import com.common.model.BaseModel;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 import java.io.Serializable;
 
 /**
  * @Date 2019/4/22 10:51
  */
+@Setter
+@Getter
+@ToString
 public class UserBean extends BaseModel implements Serializable {
 
     private Integer id;
@@ -16,45 +22,15 @@ public class UserBean extends BaseModel implements Serializable {
 
     private Integer age;
 
-    public String getMobile() {
-        return mobile;
-    }
+    private String address;
 
-    public void setMobile(String mobile) {
-        this.mobile = mobile;
-    }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public Integer getAge() {
-        return age;
-    }
-
-    public void setAge(Integer age) {
-        this.age = age;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public UserBean(String mobile, String password, Integer age) {
+    public UserBean(String mobile, String password,int age) {
         this.mobile = mobile;
         this.password = password;
         this.age=age;
     }
 
     public UserBean() {
-
     }
 }
