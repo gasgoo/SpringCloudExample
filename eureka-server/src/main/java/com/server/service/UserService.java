@@ -21,7 +21,7 @@ public interface UserService {
 
     BaseResponse<UserBean> add(UserBean userBean,String token);
 
-
+    public UserBean selectByMobile(String mobile);
 
 
 }

@@ -29,7 +29,7 @@ spring:
     port: 6379
     #password: root
     #password: magfin2018
-    database: 9
+    database: 0
   #quartz
   quartz:
     org:
@@ -50,7 +50,7 @@ spring:
           threadPriority: 5
           threadsInheritContextClassLoaderOfInitializingThread: true
     ##quartz数据存储方式 memory 和jdbc方式
-    job-store-type: jdbc
+    job-store-type: memory
 
 
 ##RocketMq

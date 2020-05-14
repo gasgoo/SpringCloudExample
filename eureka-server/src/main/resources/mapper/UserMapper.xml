@@ -26,6 +26,13 @@
         from news_user
         where mobile=#{mobile} and password=#{password}
     </select>
+    <select id="selectByMobile" resultMap="BaseResultMap" parameterType="java.lang.String" >
+        select
+        <include refid="Base_Column_List" />
+        from news_user
+        where mobile=#{mobile}
+    </select>
+
 
     <select id="getAllUsers" resultMap="BaseResultMap">
         select

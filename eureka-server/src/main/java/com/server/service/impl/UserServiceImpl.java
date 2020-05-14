@@ -1,5 +1,6 @@
 package com.server.service.impl;
 
+import com.google.common.base.Strings;
 import com.server.annotation.WebLog;
 import com.server.dao.NewsUserDao;
 import com.server.domain.UserBean;
@@ -18,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @Author gg.rao
@@ -62,7 +64,7 @@ public class UserServiceImpl extends BaseService implements UserService {
         List<UserBean> userList = newsUserDao.selectUser(userBean);
         if (null != userList && userList.size() > 0) {
             String token = getToken(request.getMobile(), request.getPassword());
-            redisUtils.set("userToken", token, 600);
+            redisUtils.set("userToken", token, 60);
             TokenResponse response = new TokenResponse();
             response.setToken(token);
             return BaseResponse.success(response);
@@ -77,9 +79,20 @@ public class UserServiceImpl extends BaseService implements UserService {
     }
 
     @Override
+    public UserBean selectByMobile(String mobile){
+        return newsUserDao.selectByMobile(mobile);
+    }
+
+    @Override
     public BaseResponse<UserBean> add(UserBean userBean, String token) {
         String userToken = (String) redisUtils.get("userToken");
+        if(Strings.isNullOrEmpty(userToken)){
+            return BaseResponse.fail(Constants.FAIL,"用户token失效超时!");
+        }
         if (userToken.equals(token)) {
+            if(Objects.nonNull(selectByMobile(userBean.getMobile()))){
+                return BaseResponse.fail(Constants.FAIL,"手机号已经存在不能重复添加!");
+            }
             this.addUser(userBean);
             return BaseResponse.success(userBean);
         } else {

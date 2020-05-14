@@ -21,6 +21,8 @@ public interface NewsUserDao {
 
     List<UserBean> getAllUsers();
 
+    UserBean selectByMobile(String mobile);
+
 
 
 }

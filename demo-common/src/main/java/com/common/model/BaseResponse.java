@@ -6,7 +6,7 @@ import java.io.Serializable;
  * @Author gg.rao
  * @Date 2019/4/22 11:12
  */
-public class BaseResponse<T> implements Serializable {
+public class BaseResponse<T>  {
     /**
      * 处理成功表示 true成功 false失败
      */
@@ -129,16 +129,6 @@ public class BaseResponse<T> implements Serializable {
         return new BaseResponse(false, code, msg);
     }
 
-    /**
-     * 服务执行失败
-     *
-     * @param msgORCode
-     * @param data
-     * @return
-     */
-    public static <T> BaseResponse<T> fail(String msgORCode, T data) {
-        return new BaseResponse<>(false, msgORCode, data);
-    }
 
     public boolean isSuccess() {
         return success;

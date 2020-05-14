@@ -13,14 +13,13 @@ import java.util.Date;
 /**
  * @Date 2019/9/29 14:10
  */
-@Service
+//@Service
 @Slf4j
 public class MyFirstJob extends QuartzJobBean {
 
 
     @Override
     protected void executeInternal(JobExecutionContext jobExecutionContext) throws JobExecutionException {
-        log.info("the first quartzJob>>>>>> ");
         SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         log.info("TestQuartz02----" + sdf.format(new Date()));
     }
