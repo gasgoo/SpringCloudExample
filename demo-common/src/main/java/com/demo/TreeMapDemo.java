@@ -66,25 +66,23 @@ public class TreeMapDemo  {
     }
 
     public static void main(String[] args) throws InterruptedException {
-        TreeMapDemo dto=new TreeMapDemo();
+        TreeMapDemo dto = new TreeMapDemo();
         dto.testComparable();
-        HashMap testMap = new HashMap<Integer,Object>(1024);
-        System.out.println("init size:"+testMap.size());
-        long round1= Math.round(-5.8);
-        System.out.println("round1===="+round1+"==");
+        HashMap testMap = new HashMap<Integer, Object>(1024);
+        System.out.println("init size:" + testMap.size());
+        long round1 = Math.round(-5.8);
+        System.out.println("round1====" + round1 + "==");
         int hashNum = Objects.hash("raogugen");
-        int a=hashNum%16384;
-        int b=16383 & hashNum;
-        System.out.println("a="+a+"<<<>>>b="+b);
-        BigDecimal d=new BigDecimal(0.8);
-        BigDecimal d1=new BigDecimal(0.5);
-        if(d.compareTo(d1)>0){
+        int a = hashNum % 16384;
+        int b = 16383 & hashNum;
+        System.out.println("a=" + a + "<<<>>>b=" + b);
+        BigDecimal d = new BigDecimal(0.8);
+        BigDecimal d1 = new BigDecimal(0.5);
+        if (d.compareTo(d1) > 0) {
             System.out.println("bigggggg");
         }
 
-
-        }
-
+    }
 
 
 

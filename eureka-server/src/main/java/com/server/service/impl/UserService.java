@@ -5,18 +5,15 @@ import com.server.annotation.WebLog;
 import com.server.dao.NewsUserDao;
 import com.server.domain.UserBean;
 import com.server.redis.RedisUtils;
-import com.server.service.UserService;
 import com.server.web.VM.LoginVO;
-import com.server.web.VM.TokenResponse;
 import com.common.model.BaseResponse;
 import com.common.model.Constants;
 import com.common.service.BaseService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.servlet.http.HttpServletResponse;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import java.util.Objects;
@@ -27,7 +24,7 @@ import java.util.Objects;
  */
 @Service
 @Transactional
-public class UserServiceImpl extends BaseService implements UserService {
+public class UserService extends BaseService  {
 
 
     @Autowired
@@ -35,16 +32,14 @@ public class UserServiceImpl extends BaseService implements UserService {
     @Autowired
     private RedisUtils redisUtils;
 
-    @Override
     public UserBean getUserById(int userId) {
         return newsUserDao.selectByPrimaryKey(userId);
     }
 
-    @Override
+
     public boolean addUser(UserBean record) {
         boolean result = false;
         try {
-            //record.setPassword(encryptPassword(record.getPassword()));
             newsUserDao.add(record);
             result = true;
         } catch (Exception e) {
@@ -54,36 +49,31 @@ public class UserServiceImpl extends BaseService implements UserService {
         return result;
     }
 
-    @Override
     @WebLog
-    public BaseResponse<TokenResponse> login(LoginVO request) throws NoSuchAlgorithmException {
-        //String password=encryptPassword(request.getPassword());
+    public BaseResponse<String> login(LoginVO request) throws NoSuchAlgorithmException {
         UserBean userBean = new UserBean();
         userBean.setPassword(request.getPassword());
         userBean.setMobile(request.getMobile());
         List<UserBean> userList = newsUserDao.selectUser(userBean);
         if (null != userList && userList.size() > 0) {
             String token = getToken(request.getMobile(), request.getPassword());
-            redisUtils.set("userToken", token, 60);
-            TokenResponse response = new TokenResponse();
-            response.setToken(token);
-            return BaseResponse.success(response);
+            redisUtils.set("userToken", token, 120);
+            BaseResponse result = new BaseResponse();
+            result.setData(token);
+            return result;
         } else {
             return BaseResponse.fail(Constants.FAIL, "手机号或密码输入不正确！");
         }
     }
 
-    @Override
     public List<UserBean> getUsers() {
         return newsUserDao.getAllUsers();
     }
 
-    @Override
     public UserBean selectByMobile(String mobile){
         return newsUserDao.selectByMobile(mobile);
     }
 
-    @Override
     public BaseResponse<UserBean> add(UserBean userBean, String token) {
         String userToken = (String) redisUtils.get("userToken");
         if(Strings.isNullOrEmpty(userToken)){

@@ -17,6 +17,8 @@ public interface NewsUserDao {
 
     UserBean selectByPrimaryKey(Integer id);
 
+    UserBean getUserByMobile(String mobile);
+
     void add(UserBean userBean);
 
     List<UserBean> getAllUsers();

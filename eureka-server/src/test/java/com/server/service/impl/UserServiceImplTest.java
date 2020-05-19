@@ -3,7 +3,6 @@ package com.server.service.impl;
 import com.server.redis.RedisUtils;
 import com.server.EurekaDemoApplication;
 import com.server.domain.UserBean;
-import com.server.service.UserService;
 import com.server.web.VM.LoginVO;
 import com.server.web.VM.TokenResponse;
 import com.common.model.BaseResponse;
@@ -52,8 +51,8 @@ public class UserServiceImplTest {
         LoginVO vo=new LoginVO();
         vo.setMobile("13817569208");
         vo.setPassword("testSpringBoot");
-        BaseResponse<TokenResponse> login = userService.login(vo);
-        System.out.println(login.getData().getToken()+"   "+login.getCode()+login.getMsg());
+        BaseResponse<String> login = userService.login(vo);
+        System.out.println(login.getData()+"   "+login.getCode()+login.getMsg());
     }
     @Test
     public void testGetAll(){

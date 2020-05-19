@@ -51,7 +51,11 @@ spring:
           threadsInheritContextClassLoaderOfInitializingThread: true
     ##quartz数据存储方式 memory 和jdbc方式
     job-store-type: memory
-
+  #jsp page
+  mvc:
+    view:
+      prefix: /WEB-INF/jsp/
+      suffix: .jsp
 
 ##RocketMq
 rocketmq:
@@ -99,3 +103,4 @@ application:
     appSecret: 1
     bucket: lynn
     endPoint: https://www.aliyun.com
+

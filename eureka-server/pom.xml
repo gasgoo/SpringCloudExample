@@ -16,12 +16,12 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
             <!--排除内置的tomcat jar-->
-           <!-- <exclusions>
-                <exclusion>
-                    <groupId>org.springframework.boot</groupId>
-                    <artifactId>spring-boot-starter-tomcat</artifactId>
-                </exclusion>
-            </exclusions>-->
+            <!-- <exclusions>
+                 <exclusion>
+                     <groupId>org.springframework.boot</groupId>
+                     <artifactId>spring-boot-starter-tomcat</artifactId>
+                 </exclusion>
+             </exclusions>-->
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -54,11 +54,6 @@
             <version>RELEASE</version>
             <scope>compile</scope>
         </dependency>
-        <!--Spring jpa-->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-jpa</artifactId>
-        </dependency>
         <!--mybatis  集成druid，使用连接池-->
         <dependency>
             <groupId>org.mybatis.spring.boot</groupId>
@@ -80,7 +75,17 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-quartz</artifactId>
         </dependency>
-
+        <!--web jsp-->
+        <dependency>
+            <groupId>org.apache.tomcat.embed</groupId>
+            <artifactId>tomcat-embed-jasper</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>jstl</artifactId>
+        </dependency>
+        <!--wen jspEnd-->
     </dependencies>
 
 
@@ -96,6 +101,15 @@
                     <include>**/*.xml</include>
                 </includes>
             </resource>
+            <!--打包把jsp文件拷贝到META-INF目录中-->
+            <resource>
+                <directory>src/main/webapp</directory>
+                <targetPath>META-INF/resources</targetPath>
+                <includes>
+                    <include>**/**</include>
+                </includes>
+            </resource>
+            <!--jsp end-->
             <resource>
                 <directory>src/main/resources</directory>
                 <filtering>false</filtering>
@@ -131,6 +145,7 @@
                     <skipTests>true</skipTests>
                 </configuration>
             </plugin>
+
         </plugins>
     </build>
     <!--end-->

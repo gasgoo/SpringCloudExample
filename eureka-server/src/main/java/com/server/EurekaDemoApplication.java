@@ -11,8 +11,10 @@ import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.cloud.client.SpringCloudApplication;
 import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.Bean;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import java.util.concurrent.CountDownLatch;
 
@@ -43,6 +45,15 @@ public class EurekaDemoApplication extends SpringBootServletInitializer {
     protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
         return application.sources(EurekaDemoApplication.class);
     }
+
+    @Bean
+    public InternalResourceViewResolver setupViewResolver() {
+        InternalResourceViewResolver resolver = new InternalResourceViewResolver();
+        /** 设置视图路径的前缀 */
+        resolver.setPrefix("/WEB-INF/jsp/");
+        /** 设置视图路径的后缀 */
+        resolver.setSuffix(".jsp");
+        return resolver;	}
 
 
     
