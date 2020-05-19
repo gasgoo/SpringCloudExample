@@ -88,10 +88,15 @@ ConfigurationClassPostProcessor
   AOP入口类是什么时候注入到容器中的?
   1. 解析自定义标签  aopNameSpacesHandler init()方法中初始化了标签对应的解析类。
   AspectJAwareAdvisorAutoProxyCreator 基于xml aop:config标签
-  2. aop注解 @EnableAspectJAutoProxy的解析类
+  2. aop注解 @EnableAspectJAutoProxy的解析类 import
   AnnotationAwareAspectJAutoProxyCreator 注册了这个类到容器中。
-  
- 代理实例放入一级缓存,并不是被代理bean.
+   代理实例放入一级缓存,并不是被代理bean.
+aop过程:   
+1.找到所有的beanDefinition对象的beanName，拿到class对象判断上面是否有切面@AspectJ注解有则是收集的。
+2.遍历收集的Class在类中搜索带有 通知类型注解的方法如@Before @Around @After @AfterReturning @AfterThrowing
+并且把注解信息 如表达式 argnames 注解类型等信息封装成AspectJAnnotation；
+3. 创建pointCut切入点对象，然后再创建Advice增强；不同的通知类型有不同的增强。  把PointCut和Advice封装成 Advisor对象。
+4. 找到拦截当前bean的切面；即通过PointCut表达式匹配 如果匹配上则创建当前bean的代理对象。
 
 
 ##aop end

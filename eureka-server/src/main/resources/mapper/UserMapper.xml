@@ -3,6 +3,8 @@
 <mapper namespace="com.server.dao.NewsUserDao" >
     <resultMap id="BaseResultMap" type="com.server.domain.UserBean" >
         <id column="id" property="id" jdbcType="INTEGER" />
+        <id column="uid" property="uid" jdbcType="INTEGER" />
+        <result column="user_name" property="userName" jdbcType="VARCHAR" />
         <result column="mobile" property="mobile" jdbcType="VARCHAR" />
         <result column="password" property="password" jdbcType="VARCHAR" />
         <result column="age" property="age" jdbcType="INTEGER" />
@@ -12,7 +14,7 @@
 
     </resultMap>
     <sql id="Base_Column_List" >
-        id, mobile, password,age,address,create_date,update_date
+        id,uid,user_name, mobile, password,age,address,create_date,update_date
     </sql>
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
         select
@@ -32,6 +34,12 @@
         from news_user
         where mobile=#{mobile}
     </select>
+    <select id="selectByUid" resultMap="BaseResultMap" parameterType="java.lang.String" >
+        select
+        <include refid="Base_Column_List" />
+        from news_user
+        where uid=#{uid}
+    </select>
 
 
     <select id="getAllUsers" resultMap="BaseResultMap">
@@ -40,62 +48,7 @@
         from news_user
     </select>
    <insert id="add" parameterType="com.server.domain.UserBean" >
-        insert into news_user ( mobile, password,age,address,create_date,update_date)
-        values ( #{mobile,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},#{age,jdbcType=INTEGER},#{address,jdbcType=VARCHAR},now(),now())
+        insert into news_user ( uid,user_name,mobile, password,age,address,create_date,update_date)
+        values (#{uid,jdbcType=VARCHAR},#{userName,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},#{age,jdbcType=INTEGER},#{address,jdbcType=VARCHAR},now(),now())
     </insert>
-
-    <!--
-    <insert id="insertSelective" parameterType="com.domain.User" >
-        insert into user_t
-        <trim prefix="(" suffix=")" suffixOverrides="," >
-            <if test="id != null" >
-                id,
-            </if>
-            <if test="userName != null" >
-                user_name,
-            </if>
-            <if test="password != null" >
-                passwords,
-            </if>
-            <if test="age != null" >
-                age,
-            </if>
-        </trim>
-        <trim prefix="values (" suffix=")" suffixOverrides="," >
-            <if test="id != null" >
-                #{id,jdbcType=INTEGER},
-            </if>
-            <if test="userName != null" >
-                #{userName,jdbcType=VARCHAR},
-            </if>
-            <if test="password != null" >
-                #{password,jdbcType=VARCHAR},
-            </if>
-            <if test="age != null" >
-                #{age,jdbcType=INTEGER},
-            </if>
-        </trim>
-    </insert>
-    <update id="updateByPrimaryKeySelective" parameterType="com.domain.User" >
-        update user_t
-        <set >
-            <if test="userName != null" >
-                user_name = #{userName,jdbcType=VARCHAR},
-            </if>
-            <if test="password != null" >
-                passwords = #{password,jdbcType=VARCHAR},
-            </if>
-            <if test="age != null" >
-                age = #{age,jdbcType=INTEGER},
-            </if>
-        </set>
-        where id = #{id,jdbcType=INTEGER}
-    </update>
-    <update id="updateByPrimaryKey" parameterType="com.domain.User" >
-        update user_t
-        set user_name = #{userName,jdbcType=VARCHAR},
-        passwords = #{password,jdbcType=VARCHAR},
-        age = #{age,jdbcType=INTEGER}
-        where id = #{id,jdbcType=INTEGER}
-    </update>-->
 </mapper>

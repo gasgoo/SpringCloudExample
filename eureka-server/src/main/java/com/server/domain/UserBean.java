@@ -16,6 +16,10 @@ import java.io.Serializable;
 public class UserBean extends BaseModel implements Serializable {
 
     private Integer id;
+
+    private Long uid;
+
+    private String userName;
     private String mobile;
 
     private String password;

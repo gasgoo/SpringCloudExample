@@ -1,5 +1,6 @@
 package com.server.service.impl;
 
+import com.common.utils.SnowFlakeUtil;
 import com.google.common.base.Strings;
 import com.server.annotation.WebLog;
 import com.server.dao.NewsUserDao;
@@ -40,6 +41,7 @@ public class UserService extends BaseService  {
     public boolean addUser(UserBean record) {
         boolean result = false;
         try {
+            record.setUid(SnowFlakeUtil.nextId());
             newsUserDao.add(record);
             result = true;
         } catch (Exception e) {
@@ -72,6 +74,10 @@ public class UserService extends BaseService  {
 
     public UserBean selectByMobile(String mobile){
         return newsUserDao.selectByMobile(mobile);
+    }
+
+    public UserBean selectByUid(String uid){
+        return newsUserDao.selectByUid(uid);
     }
 
     public BaseResponse<UserBean> add(UserBean userBean, String token) {

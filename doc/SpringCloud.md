@@ -139,5 +139,5 @@ java -Dserver.port=8090 -Dcsp.sentinel.dashboard.server=localhost:8090 -Dproject
   FallBack是系统异常后的降级响应。
  
 # seata 分布式事物解决方案
-缺课 5.12
+缺课 5.12 5.14
 

@@ -51,6 +51,18 @@ public class UserController {
         return JSONUtil.toJson(user);
     }
 
+    @WebLog
+    @ResponseBody
+    @RequestMapping("/queryUid")
+    public String selectByUid(HttpServletRequest request, Model model){
+        String uid =(request.getParameter("uid"));
+        if(Strings.isNullOrEmpty(uid)){
+            return null;
+        }
+        UserBean user = this.userService.selectByUid(uid);
+        return JSONUtil.toJson(user);
+    }
+
     @RequestMapping("/allUsers")
     @ResponseBody
     public String getAllUser(){

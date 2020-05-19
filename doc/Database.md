@@ -73,7 +73,8 @@ hash树 ——id 硬件地址 B+树 数据存在叶子几点 左小右大 查询
 
 mysql中 utf-8编码 一个字符三个字节 gbk编码 一个字符两个字节 late 一个字符一个字节 null 1个字节
 
-查看执行计划 explain sql语句 id select_type table type possible_keys key key_len ref rows extra type : system 、const 都只有一条数据 eq_ref 和索引查询的一致 ref 0条或多条 range 范围 > < between and
+查看执行计划 explain sql语句 id select_type table type possible_keys key key_len ref rows extra 
+type : system 、const 都只有一条数据 eq_ref 和索引查询的一致 ref 0条或多条 range 范围 > < between and
 index all
 
 Extra可能的value using index 、using where 、using fileSort、 using tempory、 using join buffer

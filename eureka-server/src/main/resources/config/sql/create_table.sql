@@ -65,13 +65,17 @@ CREATE TABLE `news_comment` (
 -- ----------------------------
 DROP TABLE IF EXISTS `news_user`;
 CREATE TABLE `news_user` (
-  `id` bigint(16) NOT NULL AUTO_INCREMENT COMMENT '自增ID',
-  `create_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `update_date` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '修改时间',
+  `id` bigint(64) NOT NULL AUTO_INCREMENT COMMENT '自增ID',
+   uid bigint(64)  not null unique  comment '用户ID',
+   user_name varchar(30) not null comment '客户名称',
   `mobile` varchar(16) NOT NULL COMMENT '手机号',
   `password` varchar(64) DEFAULT NULL COMMENT '密码（SHA1加密）',
   `age` int(11) DEFAULT NULL COMMENT '年龄',
   `address` varchar(150) DEFAULT NULL COMMENT '地址',
+  `create_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_date` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '修改时间',
   PRIMARY KEY (`id`),
   UNIQUE KEY `mobile_uniqe` (`mobile`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4;
+
+
