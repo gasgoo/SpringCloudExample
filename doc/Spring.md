@@ -21,11 +21,11 @@ AbstractAutowireCapableBeanFactory.determineConstructorsFromBeanPostProcessors()
   有参和无参构造函数的实例化
 AbstractAutowireCapableBeanFactory.applyMergedBeanDefinitionPostProcessors()
  ---后置处理器执行  收集各种带有注解的方法或属性  放入InjectionMetaData的一个set容器中。
- ---循环依赖处理---只会出现在单例无参构造函数实例化的情况  **非单例 无参的循环依赖都会抛出异常**
+ ---循环依赖处理---只会出现在单例无参构造函数实例化的情况  **非单例 有参的循环依赖都会抛出异常**
  addSingletonFactory() --从创建中的bean对象缓存中取对象注入依赖的对象
    正在创建的对象缓存(singletonsCurrentlyInCreation)---作用 用来阻断循环依赖  
    
- ---属性注入  根据上面收集的各种注解 如@PostStructured
+ ---属性注入  根据上面收集的各种注解 如@PostStructured @Autowired
  AbstractAutowireCapableBeanFactory.populateBean() 依赖注册 属性填充
  ---初始化  initializeBean()  顺序如下 
  aware类型的接口调用、@PostContruct 、InitializingBean.AfterPropertiesSet() 、 initMethod()
@@ -90,7 +90,7 @@ ConfigurationClassPostProcessor
   AspectJAwareAdvisorAutoProxyCreator 基于xml aop:config标签
   2. aop注解 @EnableAspectJAutoProxy的解析类 import
   AnnotationAwareAspectJAutoProxyCreator 注册了这个类到容器中。
-   代理实例放入一级缓存,并不是被代理bean.
+   代理实例放入一级缓存,并不是被代理bean
 aop过程:   
 1.找到所有的beanDefinition对象的beanName，拿到class对象判断上面是否有切面@AspectJ注解有则是收集的。
 2.遍历收集的Class在类中搜索带有 通知类型注解的方法如@Before @Around @After @AfterReturning @AfterThrowing
@@ -100,6 +100,24 @@ aop过程:
 
 
 ##aop end
+
+##Spring Transaction
+@EnableTransactionManagement注解 中导入 @Import TransactionManagementConfigurationSelector类。
+Selector类中 注册了 
+ProxyTransactionManagementConfiguration 事物管理配置类
+事物传播属性: Propagation
+Required  当前没有事物则new 事物，如果已经存在则 加入事物中   1 default
+supports  支持当前事物，没有事物则以非事物方式运行
+Manadtory  使用当前事物，如没有则异常
+required_new 新建事物 如果存在事物 把当前事物挂起    2
+Not_supports   非事物方式运行
+NEVER     非事物方式运行 存在事物则异常   
+Nested    支持嵌套事物            3  同一个连接
+ 
+
+
+## Transaction end
+
 IOC体系结构  
 1) BeanFactory Bean工厂--帮助开发者管理对象间的依赖关系提供了基础服务
    BeanFactory 的中定义了 基本的行为 如  getBean()  getType()
