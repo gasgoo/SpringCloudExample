@@ -88,7 +88,7 @@ ConfigurationClassPostProcessor
   AOP入口类是什么时候注入到容器中的?
   1. 解析自定义标签  aopNameSpacesHandler init()方法中初始化了标签对应的解析类。
   AspectJAwareAdvisorAutoProxyCreator 基于xml aop:config标签
-  2. aop注解 @EnableAspectJAutoProxy的解析类 import
+  2. aop注解 @EnableAspectJAutoProxy的解析类
   AnnotationAwareAspectJAutoProxyCreator 注册了这个类到容器中。
    代理实例放入一级缓存,并不是被代理bean
 aop过程:   
@@ -97,8 +97,16 @@ aop过程:
 并且把注解信息 如表达式 argnames 注解类型等信息封装成AspectJAnnotation；
 3. 创建pointCut切入点对象，然后再创建Advice增强；不同的通知类型有不同的增强。  把PointCut和Advice封装成 Advisor对象。
 4. 找到拦截当前bean的切面；即通过PointCut表达式匹配 如果匹配上则创建当前bean的代理对象。
-
-
+  
+  JDKDynamicAopProxy类实现了 InvokeHandler接口，代理类最终是通过执行invoke方法执行代理类的方法。
+  @EnableAspectJAutoProxy---import(AspectJAutoProxyRegistrar)
+  注解aop配置类    AnnotationAwareAspectJAutoProxyCreator
+ 代理实例放入一级缓存,并不是被代理bean.
+  
+  AnnotationTransactionAttributeSource  封装事物属性
+  DataSourceTransactionManager对象 -Spring事物对象
+  
+ProxyTransactionManagementConfiguration 
 ##aop end
 
 ##Spring Transaction
@@ -115,8 +123,8 @@ NEVER     非事物方式运行 存在事物则异常
 Nested    支持嵌套事物            3  同一个连接
  
 
-
 ## Transaction end
+
 
 IOC体系结构  
 1) BeanFactory Bean工厂--帮助开发者管理对象间的依赖关系提供了基础服务
@@ -155,8 +163,8 @@ Class-beanDefinition-put到Map中---BeanDefinition--new --bean
   静态代理：
   动态代理：
 jdk代理 实现InvocationHandler接口 利用反射生成代理对象字节码文件。 只能针对有接口的类做代理。
-  Proxy.newProxyInstance获取代理对象
-  Cglib代理：实现MethodInterceptor接口
+ Proxy.newProxyInstance获取代理对象
+ Cglib代理：实现MethodInterceptor接口  生成被代理类的子类
       不能对static private 方法代理。
 Spring如何创建动态代理Bean？？
 		1. 如果目标对象实现了接口则默认采用JDK代理
@@ -165,6 +173,7 @@ Spring如何创建动态代理Bean？？
 多个AOP如何叠加调用？？
    责任链模式
 
+
  @Around("com.demo.*.*.(..)")
  @Around("@Annoation(注解包全路径)") 
 
@@ -172,6 +181,7 @@ Spring如何创建动态代理Bean？？
 
 
 #SpringMvc也是一个map
+
 
 运行流程：  DispatchServlet 是调度中枢
  1. 用户发送请求到DispatchServlet前端控制器
@@ -196,10 +206,27 @@ DispatcherServlet机制和原理
 @Contrller   @requestMapping	@requestParam
 @Service @Component 是把类注入到IOC容器中
 
-===如何把一个对象bean交给Spring管理
+#Springmvc end
+org.springframework.web.SpringServletContainerInitializer    spi加载 tomcat容器初始化
+@HandlerTypes注解会加载所有实现了WebApplicationInitializer 接口的类 然后调用 
+   AbstractContextLoaderListenerInitializer.onStartup()
+   AbstractDispatcherServletInitializer.onStartUp方法
+AnnotationConfigWebApplicationContext
+mvc启动流程 
+1.ContextLoader.initWebApplicationContext  启动Spring容器 注册 ContextLoaderListener监听器
+2. Servlet的初始化 HttpServlet的 init()方法 创建 web容器注册 DispatcherServlet
+
+
+参数解析器 HandlerMethodArgumentResolver 很多不同的参数解析实例
+
+
+#如何把一个对象bean交给Spring管理
 1.@Bean
 2.FactoryBean
-3. beanFactory.registerBeanDefinition
+3. beanFactory.registerSingleton()
+4. xml配置bean标签方式 不推荐使用
+5. 常用的注解@Component @Service @Controller等间接方式
+
 
 FactoryBean 是Spring提供的工厂bean的一个接口 定制化bean的创建逻辑。
  FactoryBean接口有三个方法用来创建对象
