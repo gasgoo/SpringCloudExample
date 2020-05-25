@@ -91,7 +91,7 @@ ConfigurationClassPostProcessor
   2. aop注解 @EnableAspectJAutoProxy的解析类 import
   AnnotationAwareAspectJAutoProxyCreator 注册了这个类到容器中。
    代理实例放入一级缓存,并不是被代理bean
-aop过程:   
+ap过程:   
 1.找到所有的beanDefinition对象的beanName，拿到class对象判断上面是否有切面@AspectJ注解有则是收集的。
 2.遍历收集的Class在类中搜索带有 通知类型注解的方法如@Before @Around @After @AfterReturning @AfterThrowing
 并且把注解信息 如表达式 argnames 注解类型等信息封装成AspectJAnnotation；
@@ -114,7 +114,10 @@ Not_supports   非事物方式运行
 NEVER     非事物方式运行 存在事物则异常   
 Nested    支持嵌套事物            3  同一个连接
  
-
+编程事物： 手动开启一个事物  可以自己控制锁的粒度
+DefaultTransactionDefinition  db=new DefaultTransactionDefinition();
+db.setPropagationBehavior(0)设置传播属性
+PlatformTransactionManager.getTransacation(db);
 
 ## Transaction end
 
@@ -172,6 +175,16 @@ Spring如何创建动态代理Bean？？
 
 
 #SpringMvc也是一个map
+
+
+
+spi思想读取配置文件 META-INF/services 文件中的SpringServletContainerInitializer类然后执行 OnStartUp方法
+分别启动 ContextLoaderListener  和DispatcherServlet 两个父子容器
+
+DispatcherServlet extents ---Servlet 启动初始化 HttpServletBean.init()最终到子类
+org.springframework.web.servlet.FrameworkServlet.initWebApplicationContext方法中
+configureAndRefreshWebApplicationContext()方法-容器启动方法 refresh();
+
 
 运行流程：  DispatchServlet 是调度中枢
  1. 用户发送请求到DispatchServlet前端控制器
