@@ -10,7 +10,14 @@ redis 高逼哥指南
 
 set key value
 get key ========命令
-key * 查看所有的key hgetall key 命令用于返回哈希表中，所有的字段和值。 flushdb 删除当前库的缓存 flushAll 删除所有的缓存 exists 命令 判断可以是否存在 返回1表示存在，0不存在。 expire 设置过期时间 单位秒 type 返回key对应的value的数据类型 ping 检查客户端是否连接成功 返回pong INCR Key 10 DECR key 5 建议key的上下级关系用冒号分隔 key:subKey
+key * 查看所有的key hgetall key 命令用于返回哈希表中，所有的字段和值。
+ flushdb 删除当前库的缓存 
+ flushAll 删除所有的缓存 
+ exists 命令 判断可以是否存在 返回1表示存在，0不存在。
+  expire 设置过期时间 单位秒 type 返回key对应的value的数据类型 
+  ping 检查客户端是否连接成功 返回pong 
+  INCR Key 10 
+  DECR key 5 建议key的上下级关系用冒号分隔 key:subKey
 
 redis数据结构：String字符串 Hash哈希类型、List列表类型、 Set集合类型、 Zset有序集合类型
 
@@ -67,9 +74,17 @@ no 数据写入磁盘 类似 mysql的 stament语句 binlog 二进制文件方式
 
 容灾处理： 定时任务去复制 redis中下面的 两个备份文件，每小时都copy dump.rdb文件到一个目录，保留最近48小时的备份 每天都保留一份当日的备份到一个目录 保留最近一个月的备份。 每天晚上将当前服务器上的所有数据备份 发送到远程的云服务上。
 
-=====redis主从复制原理 master收到slave的 同步命令sync/psync后 主服务器运行BGSAVE生成RDB文件保存到磁盘，同时把新接收到的写命令存入缓冲区 文件持久化后会发送给slave，然后把缓冲区的命令发送给slave，然后slave加载文件到内存，执行命令实现和master 同步。 部分同步：偏移量、复制积压缓冲区、runId
+#redis主从复制原理 
+master收到slave的 同步命令sync/psync后 主服务器运行BGSAVE生成RDB文件保存到磁盘，
+同时把新接收到的写命令存入缓冲区 文件持久化后会发送给slave，
+然后把缓冲区的命令发送给slave，然后slave加载文件到内存，执行命令实现和master 同步。 
+部分同步：偏移量、复制积压缓冲区、runId
 
-====redis部署方式 高性能 分片 高可用 交叉备份 单机 主从 主从+哨兵 哨兵会监控master节点，master节点挂掉后会让slave升级会主节点,哨兵不能是单点。 slaveOf masterIP port slave no one 自己为主机 哨兵: 判断主机是否下线，如判断为主观下线，则询问其他哨兵该主机是否下线，如果满足条件则判断主服务客观下现， 开始选举领头哨兵： 监视同一个master的多个在线Sentinel的都有可能成为领头哨兵;选举后配置纪元+1，所有哨兵在纪元内都只有一次将某个哨兵 设置为自己的领头哨兵，如一个哨兵收到多个其他哨兵要求把发送命令方设置为当前哨兵的领头哨兵，则先到先得。 目标哨兵设置后会返回 自己的runID和配置纪元告诉拉票哨兵。 成为领头哨兵需要满足过半机制。
+====redis部署方式 高性能 分片 高可用 交叉备份 
+单机 主从 主从+哨兵 哨兵会监控master节点，
+master节点挂掉后会让slave升级会主节点,哨兵不能是单点。
+ slaveOf masterIP port slave no one 自己为主机 
+ 哨兵: 判断主机是否下线，如判断为主观下线，则询问其他哨兵该主机是否下线，如果满足条件则判断主服务客观下现， 开始选举领头哨兵： 监视同一个master的多个在线Sentinel的都有可能成为领头哨兵;选举后配置纪元+1，所有哨兵在纪元内都只有一次将某个哨兵 设置为自己的领头哨兵，如一个哨兵收到多个其他哨兵要求把发送命令方设置为当前哨兵的领头哨兵，则先到先得。 目标哨兵设置后会返回 自己的runID和配置纪元告诉拉票哨兵。 成为领头哨兵需要满足过半机制。
 
 领头哨兵选出后 开始 故障转移 选举主服务器
 
@@ -100,9 +115,17 @@ class redisLock implements Lock{ @Resource private redisConnectionFactory factor
 
 private ThreadLocal local=new ThreadLocal<>();
 
-public boolean tryLock(){ Jedis jedis=factory.getconnection.getNativeConnection(); String uuid=UUID.randomUUID.toString(); local.set(uuid); String ret=jedis.set("key",uuid,"nx","px",3000); if(reg!=null && ret.equals("ok")){ return true; } return false; }
+public boolean tryLock(){ 
+Jedis jedis=factory.getconnection.getNativeConnection(); 
+String uuid=UUID.randomUUID.toString(); local.set(uuid); 
+String ret=jedis.set("key",uuid,"nx","px",3000); 
+if(reg!=null && ret.equals("ok")){ return true; } return false; }
 
-public void unlock(){ String script=FileUtils.readFile("path"); Jedis jedis=factory.getconnection.getNativeConnection(); String uuid=local.get(); jedis.eval(script,Arrays.asLIst("ok"),Arrays.asLIst(uuid));
+public void unlock(){ 
+String script=FileUtils.readFile("path"); 
+Jedis jedis=factory.getconnection.getNativeConnection(); 
+String uuid=local.get();
+ jedis.eval(script,Arrays.asLIst("ok"),Arrays.asLIst(uuid));
 
 } }
 
