@@ -1,8 +1,9 @@
 package com.server.event;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.event.ApplicationContextEvent;
+import org.springframework.context.ApplicationEvent;
 import org.springframework.stereotype.Component;
 
 /**
@@ -14,7 +15,7 @@ import org.springframework.stereotype.Component;
 
 @Slf4j
 @Component
-public class MyContextEvent extends ApplicationContextEvent {
+public class MyContextEvent extends ApplicationEvent {
     //事件发生
     private String event;
 

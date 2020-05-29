@@ -1,6 +1,7 @@
 package com.server.event;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.ApplicationEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Service;
 
@@ -12,11 +13,18 @@ import org.springframework.stereotype.Service;
 
 @Slf4j
 @Service
-public class MyContextEventListener implements ApplicationListener<MyContextEvent> {
+public class MyContextEventListener implements ApplicationListener {
+
 
     @Override
-    public void onApplicationEvent(MyContextEvent myContextEvent) {
-            MyContextEvent event=myContextEvent;
-            log.info("MyContextEventListener监听到事件"+ event.getEvent());
+    public void onApplicationEvent(ApplicationEvent applicationEvent) {
+        if(applicationEvent instanceof MyContextEvent){
+            MyContextEvent event= (MyContextEvent) applicationEvent;
+            log.info("自定义事件监听MyContextEvent:"+event.getEvent());
+
+        }else{
+            log.info("其他事件:"+ applicationEvent);
+        }
+
     }
 }

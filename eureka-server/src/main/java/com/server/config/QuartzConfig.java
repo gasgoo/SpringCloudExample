@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Configuration;
  * 定时任务quartz配置
  * @Date 2019/10/8 10:46
  */
-@Configuration
+//@Configuration
 public class QuartzConfig {
 
     //使用jobDetail包装job
@@ -19,11 +19,11 @@ public class QuartzConfig {
         return JobBuilder.newJob(MyFirstJob.class).withIdentity("myFirstJob").storeDurably().build();
     }
 
-    //把jobDetail注册到trigger中去15秒执行一次
+    //把jobDetail注册到trigger中去15秒执行一次QuartzJobTest
     @Bean
     public Trigger myFirstTrigger(){
         SimpleScheduleBuilder scheduleBuilder = SimpleScheduleBuilder.simpleSchedule()
-                .withIntervalInMinutes(5).repeatForever();
+                .withIntervalInMinutes(30).repeatForever();
 
         return TriggerBuilder.newTrigger()
                 .forJob(MyFirstJob())

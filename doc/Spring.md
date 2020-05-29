@@ -180,11 +180,7 @@ Spring如何创建动态代理Bean？？
  @Around("@Annoation(注解包全路径)") 
 
 
-
-
 #SpringMvc也是一个map
-
-
 
 spi思想读取配置文件 META-INF/services 文件中的SpringServletContainerInitializer类然后执行 OnStartUp方法
 分别启动 ContextLoaderListener  和DispatcherServlet 两个父子容器
@@ -192,6 +188,15 @@ spi思想读取配置文件 META-INF/services 文件中的SpringServletContainer
 DispatcherServlet extents ---Servlet 启动初始化 HttpServletBean.init()最终到子类
 org.springframework.web.servlet.FrameworkServlet.initWebApplicationContext方法中
 configureAndRefreshWebApplicationContext()方法-容器启动方法 refresh();
+
+org.springframework.web.SpringServletContainerInitializer    spi加载 tomcat容器初始化
+@HandlerTypes注解会加载所有实现了WebApplicationInitializer 接口的类 然后调用 
+   AbstractContextLoaderListenerInitializer.onStartup()
+   AbstractDispatcherServletInitializer.onStartUp方法
+AnnotationConfigWebApplicationContext
+mvc启动流程 
+1.ContextLoader.initWebApplicationContext  启动Spring容器 注册 ContextLoaderListener监听器
+2. Servlet的初始化 HttpServlet的 init()方法 创建 web容器注册 DispatcherServlet
 
 
 运行流程：  DispatchServlet 是调度中枢
@@ -218,14 +223,6 @@ DispatcherServlet机制和原理
 @Service @Component 是把类注入到IOC容器中
 
 #Springmvc end
-org.springframework.web.SpringServletContainerInitializer    spi加载 tomcat容器初始化
-@HandlerTypes注解会加载所有实现了WebApplicationInitializer 接口的类 然后调用 
-   AbstractContextLoaderListenerInitializer.onStartup()
-   AbstractDispatcherServletInitializer.onStartUp方法
-AnnotationConfigWebApplicationContext
-mvc启动流程 
-1.ContextLoader.initWebApplicationContext  启动Spring容器 注册 ContextLoaderListener监听器
-2. Servlet的初始化 HttpServlet的 init()方法 创建 web容器注册 DispatcherServlet
 
 
 参数解析器 HandlerMethodArgumentResolver 很多不同的参数解析实例
@@ -237,6 +234,11 @@ mvc启动流程
 3. beanFactory.registerSingleton()
 4. xml配置bean标签方式 不推荐使用
 5. 常用的注解@Component @Service @Controller等间接方式
+
+#如何让Spring扫描自定义的注解类
+写一个class实现BeanDefinitionRegistryPostProcessor 获取对BeanDefiniton修改 添加 的能力。
+然后类中通过 ClassPathBeanDefinitionScanner 添加扫描 类中包含 自己定义的注解的所有class
+
 
 
 FactoryBean 是Spring提供的工厂bean的一个接口 定制化bean的创建逻辑。
@@ -254,7 +256,6 @@ getObject('&name')返回工厂本身的实例
 
 BeanFactory是个bean 工厂，是一个工厂类(接口)， 它负责生产和管理bean的一个工厂
 是ioc 容器最底层的接口，是个ioc容器，是spring用来管理和装配普通bean的ioc容器（这些bean成为普通bean）。
-
 
 
 
@@ -276,9 +277,17 @@ BeanFactoryPostProcessor 和 BeanPostProcessor 这两个接口都是初始化bea
   
 
  BeanPostProcessor  SpringBean后置处理器,IOC容器完成bean实例化后，在初始化前后添加一些逻辑。
- 接口有两个方法  初始化之前和之后做一些逻辑处理
+                          接口有两个方法  初始化之前和之后做一些逻辑处理
  postProcessBeforeInitialization(Object bean,String beanName);
  postProcessAfterInitialization(Object bean,String beanName);
 
+#ApplicationContext内建的事件有哪些?
+事件两大类: 
+容器事件ContextEvent   
+容器初始化 ContextRefreshEvent   所有的bean已经装载 beanPostProcessor被处理激活 单例bean已经实例化 容器可用
+启动事件 ContextStartedEvent  停止后重新启动
+容器关闭事件ContextClosedEvent   
+ContextStopedEvent
 
+RequestHandlerEvent  web相关事件
 

@@ -1,6 +1,7 @@
 package com.server;
 
 import com.server.config.ApplicationProperties;
+import com.server.event.MyContextEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
@@ -38,6 +39,8 @@ public class EurekaDemoApplication extends SpringBootServletInitializer {
         redisTemplate.convertAndSend("testTopic","Hello redis Message");
         //线程阻塞 等待消息接收后计数器值=0唤醒
         latch.await();*/
+        MyContextEvent event=new MyContextEvent(context);
+        event.getEvent();
 
     }
 

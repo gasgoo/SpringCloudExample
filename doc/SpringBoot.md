@@ -1,16 +1,22 @@
-java SPI 机制的使用
+java SPI 机制的使用 加载外部文件 
+
 
 #@SpringBootApplication代表的含义：
 
 1. 自动配置 @Confinguration IOS容器配置类 javaConfig配置类 注册bean定义
+
 2.扫包启动并加载到ios容器中 @ComponentScan 默认是同级包和下面的子包范围 也可以指定范围 basePackages=""
-3.@EnableAutoConfiguration
+ConfigurationClassPostPrccessor.class 处理自动扫描的逻辑
+
+3.@EnableAutoConfiguration  开启自动配置功能
 借助@Import的支持，收集和注册特定场景相关的bean定义。 所有符合自动配置条件的bean定义加载到IoC容器 
 当前路径下的所有子路径（@AutoConfigurationPackage） AutoConfigurationImportSelector 
 org.springframework.context.annotation.ImportSelector.selectImports返回String[] 数组内容为 
 所有需要动态注入IOC容器的Bean类全路径。 
+
+
 SpringFactoriesLoader实际过程; 从classpath中搜寻所有的META-INF/spring.factories配置
-====为什么配置了META-INF/spring.factories配置文件就可以加载？这里才是springboot实现starter的关键点
+##为什么配置了META-INF/spring.factories配置文件就可以加载？这里才是springboot实现starter的关键点
  springboot的这种配置加载方式是一种类SPI（Service Provider Interface）的方式， 
  SPI可以在META-INF/services配置接口扩展的实现类，springboot中原理类似，只是名称换成了spring.factories而已。
 
@@ -18,14 +24,22 @@ org.springframework.boot.autoconfigure.EnableAutoConfiguration=com.example.xxx.X
 
 这样在springboot启动时，才能正确加载自定义starter的配置 starter中简单来讲就是引入了一些相关依赖和一些初始化的配置
 
-SpringFactoriesLoader工厂加载机制 loadFactories加载
+第三方的jar 
+SpringFactoriesLoader工厂加载机制 loadFactories加载 把类Class加载到ioc容器。
 
 @Configuration @EnableAutoConfiguration @ComponentScan
 
-====SpringApplication的执行过程 SpringApplication.run();
+#SpringApplication的执行过程 SpringApplication.run();  启动容器、部署到tomcat、发布启动事件ApplicationStartedEvent
 
 SpringApplicationRunListener的environmentPrepared()的方法 
 创建ApplicationContext对象 查找 ApplicationContextInitializer.initialize();
+
+org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.createWebServer
+ServletWebServerFactory.getWebServer()
+OnRefresh方法冲 new tomact 然后阻塞 await()
+
+
+
 
 1）Springboot打成war包步骤；
 pom文件添加打包插件配置 添加外部的tomcat依赖jar，
@@ -40,7 +54,7 @@ pom文件添加打包插件配置 添加外部的tomcat依赖jar，
 
 4）SpringBoot添加拦截器的方式
 
-写一个拦截器
+#写一个拦截器
 写一个SpringBootConfiguration注解的 类继承 WebMvcConfigurationSupport重写 添加拦截器的方法。
 注册中心 eureka启动 @SpringCloudApplication @EnableEurekaServer 配置文件 eureka.server.instance eureka.client.registerWithEureka
 添加 服务提供者(客户端)到注册中心

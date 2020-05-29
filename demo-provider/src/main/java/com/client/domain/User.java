@@ -2,8 +2,6 @@ package com.client.domain;
 
 
 
-import com.common.model.BaseModel;
-
 import javax.persistence.*;
 
 /*jpa 使用实例  乐观锁的使用  @OptimisticLocking*/

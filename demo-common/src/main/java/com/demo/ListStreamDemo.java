@@ -79,6 +79,7 @@ public class ListStreamDemo {
         collect1.stream().forEach(System.out::println);
         //sorted方法用于对流中的元素进行排序
         List<Employee> sortList = employees.stream().sorted(Comparator.comparing(Employee::getSalary)).collect(Collectors.toList());
+        System.out.println("=====排序");
         sortList.stream().forEach(System.out::println);
         //方法串联
         List<String> names = employees.stream().filter(employee -> !employee.getDeptno().equals(20)).sorted(Comparator.comparing(Employee::getSalary).reversed()).map(employee -> employee.getName()).collect(Collectors.toList());

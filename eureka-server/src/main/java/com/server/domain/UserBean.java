@@ -1,11 +1,11 @@
 package com.server.domain;
 
-import com.common.model.BaseModel;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * @Date 2019/4/22 10:51
@@ -13,7 +13,7 @@ import java.io.Serializable;
 @Setter
 @Getter
 @ToString
-public class UserBean extends BaseModel implements Serializable {
+public class UserBean  implements Serializable {
 
     private Integer id;
 
@@ -27,6 +27,10 @@ public class UserBean extends BaseModel implements Serializable {
     private Integer age;
 
     private String address;
+
+    private Date createDate;
+
+    private Date updateDate;
 
 
     public UserBean(String mobile, String password,int age) {
