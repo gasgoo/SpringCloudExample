@@ -56,15 +56,6 @@ spring:
     view:
       prefix: /WEB-INF/jsp/
       suffix: .jsp
-  ##freeMarker配置
-  freemarker:
-    allow-request-override: false
-    cache: true
-    charset: UTF-8
-    content-type: text/html
-    expose-request-attributes: false
-    expose-session-attributes: false
-    expose-spring-macro-helpers: false
 ##RocketMq
 rocketmq:
   nameServer: 192.168.1.18:9876
