@@ -1,6 +1,8 @@
 package com.server.event;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.context.ApplicationEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Service;
@@ -17,6 +19,8 @@ public class MyContextEventListener implements ApplicationListener {
 
 
     @Override
+    @ConditionalOnBean
+    @ConditionalOnClass
     public void onApplicationEvent(ApplicationEvent applicationEvent) {
         if(applicationEvent instanceof MyContextEvent){
             MyContextEvent event= (MyContextEvent) applicationEvent;

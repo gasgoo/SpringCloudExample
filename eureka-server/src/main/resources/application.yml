@@ -56,7 +56,15 @@ spring:
     view:
       prefix: /WEB-INF/jsp/
       suffix: .jsp
-
+  ##freeMarker配置
+  freemarker:
+    allow-request-override: false
+    cache: true
+    charset: UTF-8
+    content-type: text/html
+    expose-request-attributes: false
+    expose-session-attributes: false
+    expose-spring-macro-helpers: false
 ##RocketMq
 rocketmq:
   nameServer: 192.168.1.18:9876
@@ -68,7 +76,7 @@ eureka:
   server:
     ##节点超时时间 毫秒
     peer-node-read-timeout-ms: 3000
-    #是否开启自动我保护 默认 true 节点失效自动删除 负载均衡使用
+    #是否开启自动我保护 默认 true 节点失效90秒内自动删除 如果关闭 则快速关闭 需要90秒
     enable-self-preservation: false
   ##实例ID
   instance:
@@ -85,6 +93,11 @@ eureka:
     ##注册中心默认地址
     serviceUrl:
       defaultZone: http://127.0.0.1:8761/eureka/
+
+#ribbon
+ribbon:
+  eureka:
+    enabled: true
 
 mybatis:
   typeAliasesPackage: com.server.domain

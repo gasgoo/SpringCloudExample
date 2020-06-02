@@ -32,28 +32,27 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
         </dependency>
-        <!--熔断器-->
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-netflix-hystrix</artifactId>
-        </dependency>
+
         <!--服务提供者依赖-->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
         </dependency>
+
+
+
         <!--SpringCloud end-->
         <dependency>
             <groupId>com.cloud</groupId>
             <artifactId>demo-common</artifactId>
             <version>${demo.version}</version>
         </dependency>
-       <!-- <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-webflux</artifactId>
-            <version>RELEASE</version>
-            <scope>compile</scope>
-        </dependency>-->
+        <!-- <dependency>
+             <groupId>org.springframework</groupId>
+             <artifactId>spring-webflux</artifactId>
+             <version>RELEASE</version>
+             <scope>compile</scope>
+         </dependency>-->
         <!--mybatis  集成druid，使用连接池-->
         <dependency>
             <groupId>org.mybatis.spring.boot</groupId>
@@ -74,6 +73,7 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-quartz</artifactId>
+            <scope>provided</scope>
         </dependency>
         <!--web jsp-->
         <dependency>
@@ -86,6 +86,12 @@
             <artifactId>jstl</artifactId>
         </dependency>
         <!--wen jspEnd-->
+        <!--FreeMarker-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-freemarker</artifactId>
+        </dependency>
+
     </dependencies>
 
 
@@ -119,6 +125,9 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <mainClass>com.server.EurekaDemoApplication</mainClass>
+                </configuration>
             </plugin>
             <plugin>
                 <artifactId>maven-resources-plugin</artifactId>
@@ -145,7 +154,24 @@
                     <skipTests>true</skipTests>
                 </configuration>
             </plugin>
-
+            <!--docker插件配置-->
+           <!-- <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <version>0.4.13</version>
+                <configuration>
+                    <imageName>eurekaServer</imageName>
+                    <dockerDirectory>${project.basedir}/src/main/docker</dockerDirectory>
+                    <resources>
+                        <resource>
+                            <targetPath>/</targetPath>
+                            <directory>${project.build.directory}</directory>
+                            <include>${project.build.finalName}.jar</include>
+                        </resource>
+                    </resources>
+                </configuration>
+            </plugin>-->
+            <!--docker插件配置 end-->
         </plugins>
     </build>
     <!--end-->

@@ -2,8 +2,10 @@
 eureka:
   client:
     serviceUrl:
-      ##注册中心地址
+    ##注册中心地址
       defaultZone: http://localhost:8761/eureka/
+    #客户端拉取服务端注册列表的间隔
+    registry-fetch-interval-seconds: 30
   server:
     ##节点超时时间 毫秒
     peer-node-read-timeout-ms: 3000
@@ -13,6 +15,10 @@ eureka:
     #是否以 IP 注册到注册中心
     prefer-ip-address: true
     instance-id: ${spring.cloud.client.ip-address}:${server.port}
+    #客户端发送给注册中心的心跳间隔时间
+    lease-renewal-interval-in-seconds: 30
+    #超过90秒还没有给注册中心发送第二次心跳则剔除下线
+    lease-expiration-duration-in-seconds: 90
 
 
 server:

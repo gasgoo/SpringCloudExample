@@ -7,22 +7,25 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * @Author gg.rao
  * @Date 2019/3/21 19:53
  */
 @RestController
 public class HelloController {
-    private static Logger log= LoggerFactory.getLogger(HelloController.class);
+    private static Logger log = LoggerFactory.getLogger(HelloController.class);
 
     @Value("${server.port}")
     private int port;
 
 
-        @RequestMapping("hello")
-        String hello() {
-            log.info("log working........");
-            return "Hello World!"+port;
-        }
+    @RequestMapping("hello")
+    public String hello() {
+        log.info("log working........");
+        return "Hello World!" + port;
+    }
+
+
+
+
 
 
 }

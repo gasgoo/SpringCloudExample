@@ -1,5 +1,7 @@
 java SPI 机制的使用 加载外部文件 
 
+#SpringBoot容器对象
+AnnotationConfigServletWebServerApplicationContext
 
 #@SpringBootApplication代表的含义：
 
@@ -18,6 +20,8 @@ org.springframework.context.annotation.ImportSelector.selectImports返回String[
 SpringFactoriesLoader实际过程; 从classpath中搜寻所有的META-INF/spring.factories配置
 ##为什么配置了META-INF/spring.factories配置文件就可以加载？这里才是springboot实现starter的关键点
  springboot的这种配置加载方式是一种类SPI（Service Provider Interface）的方式， 
+ getSpringFactoriesInstances 加载spi配置文件中的配置类
+ 
  SPI可以在META-INF/services配置接口扩展的实现类，springboot中原理类似，只是名称换成了spring.factories而已。
 
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=com.example.xxx.Xxx 属性 key value配置方式 key是接口全名 value是接口的实现类全名称
@@ -28,6 +32,9 @@ org.springframework.boot.autoconfigure.EnableAutoConfiguration=com.example.xxx.X
 SpringFactoriesLoader工厂加载机制 loadFactories加载 把类Class加载到ioc容器。
 
 @Configuration @EnableAutoConfiguration @ComponentScan
+
+#自定义starter启动器
+
 
 #SpringApplication的执行过程 SpringApplication.run();  启动容器、部署到tomcat、发布启动事件ApplicationStartedEvent
 
@@ -54,18 +61,20 @@ pom文件添加打包插件配置 添加外部的tomcat依赖jar，
 
 4）SpringBoot添加拦截器的方式
 
-#写一个拦截器
+#拦截器案例
 写一个SpringBootConfiguration注解的 类继承 WebMvcConfigurationSupport重写 添加拦截器的方法。
-注册中心 eureka启动 @SpringCloudApplication @EnableEurekaServer 配置文件 eureka.server.instance eureka.client.registerWithEureka
-添加 服务提供者(客户端)到注册中心
-@EnableDiscoveryClient  开启服务发现
 
-feign 服务消费者 自带负载均衡功能
-@EnableFeignClients 声名使用openFeign
-Hystrix 组件，当特定的服务不可用达到一个阈值（Hystrix 默认 5 秒 20 次）
+#Springboot整合https   生产环境需要申请
+1. 生成本地安全证书  cd 到jdk的 bin目录执行命令
+keytool -genkey -alias spring -keypass 1123456 -keyalg RSA -keySIZE 1024 -validity 365 -keystore
+E:/springboot.keystore -storepass 123456
 
-Spring cloud Config   @RefeshScope 自动刷新配置
-Spring cloud bus 消息总线  实现在集群中传播一些状态变化
-常和 config一起使用实现热部署  如配置自动刷新
-Actuator 监控微服务
-研究微服务链路追踪 zipKin
+2. application.yml文件中配置
+  server.ssl.key-password=123456
+  server.ssl.key-store=path
+  server.ssl.key-alias=spring
+
+# atomikos  操作多个数据源 分布式事物
+
+
+

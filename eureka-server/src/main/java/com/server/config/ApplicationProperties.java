@@ -7,7 +7,7 @@ import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.stereotype.Component;
 
 /**
- * @Author gg.rao
+ * @Author 读取配置文件项映射到对象属性中
  * @Date 2019/3/26 11:05
  */
 

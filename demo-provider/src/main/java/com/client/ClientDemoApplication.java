@@ -5,7 +5,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.boot.SpringApplication;
 import org.springframework.cloud.client.SpringCloudApplication;
+import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.cloud.netflix.hystrix.EnableHystrix;
 import org.springframework.cloud.netflix.ribbon.RibbonClient;
 import org.springframework.core.env.Environment;
 
@@ -20,6 +22,7 @@ import java.net.UnknownHostException;
 @SpringCloudApplication
 @EnableDiscoveryClient  //开启服务发现
 @Slf4j
+@EnableHystrix
 public class ClientDemoApplication {
 
     public static void main(String[] args) {
