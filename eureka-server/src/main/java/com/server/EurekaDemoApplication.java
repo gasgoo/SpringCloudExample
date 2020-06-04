@@ -26,7 +26,6 @@ import java.util.concurrent.CountDownLatch;
 @EnableEurekaServer
 @EnableCaching
 @EnableScheduling
-@EnableHystrixDashboard
 @EnableHystrix
 public class EurekaDemoApplication extends SpringBootServletInitializer {
 

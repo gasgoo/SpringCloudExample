@@ -2,6 +2,7 @@ package com.thread;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * @Date 2019/12/26 15:35
@@ -16,21 +17,12 @@ public class ThreadLocalDemo implements Runnable {
  public  static  ThreadLocal threadLocal=new ThreadLocal();
 
  public static ExecutorService executorService= Executors.newFixedThreadPool(5);
+
     public static void main(String[] args) throws InterruptedException {
-        System.out.println("main start");
-        inheritableThreadLocal.set("父线程变量赋值");
         ThreadLocalDemo demo=new ThreadLocalDemo();
-        Thread t=new Thread(demo);
-        t.start();
-        System.out.println("runing useMemery:"+ (Runtime.getRuntime().freeMemory()/1024/1024)+"m");
-        Thread.sleep(1000);
-        Thread t1=new Thread(demo);
-        t1.start();
-        for(int i=0;i<600;i++){
-            executorService.execute(t1);
+        for(int i=0;i<=3;i++){
+            System.out.println(threadLocal.get());
         }
-        System.out.println("main end useMemery:"+ (Runtime.getRuntime().freeMemory()/1024/1024)+"m");
-        threadLocal.remove();
 
     }
     static class localVariable{
@@ -45,5 +37,11 @@ public class ThreadLocalDemo implements Runnable {
         threadLocal.set(new localVariable());
         System.out.println(threadLocal.get());
 
+    }
+
+    public void test(){
+        Integer reTryTimes=new Integer(1);
+        reTryTimes++;
+        //System.out.println("======="+threadLocal.get());
     }
 }

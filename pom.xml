@@ -13,6 +13,7 @@
         <module>demo-gateway</module>
         <module>demo-feign</module>
         <module>demo-common</module>
+        <module>demo-adminUI</module>
     </modules>
 
     <properties>
@@ -79,12 +80,6 @@
             <groupId>org.databene</groupId>
             <artifactId>contiperf</artifactId>
             <version>2.1.0</version>
-            <scope>test</scope>
-        </dependency>
-        <!--test mock-->
-        <dependency>
-            <groupId>org.springframework.restdocs</groupId>
-            <artifactId>spring-restdocs-mockmvc</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>

@@ -2,6 +2,7 @@ package com.server.service.impl;
 
 import com.common.utils.SnowFlakeUtil;
 import com.google.common.base.Strings;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.server.annotation.WebLog;
 import com.server.dao.NewsUserDao;
 import com.server.domain.UserBean;
@@ -10,6 +11,8 @@ import com.server.web.VM.LoginVO;
 import com.common.model.BaseResponse;
 import com.common.model.Constants;
 import com.common.service.BaseService;
+import lombok.extern.slf4j.Slf4j;
+import org.assertj.core.util.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,6 +28,7 @@ import java.util.Objects;
  */
 @Service
 @Transactional
+@Slf4j
 public class UserService extends BaseService  {
 
 
@@ -68,8 +72,14 @@ public class UserService extends BaseService  {
         }
     }
 
+    @HystrixCommand(groupKey = "getAllUser",commandKey = "getAllUser",fallbackMethod ="getUsersBack")
     public List<UserBean> getUsers() {
         return newsUserDao.getAllUsers();
+    }
+
+    public List<UserBean> getUsersBack(){
+        log.info("======getAllUser服务降级了==============");
+        return null;
     }
 
     public UserBean selectByMobile(String mobile){

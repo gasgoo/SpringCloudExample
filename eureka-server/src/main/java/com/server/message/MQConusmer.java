@@ -23,7 +23,7 @@ public class MQConusmer extends AbstractMq {
 
     private static  DefaultMQPushConsumer consumer=null;
 
-    //@PostConstruct
+    @PostConstruct
     public void defaultMqPushConsumer(){
         consumer =new DefaultMQPushConsumer(consumerGroup);
         consumer.setNamesrvAddr(nameServer);

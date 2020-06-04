@@ -61,7 +61,7 @@ public class MQProducer extends AbstractMq{
         log.info(">>>>>>>发送消息开始>>>>>>>>");
         producer.send(message);
         stopWatch.stop();
-        log.info("----------------发送消息完成耗时：" + stopWatch.getTotalTimeMillis());
+        log.info("----------------发送消息完成耗时：" + stopWatch.getTotalTimeMillis() +"秒");
         } catch (Exception e) {
             e.printStackTrace();
         }

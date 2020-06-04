@@ -56,23 +56,20 @@ fetchRegistry 是否去同步其他服务
  区域感知策略
 原理： 服务发现-能够自动发现所依赖的服务列表 服务监听-能够检测到失效的服务，并剔除失效的服务 负载策略选择-
 
-#Hystrix； 服务隔离 降级 熔断 监控   信号量、线程池
-
+#Hystrix 服务隔离 降级 熔断 监控   信号量、线程池
 @EnableCircuitBreaker 启用断路器
+ 一段时间内请求次数达到20次(默认)请求失败率超过50% 则触发熔断开启，之后的请求没法到达后续的接口。
+ 熔断器处于半开状态。 之后请求成功了则变为关闭状态。
 
-
-  HystrixCommand或HystrixObservableCommand 类  
+HystrixCommand或HystrixObservableCommand 类  
   每个服务依赖关系维护一个小的线程池或信号量，已满则拒绝父亲请求。
   调用超时则降级处理。
   @HystrixCommand()
 服务隔离解决的问题--大并发情况下防止某个节点问题影响整个调用链条，从而设置每个接口同时可接收的线程请求数。
 服务降级--配置 fallbackMethod= 回调方法，方法中根据实际业务定义具体的降级逻辑。 异常的友好封装；降级方法也是有线程池处理的。
+服务熔断-- 开启状态=请求被拦截了走降级方法、半开状态=服务不能达到后续接口，一段时间后在请求、关闭状态=请求可以到后续接口
 
-服务熔断--
-
-  
-  
-​Feign： 声明式htp客户端 与 Ribbon和Hystrix无缝集成，
+#feign   声明式htp客户端 与 Ribbon和Hystrix无缝集成 再封装 
 
 @EnableFeignClients
 spring-cloud-starter-feign依赖和@EnabledFeignClients注解，您可以使用一整套负载均衡器、断路器和HTTP客户端，并附带一个合理的的默认配置。
@@ -82,6 +79,15 @@ public interface StatisticsServiceClient {
 @RequestMapping(method = RequestMethod.PUT, value = "/statistics/{accountName}", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
 void updateStatistics(@PathVariable("accountName") String accountName, Account account);
 } 
+#分布式配置中心
+加密接口： http://localhost:8761/encrypt?data=123456 
+解密接口：http://localhost:8761/decrypt
+SpringCloudConfig 不能动态刷新配置，需要手动调用/actuator/refresh接口，而且多台服务需要调用多次。
+故 SpringCloud有bus消息总线的组件 用来发布订阅配置更新。
+@RefreshScope注解动态刷新配置的原理是 每次扫描到有这个注解的类后重新实例化一个bean重新给属性赋值，从而实现
+对象属性更新。  refresh作用域 自定义作用域scope
+
+
 ​ETCD: etcd作为一个受到ZooKeeper与doozer启发而催生的项目，除了拥有与之类似的功能外，
 更专注于以下四点。 
 简单：基于HTTP+JSON的API让你用curl就可以轻松使用。

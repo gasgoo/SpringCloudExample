@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * @Author gg.rao
  * @Date 2019/4/1 20:57
  */
-@FeignClient(value = "EUREKASERVER",fallback = ApiServiceError.class)
+@FeignClient(value = "EUREKASERVER",fallback = ApiServiceError.class,fallbackFactory=ApiServiceFallbackFactory.class)
 public interface ApiService {
 
         @RequestMapping(value = "/api/hello",method = RequestMethod.GET)

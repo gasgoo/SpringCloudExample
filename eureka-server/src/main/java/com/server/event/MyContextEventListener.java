@@ -27,7 +27,7 @@ public class MyContextEventListener implements ApplicationListener {
             log.info("自定义事件监听MyContextEvent:"+event.getEvent());
 
         }else{
-            log.info("其他事件:"+ applicationEvent);
+            log.debug("其他事件:"+ applicationEvent);
         }
 
     }

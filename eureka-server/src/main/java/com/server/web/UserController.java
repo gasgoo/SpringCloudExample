@@ -3,6 +3,7 @@ package com.server.web;
 import com.common.model.Constants;
 import com.common.utils.JSONUtil;
 import com.google.common.base.Strings;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.server.annotation.WebLog;
 import com.server.domain.UserBean;
 import com.server.service.impl.UserService;
@@ -104,6 +105,7 @@ public class UserController {
 
         return "userLists";
     }
+
 
 
 }
