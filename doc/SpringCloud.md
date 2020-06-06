@@ -31,7 +31,10 @@ Spring Cloud Config 是分布式水平扩展集中式配置服务，使用本地
   服务消费者 : 从注册中心拉取服务提供列表（30秒更新） 缓存到本地 然后和服务提供者直接连接。
    
   服务调用 默认轮询方式。
-#高可用流程:
+#高可用流程:   注册、续约心跳、剔除下线、状态更新
+  客户端启动监听容器启动事件，开始客户端注册流程，JAX-SR规范http请求eureka服务端，把客户端节点保存到服务端的Map中并把节点复制到其他服务端节点。
+  
+  
   多个eureka之间两两相互注册
   provider启动都是向一个注册中心注册，eureka会在多个eurekaServer中复制privoder信息;
   
@@ -46,6 +49,8 @@ fetchRegistry 是否去同步其他服务
 它与Spring Cloud和服务发现是集成在一起的，可开箱即用。Eureka客户端提供了可用服务器的动态列表，
 因此Ribbon可以在它们之间进行平衡@LoanBalanced修饰的RestTemplate 实现客户端负载均衡    LoanBalancerClient类
 通过LoadBalancerInterceptor拦截器对RestTemplate请求拦截，然后利用SpringCloud的负载均衡器将服务名为host的俩转换成具体的服务实例地址。
+容器启动的时候注册了一个RibbonClientConfiguration类，该类中的ribbonLoanBalancer方法
+返回一个负债均衡的ILoadBalanceer类型的实例对象ZoneAwareLoadBalancer开始请求行为。
 负载均衡策略：
  随机选择
  线性轮询方式选择。如循环大于10次没有可用则告警。
