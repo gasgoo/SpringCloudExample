@@ -7,7 +7,6 @@ import io.netty.buffer.Unpooled;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.embedded.EmbeddedChannel;
-import org.apache.commons.lang3.RandomUtils;
 import org.junit.Test;
 
 import java.io.UnsupportedEncodingException;

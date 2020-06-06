@@ -20,6 +20,11 @@ eureka:
     #超过90秒还没有给注册中心发送第二次心跳则剔除下线
     lease-expiration-duration-in-seconds: 90
 
+##RocketMq
+rocketmq:
+  nameServer: 192.168.1.18:9876
+  producer:
+    group: eurekaServer-group
 
 server:
   port: 8762
@@ -33,28 +38,6 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     # 使用druid数据源
     type: com.alibaba.druid.pool.DruidDataSource
-
-  jpa:
-    open-in-view: false
-    database: MYSQL
-    show-sql: true
-    hibernate:
-      namingStrategy: org.hibernate.cfg.ImprovedNamingStrategy
-      ddl-auto: update
-      properties:
-        hibernate:
-          dialect: org.hibernate.dialect.MySQL5Dialect
-  #redis配置
-  redis:
-    host: 127.0.0.1
-    port: 6379
-    #password: root
-    database: 9
-#RocketMq
-rocketmq:
-  nameServer: 192.168.1.18:9876
-  producer:
-    group: demo-provider-group
 
 #adminServer的配置
 management:

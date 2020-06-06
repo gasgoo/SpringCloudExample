@@ -47,20 +47,6 @@
     </dependencyManagement>
 
     <dependencies>
-        <!--熔断器-->
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-netflix-hystrix</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-netflix-hystrix-dashboard</artifactId>
-        </dependency>
-        <!--监控的依赖jar-->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-actuator</artifactId>
-        </dependency>
         <!--单元测试配置-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -87,22 +73,6 @@
             <artifactId>junit</artifactId>
             <version>4.12</version>
         </dependency>
-        <!-- redis-->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-redis</artifactId>
-        </dependency>
-        <!--session 共享-->
-        <!--<dependency>
-            <groupId>org.springframework.session</groupId>
-            <artifactId>spring-session-data-redis</artifactId>
-        </dependency>-->
-        <!--redisson分布式锁-->
-        <dependency>
-            <groupId>org.redisson</groupId>
-            <artifactId>redisson-all</artifactId>
-            <version>3.3.1</version>
-        </dependency>
         <!--fast json-->
         <dependency>
             <groupId>com.alibaba</groupId>
@@ -126,12 +96,7 @@
             <artifactId>lombok</artifactId>
             <optional>true</optional>
         </dependency>
-        <!--Spring Boot整合Rocketmq的依赖-->
-        <dependency>
-            <groupId>org.apache.rocketmq</groupId>
-            <artifactId>rocketmq-spring-boot-starter</artifactId>
-            <version>2.0.3</version>
-        </dependency>
+
 
 
 

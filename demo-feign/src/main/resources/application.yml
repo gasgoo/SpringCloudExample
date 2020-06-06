@@ -32,20 +32,3 @@ management:
   endpoint:
     health:
       show-details: ALWAYS
-
-  jpa:
-    open-in-view: false
-    database: MYSQL
-    show-sql: true
-    hibernate:
-      namingStrategy: org.hibernate.cfg.ImprovedNamingStrategy
-      ddl-auto: update
-      properties:
-        hibernate:
-          dialect: org.hibernate.dialect.MySQL5Dialect
-  #redis配置
-  redis:
-    host: 127.0.0.1
-    port: 6379
-    #password: root
-    database: 2
