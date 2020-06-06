@@ -24,7 +24,7 @@ import java.util.concurrent.CountDownLatch;
 public class RedisConfig extends CachingConfigurerSupport {
 
     /*redis连接工厂*/
-    //@Bean
+    @Bean
     public RedisTemplate redisTemplate(RedisConnectionFactory connectionFactory) {
         RedisTemplate template = new RedisTemplate();
         template.setConnectionFactory(connectionFactory);

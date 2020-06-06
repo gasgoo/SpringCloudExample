@@ -24,6 +24,14 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     # 使用druid数据源
     type: com.alibaba.druid.pool.DruidDataSource
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: ALWAYS
 
   jpa:
     open-in-view: false
@@ -37,9 +45,7 @@ spring:
           dialect: org.hibernate.dialect.MySQL5Dialect
   #redis配置
   redis:
-    #host: 127.0.0.1
-    host: 192.168.1.9
+    host: 127.0.0.1
     port: 6379
     #password: root
-    password: magfin2018
-    database: 9
+    database: 2

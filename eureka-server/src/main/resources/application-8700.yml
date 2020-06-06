@@ -1,10 +1,8 @@
 
-server:
-  port: 8761
-
 tomcat:
   max-threads: 1000
   connection-timeout: 5000
+
 #adminServer的配置
 management:
   endpoints:
@@ -18,6 +16,8 @@ management:
 spring:
   application:
     name: eurekaServer
+  profiles:
+    active: 8700
   datasource:
     url: jdbc:mysql://localhost:3306/boottest?useUnicode=true&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&characterEncoding=UTF-8&serverTimezone=GMT
     username: root
@@ -63,6 +63,7 @@ spring:
     view:
       prefix: /WEB-INF/jsp/
       suffix: .jsp
+
 ##RocketMq
 rocketmq:
   nameServer: 192.168.1.18:9876
@@ -90,7 +91,7 @@ eureka:
       enabled: true
     ##注册中心默认地址
     serviceUrl:
-      defaultZone: http://127.0.0.1:8700/eureka/,http://127.0.0.1:8761/eureka/
+      defaultZone: http://127.0.0.1:8761/eureka/
 
 #ribbon
 ribbon:

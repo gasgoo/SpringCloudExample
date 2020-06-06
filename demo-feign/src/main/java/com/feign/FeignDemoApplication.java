@@ -12,7 +12,6 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
  */
 @SpringCloudApplication
 @EnableFeignClients
-@EnableHystrixDashboard
 public class FeignDemoApplication {
 
     public static void main(String[] args) {

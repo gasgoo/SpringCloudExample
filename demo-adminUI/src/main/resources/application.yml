@@ -10,7 +10,11 @@ logging:
 eureka:
   client:
     serviceUrl:
+      #http://localhost:8761/eureka/
       defaultZone: http://localhost:8761/eureka/
+  instance:
+    metadata-map:
+      user:
 
 
 
@@ -26,18 +30,22 @@ spring:
     admin:
       client:
         url: "http://localhost:8766"
+      monitor:
+        read-timeout: 20000s
+
+#adminServer的配置
 management:
-  endpoint:
+  endpoints:
     web:
       exposure:
-        include: "*"
-
+        include: '*'
+  endpoint:
+    health:
+      show-details: ALWAYS
 
   #redis配置
   redis:
-    #host: 127.0.0.1
-    host: 192.168.1.9
+    host: 127.0.0.1
     port: 6379
     #password: root
-    password: magfin2018
     database: 9

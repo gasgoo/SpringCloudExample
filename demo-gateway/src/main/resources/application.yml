@@ -12,6 +12,15 @@ eureka:
     serviceUrl:
       defaultZone: http://localhost:8761/eureka/,http://localhost:8700/eureka/
 
+#adminServer的配置
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: ALWAYS
 
 spring:
   application:
@@ -47,9 +56,7 @@ spring:
       #        - After=2020-02-20T17:42:47.789+08:00
   #redis配置
   redis:
-    #host: 127.0.0.1
-    host: 192.168.1.9
+    host: 127.0.0.1
     port: 6379
     #password: root
-    password: magfin2018
     database: 9

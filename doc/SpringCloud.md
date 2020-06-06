@@ -87,6 +87,24 @@ SpringCloudConfig 不能动态刷新配置，需要手动调用/actuator/refresh
 @RefreshScope注解动态刷新配置的原理是 每次扫描到有这个注解的类后重新实例化一个bean重新给属性赋值，从而实现
 对象属性更新。  refresh作用域 自定义作用域scope
 
+#权限认证    
+认证模式：认证服务器审核客户端资质 得到 APPId appSecurt  
+token获取方式
+ 1. 客户端  带上 APPId appSecurt 和scope
+ 2. 密码  通过用户名和密码获取token 和用户绑定关系。 比客户端的认证模式粒度更细
+ 3. 授权码  根据用户名和密码获取授权码code; 然后再根据授权码code获取token。  比上面两种方式安全性更高。
+ 
+OAuth2.0 token      
+1.客户端——getToken——认证服务器——返回token;
+2. 客户端带上token请求网关-网关把请求路由到下游系统带上token
+3. 下游系统把token提交到认证服务器认证token,认证通过返回用户信息对象 Principal；check接口放行。
+#jwt  json web token---token 信息带上了用户信息
+无状态的权限认证方式、
+
+
+
+
+
 
 ​ETCD: etcd作为一个受到ZooKeeper与doozer启发而催生的项目，除了拥有与之类似的功能外，
 更专注于以下四点。 
