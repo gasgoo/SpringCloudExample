@@ -15,8 +15,11 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
- * Stream流操作  jdk1.8的新特性：lambda表达式 函数式编程  函数式接口@FunctionalInterface  方法或构造函数引用 ::
+ * Stream流操作  jdk1.8的新特性：lambda表达式 函数式编程
+ * 函数式接口@FunctionalInterface  Predicate   Function<T,R>
+ * 方法或构造函数引用 ::
  * Date API更新 如 Instant LocalDate
+ * 原子操作类 LongAddr  DoubleAddr
  * @Date 2019/8/12 19:26
  */
 public class ListStreamDemo {

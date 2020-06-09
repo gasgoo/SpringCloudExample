@@ -48,9 +48,10 @@ fetchRegistry 是否去同步其他服务
  new RestTemplate() .forEntity()  .postForObject()
 它与Spring Cloud和服务发现是集成在一起的，可开箱即用。Eureka客户端提供了可用服务器的动态列表，
 因此Ribbon可以在它们之间进行平衡@LoanBalanced修饰的RestTemplate 实现客户端负载均衡    LoanBalancerClient类
-通过LoadBalancerInterceptor拦截器对RestTemplate请求拦截，然后利用SpringCloud的负载均衡器将服务名为host的俩转换成具体的服务实例地址。
+>>>通过LoadBalancerInterceptor拦截器对RestTemplate请求拦截，然后利用SpringCloud的负载均衡器将服务名为host的俩转换成具体的服务实例地址。
 容器启动的时候注册了一个RibbonClientConfiguration类，该类中的ribbonLoanBalancer方法
 返回一个负债均衡的ILoadBalanceer类型的实例对象ZoneAwareLoadBalancer开始请求行为。
+>>>
 负载均衡策略：
  随机选择
  线性轮询方式选择。如循环大于10次没有可用则告警。
@@ -74,16 +75,23 @@ HystrixCommand或HystrixObservableCommand 类
 服务降级--配置 fallbackMethod= 回调方法，方法中根据实际业务定义具体的降级逻辑。 异常的友好封装；降级方法也是有线程池处理的。
 服务熔断-- 开启状态=请求被拦截了走降级方法、半开状态=服务不能达到后续接口，一段时间后在请求、关闭状态=请求可以到后续接口
 
+扫描有HystrixCommand注解的方法的类生成Aop切面增强，最总再切面中完成拦截逻辑处理。 HystrixCommandAspect
+
 #feign   声明式htp客户端 与 Ribbon和Hystrix无缝集成 再封装 
 
 @EnableFeignClients
 spring-cloud-starter-feign依赖和@EnabledFeignClients注解，您可以使用一整套负载均衡器、断路器和HTTP客户端，并附带一个合理的的默认配置。
-
 @FeignClient(value = "statistics-service")
 public interface StatisticsServiceClient {
 @RequestMapping(method = RequestMethod.PUT, value = "/statistics/{accountName}", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
 void updateStatistics(@PathVariable("accountName") String accountName, Account account);
 } 
+>>>@EnableFeignClients 注解中引入了FeignClientsRegistrar类，构造方法中注入BeanDefinition
+扫描有@FeignClient注解的接口 最终 FeignClientFactoryBean类中生成有注解接口的代理类 getObject方法
+代理实例直接调用到 HystrixInvoacationHandler的invoke()  invoke中会有负载均衡的逻辑处理，从服务列表中选择一个服务调用。
+>>>
+
+
 #分布式配置中心
 加密接口： http://localhost:8761/encrypt?data=123456 
 解密接口：http://localhost:8761/decrypt

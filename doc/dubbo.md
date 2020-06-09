@@ -30,7 +30,7 @@ onreturn
 onthrow
 回声测试  扫描一遍服务是否都已经就绪。
 
-SPI机制 加载实现类的方式
+@SPI机制 加载实现类的方式
 @Activate(group = "provider", value = "xxx") 自动激活的方法
 @Adaptive({"server", "transport"}) 自动适应方式
 动态生成一个类 javassist.ClassPool
@@ -46,10 +46,13 @@ getExtension(pt,property)
 3. @EnableDubbo注解引入了 @EnableDubboConfig  、@DubboComponentScan
 @EnableDubboConfig
 @DubboComponentScan扫描所有 @Service  @Reference注解
-ServiceAnnotationBeanPostProcessor.class解析扫描 @Service注解的类注入IOC容器然后对外暴露成服务。
-ReferenceANnotationBeanPostProcessor.class @Reference 生成代理对象，把带有该注解的所有属性字段封装成对象。
+ServiceAnnotationBeanPostProcessor.class解析扫描 @Service注解的类注入IOC容器然后对外暴露成服务包装成Invoker。
+export(invoker(ref,interface,url))
+ReferenceAnnotationBeanPostProcessor.class @Reference 生成代理对象，把带有该注解的所有属性字段封装成对象。
+reference--invoker对象--
 然后把代理对象注入带有注解的属性对象中。
 
+proxy--invoker ---protocol--invoker---ref
 #serviceBean和referenceBean如何实现联通的?
 
 InitializingBean.afterPropertiesSet()方法中完成服务暴露

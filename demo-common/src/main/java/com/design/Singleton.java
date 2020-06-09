@@ -25,6 +25,13 @@ public class Singleton implements Runnable {
     }
 
 
+     static  class inner{
+        private static Singleton instance=new Singleton();
+        public static Singleton getInstance(){
+            return instance;
+        }
+    }
+
     public static void main(String[] args) {
         Singleton s1 = new Singleton();
         Singleton s2 = new Singleton();
@@ -34,6 +41,9 @@ public class Singleton implements Runnable {
         t1.start();
         t2.start();
         t3.start();
+        Singleton ss=Singleton.inner.getInstance();
+        Singleton ss1=Singleton.inner.getInstance();
+        System.out.println(ss1+"inner class======"+ss.toString());
 
     }
 
