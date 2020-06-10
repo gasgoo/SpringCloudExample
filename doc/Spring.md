@@ -228,7 +228,7 @@ DispatcherServlet机制和原理
 参数解析器 HandlerMethodArgumentResolver 很多不同的参数解析实例
 
 
-#如何把一个对象bean交给Spring管理
+#如何把一个对象交给Spring管理
 1.@Bean
 2.FactoryBean
 3. beanFactory.registerSingleton()

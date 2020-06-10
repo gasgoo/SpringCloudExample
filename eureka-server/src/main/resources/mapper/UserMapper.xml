@@ -13,6 +13,11 @@
         <result column="update_date" property="updateDate" jdbcType="INTEGER" />
 
     </resultMap>
+
+    <!--开启二级缓存-->
+    <cache eviction="LRU" flushInterval="60000" size="512" readOnly="true"></cache>
+
+
     <sql id="Base_Column_List" >
         id,uid,user_name, mobile, password,age,address,create_date,update_date
     </sql>
@@ -47,8 +52,22 @@
         <include refid="Base_Column_List" />
         from news_user
     </select>
-   <insert id="add" parameterType="com.server.domain.UserBean" >
+    <!--
+        <selectKey keyProperty="id" order="AFTER" resultType="int">
+          select LAST_INSERT_ID();
+      </selectKey>
+    -->
+   <insert id="add" parameterType="com.server.domain.UserBean" keyProperty="id"  useGeneratedKeys="true" >
         insert into news_user ( uid,user_name,mobile, password,age,address,create_date,update_date)
         values (#{uid,jdbcType=VARCHAR},#{userName,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},#{age,jdbcType=INTEGER},#{address,jdbcType=VARCHAR},now(),now())
     </insert>
+    <!--批量操作-->
+    <insert id="addBatch" parameterType="com.server.domain.UserBean" >
+        insert into news_user ( uid,user_name,mobile, password,age,address,create_date,update_date)
+        values
+        <foreach collection="list" separator="," item="userBean">
+            (#{uid,jdbcType=VARCHAR},#{userName,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},#{age,jdbcType=INTEGER},#{address,jdbcType=VARCHAR},now(),now())
+        </foreach>
+    </insert>
+
 </mapper>
