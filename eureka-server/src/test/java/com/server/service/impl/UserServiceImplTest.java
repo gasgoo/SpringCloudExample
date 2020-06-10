@@ -41,9 +41,9 @@ public class UserServiceImplTest {
         UserBean userBean=new UserBean();
         userBean.setMobile("13817569208");
         userBean.setPassword("testSpringBoot");
+        userBean.setUserName("username");
         boolean b = userService.addUser(userBean);
-        System.out.println("=="+b);
-        System.out.println(redisUtils.get("testKey"));
+        System.out.println("=="+b +"    id:"+userBean.getId());
     }
 
     @Test
@@ -58,8 +58,6 @@ public class UserServiceImplTest {
     public void testGetAll(){
         List<UserBean> users = userService.getUsers();
         System.out.println("用户数:"+users.size());
-        boolean userCount = redisUtils.set("userCount", users.size());
-        System.out.println("===="+userCount);
     }
 
 }
