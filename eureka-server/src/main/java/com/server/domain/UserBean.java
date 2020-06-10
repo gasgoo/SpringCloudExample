@@ -1,5 +1,6 @@
 package com.server.domain;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -13,6 +14,7 @@ import java.util.Date;
 @Setter
 @Getter
 @ToString
+@Data
 public class UserBean  implements Serializable {
 
     private Integer id;

@@ -225,7 +225,7 @@ DispatcherServlet机制和原理
 #Springmvc end
 
 
-参数解析器 HandlerMethodArgumentResolver 很多不同的参数解析实例
+参数解析器 HandlerMethodArgumentResolver 很多不同的参数解析实例、针对每种注解的入参方式都有对一个的参数解析器。
 
 
 #如何把一个对象bean交给Spring管理

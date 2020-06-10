@@ -55,6 +55,7 @@ public class UserService extends BaseService  {
         return result;
     }
 
+    @HystrixCommand
     @WebLog
     public BaseResponse<String> login(LoginVO request) throws NoSuchAlgorithmException {
         UserBean userBean = new UserBean();
