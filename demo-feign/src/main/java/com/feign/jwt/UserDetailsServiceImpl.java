@@ -3,7 +3,7 @@ package com.feign.jwt;
 import com.alibaba.fastjson.JSON;
 import com.feign.dao.UsersMapper;
 import com.feign.domain.Users;
-import com.feign.web.dto.LoginUser;
+import com.feign.dto.LoginUser;
 import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

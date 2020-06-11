@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.feign.jwt.TokenProvider;
 import com.feign.jwt.UserDTO;
 import com.feign.service.UserService;
-import com.feign.web.dto.LoginUser;
+import com.feign.dto.LoginUser;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.apache.tomcat.util.http.ResponseUtil;

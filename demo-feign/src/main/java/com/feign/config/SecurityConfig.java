@@ -50,8 +50,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // 测试用资源，需要验证了的用户才能访问
                 .antMatchers("/api/**")
                 .authenticated()
-                .antMatchers(HttpMethod.DELETE, "/api/**")
-                .hasRole("ADMIN")
+                .anyRequest()
+                .access("@userPermissionHandler.hasPermission(request,authentication)")
                 // 其他都放行了
                 .anyRequest().permitAll()
                 .and()
@@ -62,7 +62,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .exceptionHandling()
-                .authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/"));
+                .authenticationEntryPoint(new AuthEntryPoint());
     }
 
     @Bean
