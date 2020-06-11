@@ -24,6 +24,15 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     # 使用druid数据源
     type: com.alibaba.druid.pool.DruidDataSource
+
+mybatis:
+  typeAliasesPackage: com.feign.domain
+  #mapperLocations指的路径是src/main/resources
+  mapperLocations: classpath:mapper/*.xml
+  configuration:
+    #配置项：开启下划线到驼峰的自动转换. 作用：将数据库字段根据驼峰规则自动注入到对象属性。
+    map-underscore-to-camel-case: true
+
 management:
   endpoints:
     web:
@@ -32,3 +41,10 @@ management:
   endpoint:
     health:
       show-details: ALWAYS
+#jwt配置
+jwt:
+  tokenHeader: Authorization
+  tokenPrefix: Bearer
+  secret: lanjwt
+  expiration: 3600
+  rememberExpiration: 604800

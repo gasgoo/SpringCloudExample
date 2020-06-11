@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.feign.dao.PermissionMapper">
+    <resultMap id="BaseResultMap" type="com.feign.domain.Permission">
+        <id column="permission_id" jdbcType="VARCHAR" property="permissionId"/>
+        <result column="permission_url" jdbcType="VARCHAR" property="permissionUrl"/>
+        <result column="permission_comment" jdbcType="VARCHAR" property="permissionComment"/>
+        <result column="permission_status" jdbcType="VARCHAR" property="permissionStatus"/>
+    </resultMap>
+
+    <resultMap id="PermissionToMap" type="com.feign.dto.PermisstionDTO">
+        <result property="permissionUrl" column="permission_url"></result>
+        <collection property="roleNames" ofType="java.lang.String">
+            <result column="role_name"></result>
+        </collection>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+    permission_id, permission_url, permission_comment, permission_status
+  </sql>
+    <!--查询所有角色资源-->
+    <select id="findAll" resultMap="PermissionToMap">
+SELECT
+	p.permission_id,
+	p.permission_url,
+	r.role_name
+FROM
+	role_permission rp
+LEFT JOIN role r ON r.role_id = rp.role_id
+LEFT JOIN permission p ON p.permission_id = rp.permission_id
+WHERE
+	rp.role_permission_status = 0
+AND r.role_status = 0
+AND p.permission_status = 0;
+    </select>
+
+
+</mapper>

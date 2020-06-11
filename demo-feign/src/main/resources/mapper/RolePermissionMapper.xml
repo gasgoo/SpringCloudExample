@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.feign.dao.RolePermissionMapper">
+  <resultMap id="BaseResultMap" type="com.feign.domain.RolePermission">
+    <id column="role_permission_id" jdbcType="VARCHAR" property="rolePermissionId" />
+    <result column="role_id" jdbcType="VARCHAR" property="roleId" />
+    <result column="permission_id" jdbcType="VARCHAR" property="permissionId" />
+    <result column="role_permission_status" jdbcType="VARCHAR" property="rolePermissionStatus" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    role_permission_id, role_id, permission_id, role_permission_status
+  </sql>
+
+
+</mapper>
