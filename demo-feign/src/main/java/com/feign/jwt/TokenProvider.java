@@ -1,14 +1,17 @@
 package com.feign.jwt;
 
 import com.feign.domain.Users;
+import com.google.common.base.Strings;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.util.*;
 
 @Component
+@Slf4j
 public class TokenProvider {
 
     public static final String TOKEN_HEADER = "Authorization";
@@ -22,6 +25,10 @@ public class TokenProvider {
 
     private static final String ROLE_CLAIMS = "role";
 
+    /**
+     * @Description  根据User对象创建token
+     * @Date 2020/6/11 20:09
+     **/
     public static String generateJsonWebToken(Users user) {
 
         if (user.getUserId() == null || user.getUserName() == null || user.getUserPassword()==null ) {
@@ -35,8 +42,8 @@ public class TokenProvider {
                 .builder()
                 .setSubject(SUBJECT)
                 .setClaims(map)
-                .claim("id", user.getUserId())
-                .claim("name", user.getUserName())
+                .claim("userId", user.getUserId())
+                .claim("phone", user.getUserPhone())
                 .claim("pwd", user.getUserPassword())
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + EXPIRITION))
@@ -95,6 +102,10 @@ public class TokenProvider {
      */
     public static String getUserRole(String token){
         Claims claims = Jwts.parser().setSigningKey(APPSECRET_KEY).parseClaimsJws(token).getBody();
+        if(Objects.isNull(claims.get("role")) || Strings.isNullOrEmpty(claims.get("role")+"")){
+            log.error("用户没有角色属性!");
+            return null;
+        }
         return claims.get("role").toString();
     }
 

@@ -41,7 +41,7 @@
       user_password, user_last_login_time, user_create_time, 
       user_status)
     values (#{userId,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, #{userPhone,jdbcType=VARCHAR}, 
-      #{userPassword,jdbcType=VARCHAR}, #{userLastLoginTime,jdbcType=VARCHAR}, #{userCreateTime,jdbcType=VARCHAR}, 
+      #{userPassword,jdbcType=VARCHAR}, #{userLastLoginTime,jdbcType=VARCHAR}, now(),
       #{userStatus,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.feign.domain.Users">

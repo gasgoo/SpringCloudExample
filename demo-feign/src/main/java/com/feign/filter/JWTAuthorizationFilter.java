@@ -1,6 +1,8 @@
 package com.feign.filter;
 
 import com.feign.jwt.TokenProvider;
+import com.google.common.base.Strings;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -21,7 +23,7 @@ import java.util.Collections;
  * @name JWTAuthorizationFilter
  */
 
-
+@Slf4j
 public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
     public JWTAuthorizationFilter(AuthenticationManager authenticationManager) {
         super(authenticationManager);
@@ -48,10 +50,12 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
         String token = tokenHeader.replace(TokenProvider.TOKEN_PREFIX, "");
         String username = TokenProvider.getUsername(token);
         String role = TokenProvider.getUserRole(token);
-        if (username != null){
+        if (username != null && !Strings.isNullOrEmpty(role)){
             //todo
             return new UsernamePasswordAuthenticationToken(username, null, Collections.singleton(new SimpleGrantedAuthority(role))
             );
+        }else{
+            log.info("{}用户没有权限",username);
         }
         return null;
     }

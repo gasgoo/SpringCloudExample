@@ -76,7 +76,7 @@ public class JwtLoginFilter extends UsernamePasswordAuthenticationFilter {
             role = authority.getAuthority();
         }
 
-        String token = TokenProvider.createToken(userDTO.getUsername(), role);
+        String token = TokenProvider.createToken(userDTO.getUserPhone(), role);
         //String token = JwtTokenUtils.createToken(userDTO.getUsername(), false);
         // 返回创建成功的token
         // 但是这里创建的token只是单纯的token
