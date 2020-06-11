@@ -1,6 +1,8 @@
 package com.feign.filter;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.feign.jwt.TokenProvider;
 import com.feign.jwt.UserDTO;
@@ -22,6 +24,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -81,9 +84,25 @@ public class JwtLoginFilter extends UsernamePasswordAuthenticationFilter {
         response.setCharacterEncoding("UTF-8");
         response.setContentType("application/json; charset=utf-8");
         String tokenStr = TokenProvider.TOKEN_PREFIX + token;
-        response.setHeader("token", tokenStr);
+        this.responseJson(response,tokenStr);
     }
 
+
+    /**
+     * @Description  内容写入body
+     * @Date 2020/6/11 19:40
+     **/
+    public  void responseJson(HttpServletResponse response, Object obj)  {
+        response.setContentType("application/json; charset=utf-8");
+        try {
+            PrintWriter writer = response.getWriter();
+            writer.print(JSONObject.toJSONString(obj, SerializerFeature.WriteMapNullValue, SerializerFeature.WriteDateUseDateFormat));
+            writer.close();
+            response.flushBuffer();
+        }catch (Exception e){
+            log.error("返回response内容异常:{}",e);
+        }
+    }
     /**
      * @Description   登录失败
      * @Date 2020/6/11 16:07

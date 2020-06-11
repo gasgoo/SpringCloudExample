@@ -12,7 +12,7 @@ import java.util.*;
 public class TokenProvider {
 
     public static final String TOKEN_HEADER = "Authorization";
-    public static final String TOKEN_PREFIX = "Bearer ";
+    public static final String TOKEN_PREFIX = "Bearer";
     public static final String SUBJECT = "congge";
 
     public static final long EXPIRITION = 1000 * 24 * 60 * 60 * 7;

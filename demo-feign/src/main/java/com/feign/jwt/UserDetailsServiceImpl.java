@@ -38,9 +38,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         }
         UserDTO userDTO=new UserDTO();
         userDTO.setRemember(loginUser.getRemember());
-        userDTO.setUserName(userDTO.getUsername());
-        userDTO.setUserName(json);
-        userDTO.setRemember(true);
+        userDTO.setUserName(users.getUserName());
+        userDTO.setUserPassword(users.getUserPassword());
+        userDTO.setUserId(users.getUserId());
+        userDTO.setUserPhone(users.getUserPhone());
         List<String> roles= Lists.newArrayList();
         //roles.add(users.getRole());
         userDTO.setRoles(roles);
