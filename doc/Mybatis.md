@@ -65,3 +65,20 @@ Spring加载MyBatis这个过程，其实就是把MyBatis的Mapper转换成Bean�
  也是 FactoryBean的使用 其中使用到 MapperFactoryBean SqlSessionFactoryBean
 
 数据存储在文件系统 （柱面 磁道 扇区） 2）mysql的语句优化，使用什么工具； 优化的方向：减少联合多表查询 建立正确的索引 减少统计类查询 重点是拆分表 减少 联合查询 拆分成短sql 3）mysql的索引分类：B+，hash；什么情况用什么索引；
+
+#日志模块
+适配器模式:适配各种日志组件 LogFactory中定义了顺序
+代理模式 再执行器Executor中添加日志
+级别：trace 、debug、error、warn
+ConnectionLogger
+PreparedStatementLogger
+ResultSetLogger
+#数据源模块
+工厂模式
+PooledDataSource
+PooledConnection
+PooledState 包含 idleConnections   activeConenctions两个List
+UnpooledDataSource
+
+
+
