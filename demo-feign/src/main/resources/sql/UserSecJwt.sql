@@ -17,6 +17,9 @@ CREATE TABLE `permission`  (
 -- Records of permission
 -- ----------------------------
 INSERT INTO `permission` VALUES ('25d3a1861c3443c49be383b145f1576d', '/role/list', '获取所有角色', '0');
+INSERT INTO `permission` (`permission_id`, `permission_url`, `permission_comment`, `permission_status`) VALUES ('11111', '/api/getTasks', '查看任务列表', '0');
+INSERT INTO permission (`permission_id`, `permission_url`, `permission_comment`, `permission_status`) VALUES ('25d3a1861c3443c49be383b145f15222', '/role/addUser', '添加用户的角色', '0');
+INSERT INTO `permission` (`permission_id`, `permission_url`, `permission_comment`, `permission_status`) VALUES ('25d3a1861c3443c49be383b145f1576d', '/role/list', '获取所有角色', '0');
 
 -- ----------------------------
 -- Table structure for role
@@ -51,6 +54,9 @@ CREATE TABLE `role_permission`  (
 -- Records of role_permission
 -- ----------------------------
 INSERT INTO `role_permission` VALUES ('0cc1b1428fe945dcb52d95bc1d1b1b86', '3ac96c378b2b4df1a9d96dda9ef5f7f1', '25d3a1861c3443c49be383b145f1576d', '0');
+INSERT INTO `role_permission` (`role_permission_id`, `role_id`, `permission_id`, `role_permission_status`) VALUES ('0cc1b1428fe945dcb52d95bc1b1b87', '3ac96c378b2b4df1a9d96dda9ef5f7f1', '11111', '0');
+INSERT INTO `role_permission` (`role_permission_id`, `role_id`, `permission_id`, `role_permission_status`) VALUES ('0cc1b1428fe945dcb52d95bc1d1b1b86', '3ac96c378b2b4df1a9d96dda9ef5f7f1', '25d3a1861c3443c49be383b145f1576d', '0');
+INSERT INTO role_permission (`role_permission_id`, `role_id`, `permission_id`, `role_permission_status`) VALUES ('0cc1b1428fe945dcb52d95bc1d1b1b87', 'c1867457d1c34cd7a705eb5700daccef', '25d3a1861c3443c49be383b145f15222', '0');
 
 -- ----------------------------
 -- Table structure for user
@@ -108,7 +114,7 @@ INSERT INTO `user_role` VALUES ('92409d5d6da44d70a74dfa15609eef29', 'fc75ce7d00d
 INSERT INTO `user_role` VALUES ('939bccfcc0554ab9b9fad605d9714cc2', '88ad850b79794f1f94fb3dfad4644224', 'c1867457d1c34cd7a705eb5700daccef', '0');
 INSERT INTO `user_role` VALUES ('c38813f45a4c4087a712a09e5700c6e1', '4dd2cd7c843542469cc3d5e2764aa35e', '3ac96c378b2b4df1a9d96dda9ef5f7f1', '0');
 INSERT INTO `user_role` VALUES ('c44e3f15f5d74e28959144c4bd1dc34d', '1601e658096048f48225c50f7e879a02', '3ac96c378b2b4df1a9d96dda9ef5f7f1', '0');
+INSERT INTO user_role (`user_role_id`, `user_id`, `role_id`, `user_role_status`) VALUES ('1', '62f6cb3ad4c8455ab670eccb2f2c8d4b', '3ac96c378b2b4df1a9d96dda9ef5f7f1', '0');
 
 
 
-SET FOREIGN_KEY_CHECKS = 1;
