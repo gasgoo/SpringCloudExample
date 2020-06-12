@@ -23,10 +23,10 @@ public class TaskController {
     }
 
     /**
-     * @Description  需要有admin角色才能访问
+     * @Description  需要有ADMIN角色才能访问
      * @Date 2020/6/11 11:38
      **/
-    @PostMapping
+    @PostMapping("/addTask")
     @PreAuthorize("hasRole('ADMIN')")
     public String newTasks(){
         return "创建了一个新的任务";

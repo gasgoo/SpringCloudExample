@@ -3,6 +3,7 @@ package com.feign.filter;
 import com.feign.jwt.TokenProvider;
 import com.google.common.base.Strings;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.tomcat.util.http.ResponseUtil;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -37,23 +38,25 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
         String tokenHeader = request.getHeader(TokenProvider.TOKEN_HEADER);
         // 如果请求头中没有Authorization信息则直接放行了
         if (tokenHeader == null || !tokenHeader.startsWith(TokenProvider.TOKEN_PREFIX)) {
-            chain.doFilter(request, response);
+            //chain.doFilter(request, response);
+            ResUtils.responseJson(response,"没有有效的token!");
             return;
         }
+        log.info("验证token>>>");
         // 如果请求头中有token，则进行解析，并且设置认证信息
         SecurityContextHolder.getContext().setAuthentication(getAuthentication(tokenHeader));
         super.doFilterInternal(request, response, chain);
     }
 
-    // 这里从token中获取用户信息并新建一个token
+    // 这里从token中获取用户信息
     private UsernamePasswordAuthenticationToken getAuthentication(String tokenHeader) {
         String token = tokenHeader.replace(TokenProvider.TOKEN_PREFIX, "");
         String username = TokenProvider.getUsername(token);
         String role = TokenProvider.getUserRole(token);
-        if (username != null && !Strings.isNullOrEmpty(role)){
-            //todo
-            return new UsernamePasswordAuthenticationToken(username, null, Collections.singleton(new SimpleGrantedAuthority(role))
-            );
+        if (username != null && !Strings.isNullOrEmpty(role)) {
+            log.info("token验证通过!");
+            return new UsernamePasswordAuthenticationToken(username, null, Collections.singleton(new SimpleGrantedAuthority(role)));
+
         }else{
             log.info("{}用户没有权限",username);
         }

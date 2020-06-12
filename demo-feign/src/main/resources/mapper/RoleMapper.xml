@@ -10,5 +10,22 @@
     role_id, role_name, role_status
   </sql>
 
+  <resultMap id="UserRolesMap" type="com.feign.dto.UserRolesDTO">
+    <id column="user_id" jdbcType="VARCHAR" property="userId" />
+    <collection property="roleNames" ofType="java.lang.String">
+      <result column="role_name" jdbcType="VARCHAR" property="roleName" />
+    </collection>
+  </resultMap>
+
+  <select id="getUserRoles" parameterType="java.lang.String" resultMap="UserRolesMap">
+   SELECT
+	r.role_name,
+	ur.user_id
+FROM
+	user_role ur
+LEFT JOIN role r ON r.role_id = ur.role_id
+LEFT JOIN users u ON u.user_id = ur.user_id
+where u.user_id=#{userId,jdbcType=VARCHAR}
+  </select>
 
 </mapper>

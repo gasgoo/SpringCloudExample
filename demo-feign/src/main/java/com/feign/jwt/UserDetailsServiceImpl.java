@@ -1,10 +1,13 @@
 package com.feign.jwt;
 
 import com.alibaba.fastjson.JSON;
+import com.feign.dao.RoleMapper;
 import com.feign.dao.UsersMapper;
 import com.feign.domain.Users;
 import com.feign.dto.LoginUser;
+import com.feign.dto.UserRolesDTO;
 import com.google.common.collect.Lists;
+import com.netflix.discovery.converters.Auto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -27,6 +30,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Autowired
     private UsersMapper usersMapper;
 
+    @Autowired
+    private RoleMapper roleMapper;
+
     @Override
     public UserDetails loadUserByUsername(String json) throws UsernameNotFoundException {
         LoginUser loginUser = JSON.parseObject(json, LoginUser.class);
@@ -42,10 +48,12 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         userDTO.setUserPassword(users.getUserPassword());
         userDTO.setUserId(users.getUserId());
         userDTO.setUserPhone(users.getUserPhone());
-        List<String> roles= Lists.newArrayList();
-        //roles.add(users.getRole());
-        userDTO.setRoles(roles);
+        userDTO.setRoles(getUserRoles(users.getUserId()).getRoleNames());
         return userDTO;
 
+    }
+
+    public UserRolesDTO getUserRoles(String userId){
+        return roleMapper.getUserRoles(userId);
     }
 }

@@ -1,7 +1,10 @@
 package com.feign.service;
 
 import com.feign.FeignDemoApplication;
+import com.feign.dao.RoleMapper;
 import com.feign.domain.Users;
+import com.feign.dto.UserRolesDTO;
+import com.netflix.discovery.converters.Auto;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +26,9 @@ public class UserServiceTest {
     private UserService userService;
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
+    @Autowired
+    private RoleMapper roleMapper;
+
     @Test
     public void save() {
         Users user=new Users();
@@ -33,5 +39,11 @@ public class UserServiceTest {
         user.setUserId(UUID.randomUUID().toString().replace("-",""));
         Integer save = userService.save(user);
         System.out.println("====id:"+save);
+    }
+
+    @Test
+    public void testUserRoles(){
+        UserRolesDTO userRoles = roleMapper.getUserRoles("62f6cb3ad4c8455ab670eccb2f2c8d4b");
+        System.out.println("userRoles:====="+userRoles.toString());
     }
 }
