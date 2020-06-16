@@ -17,7 +17,7 @@
 >本地方法栈
 
 线程共享：
->堆   -Xms；最小的size  -Xmx； 最大的  -Xmn；新生代的大小
+>堆   -Xms；最小的size  -Xmx； 最大的  -Xmn；新生代的大小  -XX:+PrintGCDetails -XX:+HeapDumpOnOutOfMemeryError
 1. 实例变量 int count=0;
 2. 运行时常量池   字面量 、符号引用
 3. 新生代  eden、s1、 s2 区
@@ -77,7 +77,26 @@ GC Roots 可达性分析  判断对象是否存活。哪些对象可以当作根
      内存空间整合，不会产生内存碎片、可预测的停顿
     初始标记、并发标记、最终标记、并发回收
      
+ 5. 内存泄漏的原因：
+    内部类持有外部类、连接未关闭、变量作用域不合理、
+ 6. 内存溢出的情况
+    申请内存的时候内存不足抛出内存溢出异常、
+    栈溢出 StackOverFlowError
+    OOM: java heap over 
+    OOM: GC OverHead Limit exceeded 频繁的FullGC但是没有回收
+    
+    
+
+ >性能调优
+ 1. 前端优化： 减少请求请求合并、  keepAlive 、客户端缓存(Cache-control Expires)、启用压缩、 文件加载顺序
+            减少cookie传输、
+ 2. CDN加速  反向代理缓存、Web组件分离
+ 3. 应用服务器优化
+    缓存、集群、异步、代码优化
+    
  
+ 
+    
 
 
 

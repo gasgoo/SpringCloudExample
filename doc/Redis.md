@@ -21,7 +21,8 @@ key * 查看所有的key hgetall key 命令用于返回哈希表中，所有的�
 
 redis数据结构：String字符串 Hash哈希类型、List列表类型、 Set集合类型、 Zset有序集合类型
 
-======List列表应用场景：社区发帖列表、简单的消息队列 最新新闻等。 数据结构是 双向链表 最多可以有 2的32次方减1个元素。 并行的请求转为串行的任务队列依次处理。 List的操作命令： RPUSH key value LPUSH key value RPOP key 左边移除并删除 LLen key 列表长度 LINDEX key index 取列表index位置上的元素。
+======List列表应用场景：社区发帖列表、简单的消息队列 最新新闻等。 数据结构是 双向链表 最多可以有 2的32次方减1个元素。 并行的请求转为串行的任务队列依次处理。 
+List的操作命令： RPUSH key value LPUSH key value RPOP key 左边移除并删除 LLen key 列表长度 LINDEX key index 取列表index位置上的元素。
 
 ======Hash 方便管理key 避免命名冲突 节约内存 Hset key filed value Hget key filed Hexists key filed 判断 key指向的Hash中filed是否存在。 Hkeys key 获取所有的 hash key Hvals key 获取所有的value
 
@@ -80,7 +81,7 @@ master收到slave的 同步命令sync/psync后 主服务器运行BGSAVE生成RDB
 然后把缓冲区的命令发送给slave，然后slave加载文件到内存，执行命令实现和master 同步。 
 部分同步：偏移量、复制积压缓冲区、runId
 
-====redis部署方式 高性能 分片 高可用 交叉备份 
+#redis部署方式 高性能 分片 高可用 交叉备份 
 单机 主从 主从+哨兵 哨兵会监控master节点，
 master节点挂掉后会让slave升级会主节点,哨兵不能是单点。
  slaveOf masterIP port slave no one 自己为主机 
@@ -96,7 +97,7 @@ master节点挂掉后会让slave升级会主节点,哨兵不能是单点。
 最后哨兵发送info命令根据回复确认是否选主服务成功。
 集群 redis Cluster 多主多从 Cluster meet 槽点指派 集群内部的数据结构ClusterState ClusterNode ClusterLink 复制故障转移: 1.master用于处理槽请求，slave则用于复制某个主节点并在master下线时代替master处理请求； 2.如果某个主节点下线，则其他master节点则会从下线的master的从节点中选出一个为新的master节点， 并接管下线master节点处理的槽点，继续处理客户端的命令; cluster replicate node_id 将接受命令的节点设置为node_id的从节点。 3. 集群中的节点定期向其他节点发送ping消息；如果没有及时收到pong回复，则标记为主观下线； 4. 集群中半数以上负责处理槽的主节点认为某个节点下线，那么该节点被标记为下线。 5. 从节点发现自己的主节点下线后开始故障转移 从新选主节点。 slave no one 成为master
 
-====redis内存管理和数据淘汰机制 maxmemory 100mb 最大内存设置 maxmemory-policy volatile-lru 设置淘汰策略
+#redis内存管理和数据淘汰机制 maxmemory 100mb 最大内存设置 maxmemory-policy volatile-lru 设置淘汰策略
 
 volatile-LRU  淘汰上次使用最早的且次数最少的，设定了有效期的。
 allKeys-lru  LRU算法  所有的key都可以被淘汰
@@ -104,7 +105,12 @@ volatile-random  随机淘汰设定了有效期的数据
 volatile-ttl   淘汰剩余有效期最短的数据
 redis的淘汰策略有哪些； 内存空间用满, 就会自动驱逐老的数据 过期时间 LRU是Redis唯一支持的回收算法 noeviction: 不删除策略, 达到最大内存限制时, 如果需要更多内存, 直接返回错误信息。 大多数写命令都会导致占用更多的内存(有极少数会例外, 如 DEL )。 allkeys-lru: 所有key通用; 优先删除最近最少使用(less recently used ,LRU) 的 key。 volatile-lru: 只限于设置了 expire 的部分; 优先删除最近最少使用(less recently used ,LRU) 的 key。 allkeys-random: 所有key通用; 随机删除一部分 key。 volatile-random: 只限于设置了 expire 的部分; 随机删除一部分 key。 volatile-ttl: 只限于设置了 expire 的部分; 优先删除剩余时间(time to live,TTL) 短的key
 
-5）redis的数据添加过程是怎样的：哈希槽； 一致性hash算法，对key和节点的某个属性做hash得到value 二进制位 2048个字节 2048*8=16384位 哈希槽指派 CRC16(key)%16384 得到槽点 集群中命令的执行过程: 客户端发送key，接受key的服务节点会计算key属于那个槽，如果这个槽是当前节点负责则执行命令， 否则返回moved错误指引客户端再次发送命令。
+5）redis的数据添加过程是怎样的：哈希槽； 一致性hash算法，
+对key和节点的某个属性做hash得到value 二进制位 2048个字节 2048*8=16384位 
+哈希槽指派 CRC16(key)%16384 得到槽点 
+集群中命令的执行过程: 
+客户端发送key，接受key的服务节点会计算key属于那个槽，如果这个槽是当前节点负责则执行命令，
+ 否则返回moved错误指引客户端再次发送命令。
 
 ============redis实现分布式锁
 

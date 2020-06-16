@@ -73,15 +73,7 @@ public class TreeMapDemo  {
         long round1 = Math.round(-5.8);
         System.out.println("round1====" + round1 + "==");
         int hashNum = Objects.hash("raogugen");
-        int a = hashNum % 16384;
-        int b = 16383 & hashNum;
-        System.out.println("a=" + a + "<<<>>>b=" + b);
-        BigDecimal d = new BigDecimal(0.8);
-        BigDecimal d1 = new BigDecimal(0.5);
-        if (d.compareTo(d1) > 0) {
-            System.out.println("bigggggg");
-        }
-
+        System.out.println("++++"+(2>>1));
     }
 
 
