@@ -29,13 +29,18 @@ executor statementHandler(声明处理器)
 MappedStatement 动态SQL的封装
 
 #Mybatis原理
+
+>流程  
+ 初始化阶段  读取XML配置和注解中的配置信息，创建配置对象 Configuration
+ 代理阶段  mapper接口
+ 数据读写阶段  SqlSession sql解析 参数映射 sql执行 结果解析
 InputStream inputStream = Resources.getResourceAsStream("mybatis.xml"); 
 SqlSessionFactory sqlSessionFactory =new SqlSessionFactoryBuilder().build(inputStream); 
 SqlSession sqlSession = sqlSessionFactory.openSession();
-// 以下使我们需要关注的重点 
 UserMapper mapper = sqlSession.getMapper(UserMapper.class);
  Integer id = 1; 
  User user = mapper.selectById(id);
+ 
 
 加载mybatis全局配置文件（数据源、mapper映射文件等），解析配置文件，MyBatis基于XML配置文件生成Configuration， 
 和一个个MappedStatement 
@@ -75,10 +80,34 @@ PreparedStatementLogger
 ResultSetLogger
 #数据源模块
 工厂模式
-PooledDataSource
-PooledConnection
-PooledState 包含 idleConnections   activeConenctions两个List
+PooledDataSource 连接池
+PooledConnection  创建连接
+PooledState 包含 idleConnections   activeConenctions两个List和其他统计数据 
 UnpooledDataSource
+
+#缓存模块
+装饰器模式
+LruCache     Map<Object, Object> keyMap
+FifoCache 
+BlockCache  ConcurrentHashMap<Object, ReentrantLock> locks
+cacheKey:  namespace+id+sql语句+参数 
+#反射模块
+自动为pojo生成get set方法.
+把查询出来的数据映射到pojo属性。
+Reflector
+ObjectWrapper 对象的包装赋值
+MetaClass 类的元数据 
+MetaObject 包含pojo对象的所有属性数据和方法构造器等。包装了反射的一系列类。
+ MetaObject metaObject= MetaObject.forObject(user,objectFactory,factory,reflectorFactory);
+
+
+
+
+
+
+
+
+
 
 
 

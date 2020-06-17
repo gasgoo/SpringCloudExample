@@ -127,6 +127,12 @@ DefaultTransactionDefinition  db=new DefaultTransactionDefinition();
 db.setPropagationBehavior(0)设置传播属性
 PlatformTransactionManager.getTransacation(db);
 
+>事物失效的场景:
+1. 数据库的引擎不支持事物 如 mysql的 mySlam
+2. 整个异常被捕获了没有抛出，则事物没有回滚。
+3. 非public方法上使用事物注解
+4. 方法中调用同一个类中的事物注解方法， 非事物方法调用同类的方法 this.call 没有到代理类中。
+
 ## Transaction end
 
 IOC体系结构  
