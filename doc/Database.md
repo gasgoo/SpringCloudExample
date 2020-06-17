@@ -73,8 +73,8 @@ hash树 ——id 硬件地址 B+树 数据存在叶子几点 左小右大 查询
 mysql中 utf-8编码 一个字符三个字节 gbk编码 一个字符两个字节 late 一个字符一个字节 null 1个字节
 
 查看执行计划 explain sql语句 id select_type table type possible_keys key key_len ref rows extra 
-type : system 、const 都只有一条数据 eq_ref 和索引查询的一致 ref 0条或多条 range 范围 > < between and
-index all
+type : 
+system 、const 都只有一条数据 eq_ref 和索引查询的一致 ref 0条或多条 range 范围 > < between and  index all
 
 Extra可能的value using index 、using where 、using fileSort、 using tempory、 using join buffer
 
@@ -145,7 +145,8 @@ Next-key Lock 锁定一个范围并锁定记录， 可以解决 幻读(不可重
  select * from innodb_trx,Innodb_locks,innodb_lock_waits;
 
 ====================lock end==================== 
-#====================事物 start====== 事物ACID属性 原子性、一致性、隔离性、持久性 redo log (重做日志) log 保证持久性和原子性 D 对新数据做日志备份
+#====================事物 start====== 
+事物ACID属性 原子性、一致性、隔离性、持久性 redo log (重做日志) log 保证持久性和原子性 D 对新数据做日志备份
 undo log (回滚日志)保证事物一致性A 基础 对现有数据备份 锁机制 写事物之间的隔离 I
 事物 保证一致性 C
 

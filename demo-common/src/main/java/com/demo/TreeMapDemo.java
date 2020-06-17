@@ -74,6 +74,7 @@ public class TreeMapDemo  {
         System.out.println("round1====" + round1 + "==");
         int hashNum = Objects.hash("raogugen");
         System.out.println("++++"+(2>>1));
+        System.out.println(Runtime.getRuntime().availableProcessors());
     }
 
 
