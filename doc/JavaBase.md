@@ -233,7 +233,6 @@ G1把整个Yong区域划分成多个区域、不产生空间碎片  可以准确
 8）如何排查死锁
 用jps 和jstack  可以分别得到死锁的进程ID和 发生死锁的类位置
  
-
 这些问题可以通过 top(cpu)、free(内存)、df(磁盘)、dstat(网络流量)、pstack、vmstat、strace(底层系统调用)。
 
 jvm问题定位工具

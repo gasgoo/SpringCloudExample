@@ -1,10 +1,16 @@
 package com.demo;
 
 import com.alibaba.fastjson.JSON;
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
+import com.common.utils.JSONUtil;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.util.EntityUtils;
 
-import java.math.BigDecimal;
+import java.io.IOException;
 import java.util.*;
 
 /**
@@ -46,7 +52,6 @@ public class TreeMapDemo  {
 
     }
 
-
     public void testComparable(){
         List<DTO> list= new ArrayList();
         for(int i=5;i>0;i--){
@@ -65,16 +70,14 @@ public class TreeMapDemo  {
 
     }
 
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) throws InterruptedException, IOException {
         TreeMapDemo dto = new TreeMapDemo();
-        dto.testComparable();
-        HashMap testMap = new HashMap<Integer, Object>(1024);
-        System.out.println("init size:" + testMap.size());
-        long round1 = Math.round(-5.8);
-        System.out.println("round1====" + round1 + "==");
-        int hashNum = Objects.hash("raogugen");
-        System.out.println("++++"+(2>>1));
-        System.out.println(Runtime.getRuntime().availableProcessors());
+        String url="http://192.168.1.32:100/gateway/defensor/api/open/jwt/login?userName=ccs&password=ccs1234qwer&appId=0000000000";
+        CloseableHttpClient httpClient = HttpClientBuilder.create().build();
+        HttpPost httpPost=new HttpPost(url);
+        httpPost.setHeader("Content-Type", "application/json;charset=utf8");
+        CloseableHttpResponse response = httpClient.execute(httpPost);
+        System.out.println(EntityUtils.toString(response.getEntity()));
     }
 
 

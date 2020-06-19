@@ -186,3 +186,8 @@ SUPPORTS MANDATORY REQUIRES_NEW NOT_SUPPORTED NEVER NESTED 注解事物实例 �
 
 #===========transaction end==================== 
 mysql query cache 查询缓存 开启配置 在配置文件 my.cnf 中设置： query_cache_type = 1 query_cache_size = 50M
+
+数据存储在文件系统 （柱面 磁道 扇区） 
+2）mysql的语句优化，使用什么工具；
+ 优化的方向：减少联合多表查询 建立正确的索引 减少统计类查询 重点是拆分表 减少 联合查询 拆分成短sql 
+3）mysql的索引分类：B+，hash；什么情况用什么索引；

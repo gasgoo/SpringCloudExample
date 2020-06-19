@@ -93,8 +93,11 @@ GC Roots 可达性分析  判断对象是否存活。哪些对象可以当作根
  2. CDN加速  反向代理缓存、Web组件分离
  3. 应用服务器优化
     缓存、集群、异步、代码优化
-    
- 
+
+双亲委派模型的破坏
+tomcat webAppClassLoader    
+线程上下文加载器 appClassLoader 
+spi
  
     
 

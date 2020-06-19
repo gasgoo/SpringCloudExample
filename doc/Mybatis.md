@@ -43,17 +43,23 @@ UserMapper mapper = sqlSession.getMapper(UserMapper.class);
  
 
 加载mybatis全局配置文件（数据源、mapper映射文件等），解析配置文件，MyBatis基于XML配置文件生成Configuration， 
-和一个个MappedStatement 
+和MappedStatement 
 SqlSessionFactoryBuilder通过Configuration对象生成SqlSessionFactory，
- SqlSessionFactory调用Configuration的方法用来开启SqlSession、并生成执行器Executor对象。
-  org.apache.ibatis.session.defaults.DefaultSqlSession.getMapper 
-  org.apache.ibatis.binding.MapperRegistry.getMapper 
-  通过MapperProxyFactory工厂对象Proxy.newInstances()实例化Dao接口生成代理对象MapperProxy
+SqlSessionFactory调用Configuration的方法用来开启SqlSession、并生成执行器Executor对象。
+org.apache.ibatis.session.defaults.DefaultSqlSession.getMapper 
+org.apache.ibatis.binding.MapperRegistry.getMapper 
+通过MapperProxyFactory工厂对象Proxy.newInstances()实例化Dao接口生成代理对象MapperProxy
+  
+  
+#Excutor组件分析
+ BatchExcutor
+ ResumeExcutor
+ SimpleExcutor
 
-生成MapperProxy代理对象后需要把bean放到ioc容器中。
+#生成MapperProxy代理对象后需要把bean放到ioc容器中。
 如何把Mybatis的代理对象作为一个bean放入Spring容器中？ 通过 FactoryBean把Mybatis生成的代理对象放入容器中
-
-MapperFactoryBean 用来把代理对象生成bean对象。 MapperScannerRegistrar 生成不同对象的 MapperFactoryBean @Mapper注解
+MapperFactoryBean 用来把代理对象生成bean对象。
+MapperScannerRegistrar 生成不同对象的 MapperFactoryBean @Mapper注解
  扫描@mapper注解获取注解的value包路径;生成BeanDefinition放入容器中。
 
 #SpringBoot-mybatis整合过程
@@ -68,8 +74,6 @@ SpringBoot自动配置 EnableAutoConfiguration 通过AutoConfigurationImportSele
 过程： 读取mybatis配置文件创建 SqlSessoinFactory 获取sqlSession 获取对应mapper executes 执行sql返回结果
 Spring加载MyBatis这个过程，其实就是把MyBatis的Mapper转换成Bean，注入到Spring容器的过程。
  也是 FactoryBean的使用 其中使用到 MapperFactoryBean SqlSessionFactoryBean
-
-数据存储在文件系统 （柱面 磁道 扇区） 2）mysql的语句优化，使用什么工具； 优化的方向：减少联合多表查询 建立正确的索引 减少统计类查询 重点是拆分表 减少 联合查询 拆分成短sql 3）mysql的索引分类：B+，hash；什么情况用什么索引；
 
 #日志模块
 适配器模式:适配各种日志组件 LogFactory中定义了顺序
@@ -100,9 +104,26 @@ MetaClass 类的元数据
 MetaObject 包含pojo对象的所有属性数据和方法构造器等。包装了反射的一系列类。
  MetaObject metaObject= MetaObject.forObject(user,objectFactory,factory,reflectorFactory);
 
+#Configuration 对象构成
+mapperRegistry  注册接口接口的代理对象
+loaderResources  xml文件资源
+resultMaps  填充resultMap
+sqlFragments  填充sql元素
+mappedStatements  填充mapperStatment
+keyGenerators
 
+#binding模块
+org.apache.ibatis.builder.xml.XMLMapperBuilder.parse Mapper文件解析入口 
+解析后注册bindMapperForNamespace 把Class类型注册到 MapperRegistry中的map容器中。
 
+最后调用Mapper空接口执行sql也是去MapperRegistry中取到Mapper，只是取到的是 MapperProxyFactory中生产出的MapperProxy代理类。
+代理类中的invoke方法中有重要的方法执行 MapperMethod.execute()
 
+MapperMethod是封装sql语句的对象包含下面两个对象，是Mapper接口和xml Sql文件的桥梁
+SqlCommand command 唯一作表namespace+id, sql类型 增删改查等。
+MethodSignature method 
+
+#MapperMethod和MapperStatement的区别
 
 
 

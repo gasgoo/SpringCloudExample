@@ -77,7 +77,7 @@ HystrixCommand或HystrixObservableCommand 类
 
 扫描有HystrixCommand注解的方法的类生成Aop切面增强，最总再切面中完成拦截逻辑处理。 HystrixCommandAspect
 
-#feign   声明式htp客户端 与 Ribbon和Hystrix无缝集成 再封装 
+#feign   声明式http客户端 与 Ribbon和Hystrix无缝集成 再封装 
 
 @EnableFeignClients
 spring-cloud-starter-feign依赖和@EnabledFeignClients注解，您可以使用一整套负载均衡器、断路器和HTTP客户端，并附带一个合理的的默认配置。
