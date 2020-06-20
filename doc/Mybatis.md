@@ -21,11 +21,8 @@
 SqlSession对象完成和数据库的交互：
  SqlSession通过调用api的Statement ID找到对应的MappedStatement对象 通过Executor（负责动态SQL的生成和查询缓存的维护）将MappedStatement对象进行解析，
  sql参数转化、动态sql拼接，生成jdbc Statement对象 d、JDBC执行sql。
-sqlSession的四大对象 
-executor statementHandler(声明处理器)
- parameterHandler ResultSetHandler 
  SqlSession是对外暴露的统一接口 如 selectOne selectList selectmap 实物提交 回滚 等 executor 执行所有的sql 执行器 调度核心
-  Configuration sqlSessionFactory sqlSession
+ Configuration sqlSessionFactory sqlSession
 MappedStatement 动态SQL的封装
 
 #Mybatis原理
@@ -73,7 +70,16 @@ SpringBoot自动配置 EnableAutoConfiguration 通过AutoConfigurationImportSele
 
 过程： 读取mybatis配置文件创建 SqlSessoinFactory 获取sqlSession 获取对应mapper executes 执行sql返回结果
 Spring加载MyBatis这个过程，其实就是把MyBatis的Mapper转换成Bean，注入到Spring容器的过程。
- 也是 FactoryBean的使用 其中使用到 MapperFactoryBean SqlSessionFactoryBean
+ 也是 FactoryBean的使用 其中使用到 MapperFactoryBean SqlSessionFactoryBean、 MapperScannerConfigurer
+
+#mybatis插件是通过Interceptor拦截器实现的
+能使用插件拦截的接口和方法  sqlSession的四大对象 
+Executor  
+StatementHandler 
+ParameterHandler 
+ResultSetHandler
+
+
 
 #日志模块
 适配器模式:适配各种日志组件 LogFactory中定义了顺序
@@ -121,7 +127,7 @@ org.apache.ibatis.builder.xml.XMLMapperBuilder.parse Mapper文件解析入口
 
 MapperMethod是封装sql语句的对象包含下面两个对象，是Mapper接口和xml Sql文件的桥梁
 SqlCommand command 唯一作表namespace+id, sql类型 增删改查等。
-MethodSignature method 
+MethodSignature method 方法返回类型
 
 #MapperMethod和MapperStatement的区别
 

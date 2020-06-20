@@ -50,7 +50,7 @@ public class UserServiceImplTest {
     public void login() throws NoSuchAlgorithmException {
         LoginVO vo=new LoginVO();
         vo.setMobile("13817569208");
-        vo.setPassword("testSpringBoot");
+        vo.setPassword("123456");
         BaseResponse<String> login = userService.login(vo);
         System.out.println(login.getData()+"   "+login.getCode()+login.getMsg());
     }

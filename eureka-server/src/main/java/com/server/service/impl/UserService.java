@@ -73,7 +73,7 @@ public class UserService extends BaseService  {
         }
     }
 
-    @HystrixCommand(groupKey = "getAllUser",commandKey = "getAllUser",fallbackMethod ="getUsersBack")
+    //@HystrixCommand(groupKey = "getAllUser",commandKey = "getAllUser",fallbackMethod ="getUsersBack")
     public List<UserBean> getUsers() {
         return newsUserDao.getAllUsers();
     }
