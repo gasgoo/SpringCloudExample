@@ -1,6 +1,7 @@
 package com.server.config;
 
 import com.alibaba.druid.pool.DruidPooledPreparedStatement;
+import com.alibaba.fastjson.JSON;
 import com.mysql.cj.jdbc.ClientPreparedStatement;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.executor.statement.StatementHandler;
@@ -41,6 +42,8 @@ public class MyBatisInterceptor implements Interceptor {
         if(runTime>=threshold){
             DruidPooledPreparedStatement mappedStatement = (DruidPooledPreparedStatement) invocation.getArgs()[0];
             String sql= mappedStatement.getSql();
+            DruidPooledPreparedStatement.PreparedStatementKey key = mappedStatement.getKey();
+            System.out.println(JSON.toJSON(key));
             System.out.println("sql语句: "+sql +"执行时间:"+runTime+"毫秒");
 
         }

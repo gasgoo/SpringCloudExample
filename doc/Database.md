@@ -1,16 +1,31 @@
 #MySQL============默认 可重复读取 oracle 默认是 读已提交。
 
-select @@global.tx_isolation 查看 隔离级别： ====主从同步原理 异步串行化 二进制日志文件 binary log master将改变的数据记录再本地的二进制文件，主库的 binary log写(同步)到从库 通过IO线程写入 Relav log 然后从库通过sql线程把RelavLog 写入database; 其中涉及 一个IO线程 一个SQL线程。
+select @@global.tx_isolation 查看 隔离级别： 
+>主从同步原理 异步串行化 
+
+ master将改变的数据记录再本地的二进制文件，主库的 binary log写(同步)到从库 通过IO线程写入 Relav log 
+ 然后从库通过sql线程把RelavLog 写入database; 其中涉及 一个IO线程 一个SQL线程。
 
 auto_increment mysql自增 mysql -uroot -proot
 
-mysql体系: 自上而下 连接池组件-管理服务和工具组件- (sql接口组件-查询分析器-优化器-缓冲组件)-存储引擎-物理存储文件。 mysql逻辑分层： 连接：提供与客户端的连接 服务：提供各种用户使用的接口 select update； 提供sql优化器 引擎：提供了各种存储数据的方式 存储：数据存储 事物管理
+mysql体系: 自上而下 连接池组件-管理服务和工具组件- (sql接口组件-查询分析器-优化器-缓冲组件)-存储引擎-物理存储文件。
+ mysql逻辑分层：
+  连接：提供与客户端的连接 
+  服务：提供各种用户使用的接口 select update；  提供sql优化器 
+  引擎：提供了各种存储数据的方式 
+  存储：数据存储 事物管理
 
-show engines; 查看引擎 存储引起是基于表的非数据库。 select * from information_schema.engines;
+#show engines; 查看引擎 存储引起是基于表的非数据库。 
+select * from information_schema.engines;
 
-innodb ：事物优先，适合高并发场景 大量的 insert update 行锁 OLTP myisam : 性能效率优先 适合大量的select 表锁 不支持事物 支持全文索引 主要适用OLAP 缓冲索引文件 NDB: 集群存储引擎 索引数据全部在内存中，行锁 主键查询数据极快 缺点：join操作时数据库层完成不是存储引擎层完成需要巨大的网络开销。 memory: 数据存于内存，重启会丢失数据， 临时表适用 默认适用 哈希索引 非B+树索引，表锁。 Archive: 归档存储引擎，只支持insert和select操作；数据行压缩存储. Maria: myIsam引擎的升级版本，支持缓存数据和索引文件，行锁，MVCC 支持事物可选，BLOB字符串类型的兼容。
+innodb ：事物优先，适合高并发场景 大量的 insert update 行锁 OLTP 
+myisam : 性能效率优先 适合大量的select 表锁 不支持事物 支持全文索引 主要适用OLAP 缓冲索引文件 
+NDB: 集群存储引擎 索引数据全部在内存中，行锁 主键查询数据极快 缺点：join操作时数据库层完成不是存储引擎层完成需要巨大的网络开销。 
+memory: 数据存于内存，重启会丢失数据， 临时表适用 默认适用 哈希索引 非B+树索引，表锁。 
+Archive: 归档存储引擎，只支持insert和select操作；数据行压缩存储. 
+Maria: myIsam引擎的升级版本，支持缓存数据和索引文件，行锁，MVCC 支持事物可选，BLOB字符串类型的兼容。
 
-innodb存储引擎详解: 后台线程-内存缓冲池-磁盘文件
+#innodb存储引擎详解: 后台线程-内存缓冲池-磁盘文件
 
 后台线程的作用：负债刷新内存池中的数据，保证缓冲池的数据是最新的数据; 最新修改刷新到磁盘文件。
 1.线程类型:
@@ -144,7 +159,6 @@ Next-key Lock 锁定一个范围并锁定记录， 可以解决 幻读(不可重
  show engine innodb status; 
  select * from innodb_trx,Innodb_locks,innodb_lock_waits;
 
-====================lock end==================== 
 #====================事物 start====== 
 事物ACID属性 原子性、一致性、隔离性、持久性 redo log (重做日志) log 保证持久性和原子性 D 对新数据做日志备份
 undo log (回滚日志)保证事物一致性A 基础 对现有数据备份 锁机制 写事物之间的隔离 I
