@@ -17,3 +17,20 @@ tcp是面向连接的，所以需要双方都确认连接的建立。
 
 udp: 面向无连接的通讯协议
 速度快、容易丢失数据、通讯不需要双方确认
+
+>BIO和NIO的区别
+1. BIO面向流、NIO面向缓冲
+2. 阻塞和非阻塞  
+3. NIO 有select选择器 单个线程监听多个网络连接。 BIO是一个线程处理一个连接。
+
+NIO三个特点：
+1. 选择器select
+2. Buffer
+    capactiy
+    position
+    limit 
+    flip() 读写模式切换
+    allocate() 分配  堆内存比直接内存分配空间效率更高；直接内存读写比堆内存读写效率高。
+    
+3. channel  网络连接  注册到 select上
+4. selectionKey

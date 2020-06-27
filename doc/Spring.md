@@ -236,7 +236,7 @@ DispatcherServlet机制和原理
 #如何把一个对象交给Spring管理
 1.@Bean
 2.FactoryBean
-3. beanFactory.registerSingleton()
+3. ImportBeanDefinitionRegistrar.registerBeanDefinitions()
 4. xml配置bean标签方式 不推荐使用
 5. 常用的注解@Component @Service @Controller等间接方式
 
