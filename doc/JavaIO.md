@@ -34,3 +34,34 @@ NIO三个特点：
     
 3. channel  网络连接  注册到 select上
 4. selectionKey
+
+>NIO的缺陷: cpu飙升100  空轮询
+
+Reactor反应堆模式  netty核心组件
+1. Channel 网络连接 netty中需要注册到 EventLoopGroup线程组
+2. 回调Callback 和Future
+3. 事件和 ChannelHandler
+4. EventLoopGroup EventLoop  线程池组  一个EventLoop可以处理多个Channel,但是一个Channel只会属于一个线程EventLoop处理。 
+    避免了线程同步的问题、
+
+5. ByteBuf    容量capactiy  可丢弃字节  可读字节 readIndex   可写字节 writeIndex
+   分配工具类 ByteBufAllocator 
+   堆缓冲区  
+   直接缓冲区
+   复合缓冲区
+6. 半包、拆包、粘包  一次请求的数据包分散再多次发送中或 一次请求包数据中包含多个请求的数据。
+   >产生原因: 应用程序的长度属性大于套接字缓冲区的大小、 ip分片、 tcp分段  tcp协议本身决定会有半包的粘包的问题。 
+  处理方式：
+  1. 固定长度  LineBasedFrameDecoder  
+  2. 分隔符  
+  3. 包中加上数据包的长度属性。
+  
+
+
+>通信方式
+NIO  
+Epoll 只linux系统支持。
+OIO  old IO
+Local  同台虚拟机 本地不走网关
+Embedded  测试使用
+
