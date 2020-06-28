@@ -8,7 +8,6 @@ import lombok.extern.slf4j.Slf4j;
 import java.nio.charset.Charset;
 
 /**
- * @TODO
  * 表示当前Handler可以共享的注解
  * @ChannelHandler.Sharable
  * @Date 2019/12/12 19:22
@@ -16,7 +15,7 @@ import java.nio.charset.Charset;
  */
 
 @Slf4j
-
+@ChannelHandler.Sharable
 public class NettyEchoServerHandler extends ChannelInboundHandlerAdapter {
 
 
@@ -42,9 +41,10 @@ public class NettyEchoServerHandler extends ChannelInboundHandlerAdapter {
 
         System.out.println("=========");
 
-
-
-
-
     }
+
+   /* @Override
+    public void channelReadComplete(ChannelHandlerContext ctx){
+        ctx.writeAndFlush(Unpooled.EMPTY_BUFFER).addListener(ChannelFutureListener.CLOSE);
+    }*/
 }

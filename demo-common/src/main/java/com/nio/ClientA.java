@@ -18,29 +18,24 @@ import java.nio.charset.Charset;
 
 public class ClientA {
 
+    private static final String host="127.0.0.1";
+    private static final int port=8000;
+    private static NioClientHandlerA nioClientHandlerA;
     public static void main(String[] args) throws IOException {
         startClient();
     }
 
     public static void startClient() throws IOException {
-        SocketChannel socketChannel=SocketChannel.open(new InetSocketAddress("127.0.0.1",8000));
-        System.out.println("客户端启动成功>>>>>>>clientA");
 
-
-        Selector selector= Selector.open();
-        socketChannel.configureBlocking(false);
-        socketChannel.register(selector, SelectionKey.OP_CONNECT);
-        // 不断的自旋 等待连接完成
-        while(!socketChannel.finishConnect()){
-            System.out.println("连接中....");
+        if(nioClientHandlerA!=null){
+            nioClientHandlerA.stop();
         }
-        System.out.println("连接成功!");
-        //获取服务器的响应
-        new Thread(new NioClientHandler(selector)).start();
-        //发送数据
-        socketChannel.write(Charset.forName("UTF-8").encode("Hello Server,I am clientA"));
-        //发送到服务器
-        //socketChannel.shutdownInput();
-        //socketChannel.close();
+        nioClientHandlerA=new NioClientHandlerA(host,port);
+        new Thread(nioClientHandlerA).start();
+    }
+
+    //发送数据
+    public static void sendMsg(String msg) throws IOException {
+        nioClientHandlerA.sendMsg(msg);
     }
 }

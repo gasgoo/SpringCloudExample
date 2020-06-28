@@ -43,6 +43,7 @@ public class NettyEchoServer {
             protected void initChannel(SocketChannel channel)throws Exception{
                 //向子通道流水线添加一个handler处理器
                 channel.pipeline().addLast(new NettyEchoServerHandler());
+                channel.pipeline().addLast(new NettyEchoServerOutHandler());
             }
         });
         //帮定服务器  sync同步阻塞直到帮定成功

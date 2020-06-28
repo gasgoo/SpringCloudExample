@@ -5,6 +5,7 @@ import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
+import io.netty.util.CharsetUtil;
 
 /**
  * netty 客户端处理器
@@ -13,7 +14,7 @@ import io.netty.channel.ChannelInboundHandlerAdapter;
  */
 
 @ChannelHandler.Sharable
-public class NettyEchoClientHandler extends ChannelInboundHandlerAdapter {
+public class NettyEchoClientHandler extends ChannelInboundHandlerAdapter  {
 
 
     public static final NettyEchoClientHandler INSTANCE =new NettyEchoClientHandler();
@@ -32,6 +33,11 @@ public class NettyEchoClientHandler extends ChannelInboundHandlerAdapter {
         buf.release();
 
         //向后传递 自动释放
-       // super.channelRead(channelHandlerContext,o);
+        //super.channelRead(ctx,o);
+    }
+
+    @Override
+    public void channelActive(ChannelHandlerContext ctx){
+        ctx.writeAndFlush(Unpooled.copiedBuffer("hello Netty", CharsetUtil.UTF_8));
     }
 }

@@ -13,7 +13,6 @@ import org.assertj.core.util.DateUtil;
 import java.util.Scanner;
 
 /**
- * @TODO
  * @Date 2019/12/13 8:54
  * @name NettyEchoClient
  */
@@ -34,7 +33,6 @@ public class NettyEchoClient {
     public void runClient()  {
         EventLoopGroup  workerLoopGroup = new NioEventLoopGroup();
         try {
-
             bootstrap.group(workerLoopGroup);
             bootstrap.channel(NioSocketChannel.class);
             bootstrap.remoteAddress(serverIp, serverPort);
@@ -44,7 +42,9 @@ public class NettyEchoClient {
                     ch.pipeline().addLast(NettyEchoClientHandler.INSTANCE);
                 }
             });
+            //发起连接
             ChannelFuture f = bootstrap.connect();
+
             f.addListener((ChannelFuture future) -> {
                 if (future.isSuccess()) {
                     log.info("NettyEchoClient 启动成功!");
@@ -52,8 +52,9 @@ public class NettyEchoClient {
                     log.info("NettyEchoClient 连接失败!");
                 }
             });
-
+            //阻塞直到连接完成
             f.sync();
+
             Channel channel = f.channel();
             Scanner scanner = new Scanner(System.in);
             System.out.println("请输入内容>>");
