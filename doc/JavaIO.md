@@ -52,9 +52,9 @@ Reactor反应堆模式  netty核心组件
 6. 半包、拆包、粘包  一次请求的数据包分散再多次发送中或 一次请求包数据中包含多个请求的数据。
    >产生原因: 应用程序的长度属性大于套接字缓冲区的大小、 ip分片、 tcp分段  tcp协议本身决定会有半包的粘包的问题。 
   处理方式：
-  1. 固定长度  LineBasedFrameDecoder  
-  2. 分隔符  
-  3. 包中加上数据包的长度属性。
+  1. 固定长度  LineBasedFrameDecoder   
+  2. 分隔符   
+  3. 包中加上数据包的长度属性。FixedLengthFrameDecoder
   
 
 

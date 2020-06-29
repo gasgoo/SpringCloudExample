@@ -52,6 +52,8 @@ org.apache.ibatis.binding.MapperRegistry.getMapper
  BatchExcutor
  ResumeExcutor
  SimpleExcutor
+ 
+ CacheExcutor
 
 #生成MapperProxy代理对象后需要把bean放到ioc容器中。
 如何把Mybatis的代理对象作为一个bean放入Spring容器中？ 通过 FactoryBean把Mybatis生成的代理对象放入容器中

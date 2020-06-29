@@ -7,6 +7,7 @@ import io.netty.buffer.Unpooled;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.embedded.EmbeddedChannel;
+import io.netty.util.CharsetUtil;
 import org.junit.Test;
 
 import java.io.UnsupportedEncodingException;
@@ -222,8 +223,8 @@ public class InHandlerDemoTest {
             int len = byteBuf.readableBytes();
             System.out.println("可读length:"+len);
             byte[] arr=new byte[len];
-            String outMsg=new String(arr);
-            System.out.println("out>>>>>"+outMsg);
+            String outMsg=new String(arr,CharsetUtil.UTF_8);
+            System.out.println("out>>>>>"+ outMsg);
            // byteBuf  = ch.readOutbound();
         }
     }
