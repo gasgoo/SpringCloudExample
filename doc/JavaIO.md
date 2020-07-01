@@ -54,8 +54,8 @@ Reactor反应堆模式  netty核心组件
   处理方式：
   1. 固定长度  LineBasedFrameDecoder   
   2. 分隔符   
-  3. 包中加上数据包的长度属性。FixedLengthFrameDecoder
-  
+  3. 包中加上数据包的长度属性。LengthFiledBasedFrameDecoder
+    
 
 
 >通信方式

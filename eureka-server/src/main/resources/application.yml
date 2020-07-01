@@ -98,7 +98,7 @@ ribbon:
     enabled: true
 
 mybatis:
-  typeAliasesPackage: com.server.domain
+  typeAliasesPackage: com.httpServer.domain
   #mapperLocations指的路径是src/main/resources
   mapperLocations: classpath:mapper/*.xml
   configuration:

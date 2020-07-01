@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class HelloController {
     private static Logger log = LoggerFactory.getLogger(HelloController.class);
 
-    @Value("${server.port}")
+    @Value("${httpServer.port}")
     private int port;
 
 

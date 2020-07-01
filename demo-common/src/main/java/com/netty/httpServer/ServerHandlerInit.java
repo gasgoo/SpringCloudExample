@@ -1,4 +1,4 @@
-package com.netty.server;
+package com.netty.httpServer;
 
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
@@ -24,9 +24,13 @@ public class ServerHandlerInit extends ChannelInitializer<SocketChannel> {
     @Override
     protected void initChannel(SocketChannel channel) throws Exception {
         ChannelPipeline pipeline=channel.pipeline();
+        //https支持的处理
+       /* if(sslCtx !=null){
+            pipeline.addLast(sslCtx.newHandler(channel.alloc()));
+        }*/
         pipeline.addLast("encoder", new HttpResponseEncoder());
         pipeline.addLast("decoder",new HttpRequestDecoder());
         pipeline.addLast("aggregator",new HttpObjectAggregator(1024*1024*10));
-        pipeline.addLast("handler",new BusinessHandeler());
+        pipeline.addLast("handler",new BusinessHandler());
     }
 }

@@ -1,4 +1,4 @@
-package com.netty.server;
+package com.netty.httpServer;
 
 import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelFutureListener;
@@ -10,11 +10,11 @@ import lombok.extern.slf4j.Slf4j;
 
 /**
  * @Date 2020/6/29 19:41
- * @name BusinessHandeler
+ * @name BusinessHandler
  */
 
 @Slf4j
-public class BusinessHandeler extends ChannelInboundHandlerAdapter {
+public class BusinessHandler extends ChannelInboundHandlerAdapter {
 
     private void send(ChannelHandlerContext ctx, String context, HttpResponseStatus status) {
         FullHttpResponse response = new DefaultFullHttpResponse(HttpVersion.HTTP_1_1, status, Unpooled.copiedBuffer(context, CharsetUtil.UTF_8));
@@ -27,7 +27,6 @@ public class BusinessHandeler extends ChannelInboundHandlerAdapter {
         String result="";
         FullHttpRequest httpRequest= (FullHttpRequest) msg;
         log.info("请求头部:{}",httpRequest.headers());
-        //Integer integer = (Integer) msg;
         try{
             //获取路径
             String path=httpRequest.uri();

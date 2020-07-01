@@ -26,7 +26,7 @@ spring:
 #      routes:
 #        ##限流
 #      - id: requestratelimiter_route
-#        uri: lb://eureka-server
+#        uri: lb://eureka-httpServer
 #        predicates:
 #        - After=2020-02-20T17:42:47.789+08:00
 #        filters:

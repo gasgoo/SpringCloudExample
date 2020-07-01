@@ -1,4 +1,4 @@
-package com.netty.server;
+package com.netty.httpServer;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
@@ -28,6 +28,7 @@ public class HttpServer {
 
     public void runServer() throws Exception {
         final SslContext sslContext;
+        //添加ssl支持
         if(SSL){
             SelfSignedCertificate ssc=new SelfSignedCertificate();
             sslContext= SslContextBuilder.forServer(ssc.certificate(),ssc.privateKey()).build();

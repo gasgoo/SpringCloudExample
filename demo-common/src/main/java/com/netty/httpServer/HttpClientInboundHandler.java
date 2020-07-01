@@ -1,4 +1,4 @@
-package com.netty.client;
+package com.netty.httpServer;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;

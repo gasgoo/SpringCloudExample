@@ -142,7 +142,7 @@ public class NioClientHandlerA  implements Runnable {
                     selectionKey.cancel();
                     sc.close();
                 }
-                System.out.println("server response: "+response);
+                System.out.println("httpServer response: "+response);
             }
         }
 

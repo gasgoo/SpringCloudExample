@@ -28,7 +28,7 @@ public class NettyEchoServerHandler extends ChannelInboundHandlerAdapter {
         int len = buf.readableBytes();
         byte[] arr =new byte[len];
         buf.getBytes(0,arr);
-        log.info("server received:{}",new String(arr, Charset.forName("UTF-8")));
+        log.info("httpServer received:{}",new String(arr, Charset.forName("UTF-8")));
 
         log.info("写回前: msg.refCnt: {}", ((ByteBuf) msg).refCnt());
 

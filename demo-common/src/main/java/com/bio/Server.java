@@ -18,7 +18,7 @@ public class Server {
     public static void main(String[] args) throws IOException {
         ServerSocket serverSocket = new ServerSocket();
         serverSocket.bind(new InetSocketAddress(10001));
-        System.out.println("server start.....");
+        System.out.println("httpServer start.....");
 
         while (true) {
             Thread taskThread=new Thread(new ServerTask(serverSocket.accept()));
@@ -41,7 +41,7 @@ public class Server {
                     ObjectOutputStream outputStream = new ObjectOutputStream(socket.getOutputStream());
             ) {
                 String msg=inputStream.readUTF();
-                System.out.println("server  accept:"+msg);
+                System.out.println("httpServer  accept:"+msg);
                 outputStream.writeUTF("hello client!");
                 outputStream.flush();
 

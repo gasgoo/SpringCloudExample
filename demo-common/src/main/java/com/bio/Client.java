@@ -27,7 +27,7 @@ public class Client {
         outputStream.flush();
 
         //接受server的返回
-        System.out.println("server response:" + inputStream.readUTF());
+        System.out.println("httpServer response:" + inputStream.readUTF());
 
     }
 }

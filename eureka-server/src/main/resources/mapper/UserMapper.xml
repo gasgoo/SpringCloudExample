@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.server.dao.NewsUserDao" >
-    <resultMap id="BaseResultMap" type="com.server.domain.UserBean" >
-        <id column="id" property="id" jdbcType="INTEGER" />
-        <id column="uid" property="uid" jdbcType="INTEGER" />
-        <result column="user_name" property="userName" jdbcType="VARCHAR" />
-        <result column="mobile" property="mobile" jdbcType="VARCHAR" />
-        <result column="password" property="password" jdbcType="VARCHAR" />
-        <result column="age" property="age" jdbcType="INTEGER" />
-        <result column="address" property="address" jdbcType="VARCHAR" />
-        <result column="create_date" property="createDate" jdbcType="INTEGER" />
-        <result column="update_date" property="updateDate" jdbcType="INTEGER" />
+<mapper namespace="com.server.dao.NewsUserDao">
+    <resultMap id="BaseResultMap" type="com.server.domain.UserBean">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <id column="uid" property="uid" jdbcType="INTEGER"/>
+        <result column="user_name" property="userName" jdbcType="VARCHAR"/>
+        <result column="mobile" property="mobile" jdbcType="VARCHAR"/>
+        <result column="password" property="password" jdbcType="VARCHAR"/>
+        <result column="age" property="age" jdbcType="INTEGER"/>
+        <result column="address" property="address" jdbcType="VARCHAR"/>
+        <result column="create_date" property="createDate" jdbcType="INTEGER"/>
+        <result column="update_date" property="updateDate" jdbcType="INTEGER"/>
 
     </resultMap>
 
@@ -18,30 +18,30 @@
     <cache eviction="LRU" flushInterval="60000" size="512" readOnly="true"></cache>
 
 
-    <sql id="Base_Column_List" >
+    <sql id="Base_Column_List">
         id,uid,user_name, mobile, password,age,address,create_date,update_date
     </sql>
-    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
         select
-        <include refid="Base_Column_List" />
+        <include refid="Base_Column_List"/>
         from news_user
         where id = #{id}
     </select>
-    <select id="selectUser" resultMap="BaseResultMap" parameterType="com.server.domain.UserBean" >
+    <select id="selectUser" resultMap="BaseResultMap" parameterType="com.server.domain.UserBean">
         select
-        <include refid="Base_Column_List" />
+        <include refid="Base_Column_List"/>
         from news_user
         where mobile=#{mobile} and password=#{password}
     </select>
-    <select id="selectByMobile" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    <select id="selectByMobile" resultMap="BaseResultMap" parameterType="java.lang.String">
         select
-        <include refid="Base_Column_List" />
+        <include refid="Base_Column_List"/>
         from news_user
         where mobile=#{mobile}
     </select>
-    <select id="selectByUid" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    <select id="selectByUid" resultMap="BaseResultMap" parameterType="java.lang.String">
         select
-        <include refid="Base_Column_List" />
+        <include refid="Base_Column_List"/>
         from news_user
         where uid=#{uid}
     </select>
@@ -49,7 +49,7 @@
 
     <select id="getAllUsers" resultMap="BaseResultMap">
         select
-        <include refid="Base_Column_List" />
+        <include refid="Base_Column_List"/>
         from news_user
     </select>
     <!--
@@ -57,16 +57,17 @@
           select LAST_INSERT_ID();
       </selectKey>
     -->
-   <insert id="add" parameterType="com.server.domain.UserBean" keyProperty="id"  useGeneratedKeys="true" >
+    <insert id="add" parameterType="com.server.domain.UserBean" keyProperty="id" useGeneratedKeys="true">
         insert into news_user ( uid,user_name,mobile, password,age,address,create_date,update_date)
         values (#{uid,jdbcType=VARCHAR},#{userName,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},#{age,jdbcType=INTEGER},#{address,jdbcType=VARCHAR},now(),now())
     </insert>
     <!--批量操作-->
-    <insert id="addBatch" parameterType="com.server.domain.UserBean" >
+    <insert id="addBatch" parameterType="com.server.domain.UserBean">
         insert into news_user ( uid,user_name,mobile, password,age,address,create_date,update_date)
         values
         <foreach collection="list" separator="," item="userBean">
-            (#{uid,jdbcType=VARCHAR},#{userName,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},#{age,jdbcType=INTEGER},#{address,jdbcType=VARCHAR},now(),now())
+            (#{uid,jdbcType=VARCHAR},#{userName,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR},
+            #{password,jdbcType=VARCHAR},#{age,jdbcType=INTEGER},#{address,jdbcType=VARCHAR},now(),now())
         </foreach>
     </insert>
 

@@ -81,7 +81,7 @@ eureka:
   instance:
     #是否以 IP 注册到注册中心
     prefer-ip-address: false
-    instance-id: ${spring.cloud.client.ip-address}:${server.port}
+    instance-id: ${spring.cloud.client.ip-address}:${httpServer.port}
   client:
     ## 表示是否可以注册自己到server上
     registerWithEureka: true
@@ -99,7 +99,7 @@ ribbon:
     enabled: true
 
 mybatis:
-  typeAliasesPackage: com.server.domain
+  typeAliasesPackage: com.httpServer.domain
   #mapperLocations指的路径是src/main/resources
   mapperLocations: classpath:mapper/*.xml
   configuration:
