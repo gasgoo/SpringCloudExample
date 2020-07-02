@@ -8,6 +8,7 @@ import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
  * 在线聊天室
@@ -55,4 +56,6 @@ public class StompController {
         this.template.convertAndSendToUser(chatRoomRequest.getUserId() + "", "/alone", response);
         return response;
     }
+
+
 }

@@ -8,7 +8,6 @@ import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerCo
 
 /**
  * webSocket支持
- *
  * @Date 2020/7/2 10:46
  * @name WebSocketConfig
  */

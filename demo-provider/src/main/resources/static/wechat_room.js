@@ -13,7 +13,7 @@ window.onunload = function () {
 
 //打开通道
 function connect() {
-    var socket = new SockJS('/endpointMark'); //连接SockJS的endpoint名称为"endpointAric"
+    var socket = new SockJS('/endpoint'); //连接SockJS的endpoint名称为"endpointAric"
     stompClient = Stomp.over(socket);//使用STMOP子协议的WebSocket客户端
     stompClient.connect({}, function (frame) {//连接WebSocket服务端
 

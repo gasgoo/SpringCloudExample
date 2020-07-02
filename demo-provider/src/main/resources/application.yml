@@ -39,6 +39,14 @@ spring:
     # 使用druid数据源
     type: com.alibaba.druid.pool.DruidDataSource
 
+    #thymeleaf start
+  thymeleaf:
+    mode: HTML
+    encoding: UTF-8
+    servlet:
+      content-type: text/html
+  #thymeleaf end
+
 #adminServer的配置
 management:
   endpoints:
