@@ -32,7 +32,7 @@ import java.math.BigDecimal;
 public class HelloController {
     private static Logger log = LoggerFactory.getLogger(HelloController.class);
 
-    @Value("${httpServer.port}")
+    @Value("${server.port}")
     private int port;
     @Autowired
     private DistributedLockHandler distributedLockHandler;
