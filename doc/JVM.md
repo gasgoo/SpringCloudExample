@@ -85,7 +85,6 @@ GC Roots 可达性分析  判断对象是否存活。哪些对象可以当作根
     OOM: java heap over 
     OOM: GC OverHead Limit exceeded 频繁的FullGC但是没有回收
     
-    
 
  >性能调优
  1. 前端优化： 减少请求请求合并、  keepAlive 、客户端缓存(Cache-control Expires)、启用压缩、 文件加载顺序
@@ -98,6 +97,14 @@ GC Roots 可达性分析  判断对象是否存活。哪些对象可以当作根
 tomcat webAppClassLoader    
 线程上下文加载器 appClassLoader 
 spi
+#Tomcat中类加载顺序
+1. 使用bootstrap引导类加载器加载
+2. 使用system系统类加载器加载
+3. 使用应用类加载器在WEB-INF/classes中
+4. WEB-INF/lib
+5. common classLoader 加载CATALINA_HOME/lib
+
+
  
     
 
