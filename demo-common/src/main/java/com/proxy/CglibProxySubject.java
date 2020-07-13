@@ -13,17 +13,19 @@ public class CglibProxySubject implements MethodInterceptor {
 
     @Override
     public Object intercept(Object o, Method method, Object[] objects, MethodProxy methodProxy) throws Throwable {
-        System.out.println("cglib 动态代理");
+        System.out.println("cglib 动态代理开始");
         Object result=null;
         try {
             result=methodProxy.invokeSuper(o,objects);
-            method.invoke(o,objects);
+            //method.invoke(o,objects);
         }catch (Exception e){
             System.out.println(e.getMessage());
             throw  e;
         }finally {
             System.out.println("cglib after");
         }
+        System.out.println("cglib 动态代理结束");
+
         return result;
     }
 }

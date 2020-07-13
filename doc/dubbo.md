@@ -57,4 +57,7 @@ proxy--invoker ---protocol--invoker---ref
 
 InitializingBean.afterPropertiesSet()方法中完成服务暴露
 
+服务启动把服务注册到zk上需要实现 ServletContextListener接口，在下面的方法中连接zk并创建服务节点，临时顺序节点。
+    void contextInitialized(ServletContextEvent var1);
+
  

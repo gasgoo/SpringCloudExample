@@ -118,11 +118,12 @@ Required  当前没有事物则new 事物，如果已经存在则 加入事物�
 supports  支持当前事物，没有事物则以非事物方式运行
 Manadtory  使用当前事物，如没有则异常
 required_new 新建事物 如果存在事物 把当前事物挂起    2
-Not_supports   非事物方式运行
+Not_supports   非事物方式运行 
 NEVER     非事物方式运行 存在事物则异常   
 Nested    支持嵌套事物            3  同一个连接
  
 编程事物： 手动开启一个事物  可以自己控制锁的粒度
+TransactionTemplate 
 DefaultTransactionDefinition  db=new DefaultTransactionDefinition();
 db.setPropagationBehavior(0)设置传播属性
 PlatformTransactionManager.getTransacation(db);
@@ -132,7 +133,7 @@ PlatformTransactionManager.getTransacation(db);
 2. 整个异常被捕获了没有抛出，则事物没有回滚。
 3. 非public方法上使用事物注解
 4. 方法中调用同一个类中的事物注解方法， 非事物方法调用同类的方法 this.call 没有到代理类中。
-
+noRollBackFor=xxxException.class 指定异常事物不回滚;  rollbackFor=xxx.class 指定异常事物会滚
 ## Transaction end
 
 IOC体系结构  

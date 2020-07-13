@@ -35,7 +35,6 @@ SpringFactoriesLoader工厂加载机制 loadFactories加载 把类Class加载到
 
 #自定义starter启动器
 
-
 #SpringApplication的执行过程 SpringApplication.run();  启动容器、部署到tomcat、发布启动事件ApplicationStartedEvent
 
 SpringApplicationRunListener的environmentPrepared()的方法 

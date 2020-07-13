@@ -18,31 +18,6 @@
 Hystrix 组件，当特定的服务不可用达到一个阈值（Hystrix 默认 5 秒 20 次）
 启动类中添加 @EnableHystrixDashboard
 
-实现分布式锁的方案
-###利用 SETNX 和 SETEX 做分布式锁
-
-SETNX(SET If Not Exists)：当且仅当 Key 不存在时，则可以设置，否则不做任何动作。
-SETEX：可以设置超时时间
-DistributedLockHandler    存在的问题：
- 高并发多个线程同时进入循环 加锁失败； 
-SETNX 是一个耗时操作，因为它需要判断 Key 是否存在，因为会存在性能问题
-改成 RedLock实现分布式锁
-
-##通过 Redlock 实现分布式锁比其他算法更加可靠
-Redisson  连接补上redis需要 修改redis配置
-vi redis.conf
-protected-mode yes 改成 protected-mode no
-##基于数据库的分布式锁
-1.基于数据库表
-基本原理和 Redis 的 SETNX 类似，其实就是创建一个分布式锁表，加锁后
-我们就在表增加一条记录，释放锁即把该数据删掉，
-2.乐观锁
-乐观锁一般通过 version 来实现，也就是在数据库表创建一个 version 字段，每次更新成功，则 version+1，读取数据时，我们将 version 字段一并读出，每次更新时将会对版本号进行比较，
-如果一致则执行此操作，否则更新失败！
-3. 悲观锁
-##基于ZooKeeper分布式锁---配置维护、域名服务、分布式同步、组服务等。
-实现的分布式锁是严格的按照顺序访问的并发锁。
-
 ##前端你请求参数签名方式
 将 Token、Timstamp 和接口需要的参数按照 ASCII 升序排列，
 拼接成 url=key1=value1&key2=value2，如 name=xxx&timestamp=xxx&token=xxx，进行 MD5（url+salt），

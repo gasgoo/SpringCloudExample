@@ -52,9 +52,6 @@ OutOfMemoryError异常的常见原因有以下几种:
 
 PermGen space的全称是Permanent Generation space,是指内存的永久保存区域,	
 
-消息通信:  同步的IO:  BIO=阻塞IO   NIO=非阻塞IO 事件驱动
-异步IO:  AIO
-
 IOC是指程序中对象的获取方式发生反转，由最初的new方式创建，转变为由第三方框架创建，注入。第三方框架一般是通过配置方式指定注入哪一个具体实现，从而降低了对象之间的耦合度 
 Spring容器是采用DI方式实现了IOC控制，IOC是Spring容器的基础和核心 
 DI全称是Dependency  Injection,被译为依赖注入 
@@ -251,12 +248,10 @@ jinfo参数查看
 验证：验证原数据 字符码  文件格式 符号引用
 准备： 分配内存 为类设置初始值
 解析：是一个不确定的顺序过程  类 接口 字段等解析 从 接口 父类 开始查询   继承关系从上往下递归搜索
-初始化：执行构造器 先执行父类在子类
+初始化：执行构造器 先执行父类在子类 static 执行 
 
 那么Java.lang.NoSuchFieldError错误可能在什么阶段抛出呢？
-
 很显然是在链接的验证阶段的符号引用验证时会抛出这个异常，或者NoSuchMethodError等异常。
-
 
 类加载器：
 bootstrapClassLoader   加载java核心类，负责加载lib/rt.jar中的class
@@ -266,6 +261,7 @@ application class loader）：被称为系统（也称为应用）类加载器  
 JVM的类加载机制主要有如下3种
 全盘负责
 双亲委派：所有类加载工作先用父类加载器加载，父类加载不了再子类继续加载。
+类加载有优先级的层次关系，保证java运行的稳定
 缓存机制
 
 7） tomcat的原理
@@ -335,11 +331,11 @@ mvc中需要在springmvc配置文件配置 <mvc:inteceptor>
 SpringMVC的机制是由同一个Servlet来分发请求给不同的Controller，其实这一步是在Servlet的service()方法中执行的。
 
 
-
 10）AOP用到两种动态代理实现拦截切入功能 -----JDK动态代理和cglib动态代理
 JDK动态代理是反射机制实现，cglib代理底层是ASM实现。
-
-
+JDK是基于接口实现代理；cglib是基于继承的方式实现 生成被代理类的子类。
+jdk简单不需要其他依赖，cglib需要外部依赖包 cglib不能处理final类型的方法。
+jdk代理实现 InvocationHandler 接口的 invoke方法  cglib实现 MethodInterceptor的intercept方法
 
 
 java SPI 机制：--SPI 全称为 Service Provider Interface，是一种可扩展的服务提供和注册机制

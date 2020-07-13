@@ -1,5 +1,7 @@
 package com.proxy;
 
+import org.springframework.cglib.proxy.Enhancer;
+
 import java.lang.reflect.Proxy;
 
 /**
@@ -19,12 +21,14 @@ public class RealSubject implements Subject {
         Subject subject1= (Subject) Proxy.newProxyInstance(RealSubject.class.getClassLoader(),
                 new Class[]{Subject.class},new JdkProxySubject(new RealSubject()));
         subject1.request();
+
         System.out.println("cglib动态代理====");
-        /*Enhancer enhancer=new Enhancer();
+
+        Enhancer enhancer = new Enhancer();
         enhancer.setSuperclass(Subject.class);
         enhancer.setCallback(new CglibProxySubject());
         Subject subject2= (Subject) enhancer.create();
-        subject2.request();*/
+        subject2.request();
 
     }
 }

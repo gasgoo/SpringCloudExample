@@ -6,5 +6,7 @@ package com.proxy;
  */
 public interface Subject {
 
-    public void request();
+    default void request() {
+        System.out.println("default默认实现");
+    }
 }
