@@ -75,4 +75,24 @@ public class ApplicationProperties {
     public void setCorePoolSize(Integer corePoolSize) {
         this.corePoolSize = corePoolSize;
     }
+
+    private String redisAddress;
+
+    private Integer redisPort;
+
+    public String getRedisAddress() {
+        return redisAddress;
+    }
+
+    public void setRedisAddress(String redisAddress) {
+        this.redisAddress = redisAddress;
+    }
+
+    public Integer getRedisPort() {
+        return redisPort;
+    }
+
+    public void setRedisPort(Integer redisPort) {
+        this.redisPort = redisPort;
+    }
 }

@@ -2,25 +2,21 @@ package com.server.web;
 
 import com.server.annotation.WebLog;
 import com.server.config.ApplicationProperties;
-import com.server.domain.Lock;
 import com.server.domain.Orders;
 import com.server.event.MyContextEventPublisher;
 import com.server.message.MQProducer;
 import com.server.message.MQRocketTemplateProducer;
-import com.server.redis.DistributedLockHandler;
 import com.server.service.HandlerDemo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.web.ServerProperties;
-import org.springframework.boot.autoconfigure.webservices.WebServicesProperties;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
 
 /**
@@ -34,8 +30,6 @@ public class HelloController {
 
     @Value("${server.port}")
     private int port;
-    @Autowired
-    private DistributedLockHandler distributedLockHandler;
 
     @Autowired
     private MQRocketTemplateProducer mqRocketTemplateProducer;
@@ -54,22 +48,6 @@ public class HelloController {
     public String hello() {
         log.info("feign test");
         return "Hello World!"+serverProperties.getPort();
-    }
-
-    @RequestMapping("lock")
-    public String lock() {
-        Lock lock=new Lock("lockName","lockValue");
-        if(distributedLockHandler.tryLock(lock)){
-            log.info("执行方法......");
-            try {
-                //为了演示锁的效果，这里睡眠5000毫秒
-                Thread.sleep(5000);
-            } catch (InterruptedException e) {
-                log.error("exception {}",e);
-            }
-            distributedLockHandler.releaseLock(lock);
-        }
-        return "test ok!";
     }
 
 
@@ -106,7 +84,6 @@ public class HelloController {
         myContextEventPublisher.happenEvent();
         return "ok";
    }
-
 
 
 

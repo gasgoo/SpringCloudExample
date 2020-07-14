@@ -142,10 +142,10 @@ a.非索引字段做条件的当前读，不但会把每条记录添加锁，还
  c. 非唯一索引会锁满足条件的记录，并且会添加间隙锁。
 
 ###锁========================== 锁是DB区别于文件系统最大的一个特征；用于管理对共享资源的访问。 
-全局加锁： Flush tables with read lock; 
-表加锁: lock tables t1 read/write; 
+全局加锁： Flush tables with read lockDTO; 
+表加锁: lockDTO tables t1 read/write; 
 行加X锁: select * from table where id=1 for update; 
-S锁 select * from table where id =1 lock in share mode; 
+S锁 select * from table where id =1 lockDTO in share mode; 
 innodb实现的锁 共享锁、排他锁
 
         非锁定的一致性读，不用加S锁可以读取，读取的数据快照，行记录通常会有多个快照版本-即 行多版本并发控制。

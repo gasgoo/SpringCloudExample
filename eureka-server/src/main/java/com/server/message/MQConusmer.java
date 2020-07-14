@@ -3,14 +3,14 @@ package com.server.message;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.rocketmq.client.consumer.DefaultMQPushConsumer;
-import org.apache.rocketmq.client.consumer.listener.ConsumeConcurrentlyStatus;
-import org.apache.rocketmq.client.consumer.listener.MessageListenerConcurrently;
+import org.apache.rocketmq.client.consumer.listener.*;
 import org.apache.rocketmq.common.consumer.ConsumeFromWhere;
 import org.apache.rocketmq.common.message.MessageExt;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import java.util.List;
 
 
 /**
@@ -45,6 +45,15 @@ public class MQConusmer extends AbstractMq {
                 }
 
             });
+            //顺序消费 有性能损耗
+            /*consumer.registerMessageListener(new MessageListenerOrderly() {
+                @Override
+                public ConsumeOrderlyStatus consumeMessage(List<MessageExt> list, ConsumeOrderlyContext consumeOrderlyContext) {
+                    return null;
+                }
+            });*/
+
+
             consumer.start();
             log.info("消费者启动成功>>>>>");
         }catch (Exception e){

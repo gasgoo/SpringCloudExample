@@ -1,6 +1,11 @@
 package com.server.config;
 
 import com.server.message.Receiver;
+import org.redisson.Redisson;
+import org.redisson.api.RedissonClient;
+import org.redisson.config.Config;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.cache.annotation.CachingConfigurerSupport;
 import org.springframework.context.annotation.Bean;
@@ -23,6 +28,12 @@ import java.util.concurrent.CountDownLatch;
 @SpringBootConfiguration
 public class RedisConfig extends CachingConfigurerSupport {
 
+    @Value("${spring.redis.host}")
+    private String host;
+
+    @Value("${spring.redis.port}")
+    private String port;
+
     /*redis连接工厂*/
     @Bean
     public RedisTemplate redisTemplate(RedisConnectionFactory connectionFactory) {
@@ -37,6 +48,13 @@ public class RedisConfig extends CachingConfigurerSupport {
         return template;
     }
 
+    @Bean
+    public RedissonClient redissonClient() {
+        Config config = new Config();
+        config.useSingleServer().setAddress(host + ":" + port);
+        RedissonClient redisson = Redisson.create(config);
+        return redisson;
+    }
 
     /*以下 是使用redis实现消息队列需要注入的bean*/
     @Bean
@@ -71,5 +89,6 @@ public class RedisConfig extends CachingConfigurerSupport {
     public MessageListenerAdapter listenerAdapter(Receiver receiver) {
         return new MessageListenerAdapter(receiver, "receiveMessage");
     }
+
 
 }

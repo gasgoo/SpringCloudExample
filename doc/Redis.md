@@ -1,42 +1,64 @@
-redis 高逼哥指南
+#redis 高逼哥指南
 
 基于内存亦可持久化的 日志型 key-value的数据库。
-
 是一个高性能的key-value数据库 支持持久化 多种数据类型 数据备份 主从 单线程 模型 并发能力强大主流的分布式缓存工具 5000亿/24小时 +++并发量 新浪
-
-为什么要用redis？ 高性能的原因： 单线程 全部是内存操作，NIO 多路复用IO模型，高效的数据结构 如sds 动态字符串
-
+高性能的原因： 单线程 全部是内存操作，NIO 多路复用IO模型，高效的数据结构 如sds 动态字符串  resp简单协议
+#redis特性
 速度快 持久化 支持多种数据结构 多语言 功能丰富 主从复制 高可用 分布式
 
+#常用命令
 set key value
+mset country china city shanghai
 get key ========命令
 key * 查看所有的key hgetall key 命令用于返回哈希表中，所有的字段和值。
- flushdb 删除当前库的缓存 
- flushAll 删除所有的缓存 
- exists 命令 判断可以是否存在 返回1表示存在，0不存在。
-  expire 设置过期时间 单位秒 type 返回key对应的value的数据类型 
-  ping 检查客户端是否连接成功 返回pong 
-  INCR Key 10 
-  DECR key 5 建议key的上下级关系用冒号分隔 key:subKey
+flushdb 删除当前库的缓存 
+flushAll 删除所有的缓存 
+exists 命令 判断可以是否存在 返回1表示存在，0不存在。
+expire 设置过期时间 单位秒 type 返回key对应的value的数据类型 
+ttl 剩余有效时间
+setnx name jack  1=成功 0=失败
+ping 检查客户端是否连接成功 返回pong 
+INCR Key 10 
+DECR key 5 建议key的上下级关系用冒号分隔 key:subKey
+watch
+multi
+exec
 
 redis数据结构：String字符串 Hash哈希类型、List列表类型、 Set集合类型、 Zset有序集合类型
 
-======List列表应用场景：社区发帖列表、简单的消息队列 最新新闻等。 数据结构是 双向链表 最多可以有 2的32次方减1个元素。 并行的请求转为串行的任务队列依次处理。 
-List的操作命令： RPUSH key value LPUSH key value RPOP key 左边移除并删除 LLen key 列表长度 LINDEX key index 取列表index位置上的元素。
+#List列表应用场景：社区发帖列表、简单的消息队列 最新新闻等。 数据结构是 双向链表 最多可以有 2的32次方减1个元素。 并行的请求转为串行的任务队列依次处理。 
+List的操作命令： 
+RPUSH key value 
+LPUSH key value 
+RPOP key 左边移除并删除 
+LLen key 列表长度 
+LINDEX key index 取列表index位置上的元素。
 
-======Hash 方便管理key 避免命名冲突 节约内存 Hset key filed value Hget key filed Hexists key filed 判断 key指向的Hash中filed是否存在。 Hkeys key 获取所有的 hash key Hvals key 获取所有的value
+#Hash 方便管理key 避免命名冲突 节约内存
+ hset key filed value hget key filed Hexists key filed 判断 key指向的Hash中filed是否存在。
+ Hkeys key 获取所有的 hash key Hvals key 获取所有的value
+ hset user:1 name lison age 38
+ hget user:1 name
+ hexists user:1 name
+ 
 
-===Set自动去除重复的元素 Zset 维护一个score 从小到大的排序。
+#Set自动去除重复的元素 Zset 维护一个score 从小到大的排序。
+SADD key value SREM key value 
+smembers key 显示所有元素
+SISMEMBER key member 判断member元素是否为key
+集合中的元素 SCARD key 集合的成员数 SMEMBERS key 列出所有元素
 
-SADD key value SREM key value SISMEMBER key member 判断member元素是否为 key集合中的元素 SCARD key 集合的成员数 SMEMBERS key 列出所有元素
-
-跳跃表 使用场景：ZSet有序集合底层实现; 集群节点中内部数据结构
+跳跃表 使用场景：
+#ZSet有序集合底层实现; 集群节点中内部数据结构
 ZskipList 跳跃表 Intset 整数集合 升级 降级
 
-事物相关的命令: multi-- 事物开始 exec--事物提交 discardq--取消事物 watch 监控某个key 是否被修改过 expire key seconds 失败返回0 否则返回1 ttl key 查看key的剩余时间 PTTL key 返回剩余毫秒数
+事物相关的命令: 
+multi-- 事物开始 exec--事物提交 discardq--取消事物 watch 监控某个key 是否被修改过 
+expire key seconds 失败返回0 否则返回1 ttl key 查看key的剩余时间 PTTL key 返回剩余毫秒数
 
 #redis运行原理？ 单线程 NIO 建立连接
-客户端发送命令 到redis服务 发送命令-命令排队 -命令执行-返回结果 单进程 单线程 内存操作 多路复用的IO模型 tcp协议 建立连接 发送 socket redis底层协议： resp协议 文件事件: 网络通信的抽象 时间事件：redis服务资源的管理
+客户端发送命令 到redis服务 发送命令-命令排队 -命令执行-返回结果 
+单进程 单线程 内存操作 多路复用的IO模型 tcp协议 建立连接 发送 socket redis底层协议： resp协议 文件事件: 网络通信的抽象 时间事件：redis服务资源的管理
 
 key.getBytes().length
 
@@ -56,6 +78,8 @@ mysql -utest -ptest dbName --default-character-set=utf-8 --skip-column-names --r
 PipeLine 性能利器 减少网络延迟时间 批量删除 先组装数据到pipe redis实现乐观锁 watch指令提供cas机制
 
 #持久化策略 AOF=操作日志备份 RDB=定时快照 恢复方便 ===========企业级容灾怎么处理？
+save命令 阻塞客户端
+bgsave命令 fork一个子进程异步保存生成rdb文件。
 
 redis灾难恢复原理 RDB= redis默认的持久化方案，单位时间内执行指定的次数的写操作，
 将数据从内存中写入磁盘 生成一个 dump.rdb文件，每次生成的文件都会覆盖之前的dump.rdb文件 
@@ -68,13 +92,11 @@ redis灾难恢复原理 RDB= redis默认的持久化方案，单位时间内执�
 always 每次写入一条
 everysec 每秒写一次 
 no 数据写入磁盘 类似 mysql的 stament语句 binlog 二进制文件方式。
- 重写aof文件，是为了缩小aof文件的大小，直接读取数据库现有的数据状态生成命令写入aof文件。
-
+auto-aof-rewrite-percentage 100
+重写aof文件，是为了缩小aof文件的大小，直接读取数据库现有的数据状态生成命令写入aof文件。
 优点：数据一致性高 增量添加 缺点： 记录内容太多 文件很大 数据恢复也慢，读写性能下降
 
-如果redis同时开启 AOF和RDB备份 以AOF的数据为基准。
-
-
+如果redis同时开启 AOF和RDB备份 以AOF的数据为基准; 恢复的时候优先加载AOF文件然后加载RDB文件。
 
 #redis主从复制原理 
 master收到slave的 同步命令sync/psync后 主服务器运行BGSAVE生成RDB文件保存到磁盘，
@@ -91,7 +113,6 @@ master节点挂掉后会让slave升级会主节点,哨兵不能是单点。
  所有哨兵在纪元内都只有一次将某个哨兵 设置为自己的领头哨兵，如一个哨兵收到多个其他哨兵要求把发送命令方设置为当前哨兵的领头哨兵，
  则先到先得。 目标哨兵设置后会返回 自己的runID和配置纪元告诉拉票哨兵。 成为领头哨兵需要满足过半机制。
  
-
 #领头哨兵选出后 开始 故障转移 选举主服务器
 
 在已下线的master的属下slave中选出一个从服务器设置为master
@@ -146,19 +167,17 @@ jvm线程锁具有哪些特点 排他性 只有一个线程能获取到锁 （�
 
 数据库在数万QPS的场景中如何处理？ 转移数据库的压力 ====小型网站 小型网站静态化架构 用户访问html 页面模板从DB中加载数据展示给用户 提高了访问速度 优点：搭建简单 快速 缺点：模板改变必须重构，产品多就构建速度太慢。
 
-=====大型网站 多级缓存详解 查询过程： 用户查询本地缓存 Nginx本地缓存 分布式缓存 服务的本地缓存 数据库查询
+#大型网站 多级缓存详解 查询过程： 用户查询本地缓存 Nginx本地缓存 分布式缓存 服务的本地缓存 数据库查询
 
-缓存穿透：缓存穿透是指查询一个一定不存在的数据，由于缓存是不命中时被动写的，并且出于容错考虑，如果从存储层查不到数据则不写入缓存 ，
-这将导致这个不存在的数据每次请求都要到存储层去查询 布隆过滤器解决 
+>缓存穿透：缓存穿透是指查询一个一定不存在的数据，由于缓存是不命中时被动写的，并且出于容错考虑，如果从存储层查不到数据则不写入缓存 ，
+    这将导致这个不存在的数据每次请求都要到存储层去查询 布隆过滤器解决 
 
-缓存击穿：热点数据key在某个瞬间失效，请求打到DB中。 互斥锁   LRU算法 把经常怼的热键缓存在map中 不走redis直接map返回。
-缓存雪崩：缓存有效期同时大面积失效 导致缓存命中率下降 压力都落到数据库服务， 有效期分布设置、同步锁控制更新。
-缓存过期算法： LRU 最近最少使用的淘汰- 双向链表 新数据put 链表头部 被访问过的数据也移动到头部，链表装满 淘汰尾部数据 LFU 历史访问频率进行淘汰，过去被访问过的将来被访问的也更高。 队列 新数据尾插，count++, FIFO 先进先出 队列 淘汰头部数据
-
-
+>缓存击穿：热点数据key在某个瞬间失效，请求打到DB中。 互斥锁   LRU算法 把经常怼的热键缓存在map中 不走redis直接map返回。
+>缓存雪崩：缓存有效期同时大面积失效 导致缓存命中率下降 压力都落到数据库服务， 有效期分布设置、同步锁控制更新。
+  缓存过期算法： LRU 最近最少使用的淘汰- 双向链表 新数据put 链表头部 被访问过的数据也移动到头部，
+  链表装满 淘汰尾部数据 LFU 历史访问频率进行淘汰，过去被访问过的将来被访问的也更高。 队列 新数据尾插，count++, FIFO 先进先出 队列 淘汰头部数据
 
 ##Redis实现分布式session功能
-
 redis介绍：  key-value存储系统，支持数据持久化 内存中保存到磁盘，
 支持数据类型：string hash list set zset 
 服务端拿着用户的cookie作为key去存储里找对应的value(session)。
@@ -170,4 +189,6 @@ redis介绍：  key-value存储系统，支持数据持久化 内存中保存到
 1、缓存设置过期时间，保证最终一致性。
 2、先更新数据库，再删除缓存。 读取数据的时候加锁设置缓存。  强一致性
 3. 数据准实时更新同步， 更新数据库后 发布消息 然后订阅消息更新缓存  准一致性
+
+#redis场景设计
 

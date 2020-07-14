@@ -3,6 +3,8 @@ package com.demo;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.DelayQueue;
@@ -15,8 +17,9 @@ import java.util.concurrent.TimeUnit;
  * @name DelayQueueDemo
  */
 
-@Slf4j
 public class DelayQueueDemo {
+
+    private static final Logger log = LoggerFactory.getLogger(DelayQueueDemo.class);
     // 队列消息的生产者
     static class Product implements Runnable {
         private final BlockingQueue queue;

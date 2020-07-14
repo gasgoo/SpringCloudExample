@@ -13,7 +13,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class Lock {
+public class LockDTO {
 
     @JsonField
     private String name;
@@ -23,7 +23,7 @@ public class Lock {
 
     private String company;
 
-    public Lock(String name, String value) {
+    public LockDTO(String name, String value) {
         this.name = name;
         this.value = value;
     }

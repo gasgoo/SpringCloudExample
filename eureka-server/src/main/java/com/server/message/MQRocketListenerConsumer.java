@@ -2,6 +2,7 @@ package com.server.message;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.rocketmq.client.consumer.DefaultMQPushConsumer;
+import org.apache.rocketmq.client.consumer.rebalance.AllocateMessageQueueAveragely;
 import org.apache.rocketmq.common.UtilAll;
 import org.apache.rocketmq.common.consumer.ConsumeFromWhere;
 import org.apache.rocketmq.spring.annotation.RocketMQMessageListener;
@@ -31,5 +32,7 @@ public class MQRocketListenerConsumer implements RocketMQListener<String>, Rocke
     public void prepareStart(DefaultMQPushConsumer defaultMQPushConsumer) {
         defaultMQPushConsumer.setConsumeFromWhere(ConsumeFromWhere.CONSUME_FROM_TIMESTAMP);
         defaultMQPushConsumer.setConsumeTimestamp(UtilAll.timeMillisToHumanString3(System.currentTimeMillis()));
+        defaultMQPushConsumer.setAllocateMessageQueueStrategy(new AllocateMessageQueueAveragely());
+        defaultMQPushConsumer.setMaxReconsumeTimes(3);
     }
 }

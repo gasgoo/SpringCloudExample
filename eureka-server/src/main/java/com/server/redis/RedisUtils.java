@@ -11,7 +11,6 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * redis 工具类
- *
  * @Author gg.rao
  * @Date 2019/5/15 11:32
  */
@@ -166,4 +165,6 @@ public  class RedisUtils {
     public boolean hasKey(String key,String item){
         return redisTemplate.opsForHash().hasKey(key,item);
     }
+
+
 }
