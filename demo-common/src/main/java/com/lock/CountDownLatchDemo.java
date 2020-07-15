@@ -26,18 +26,23 @@ public class CountDownLatchDemo {
         public void run() {
             System.out.println(">>>>>" + Thread.currentThread().getName());
             try {
+                done.countDown();
                 start.await();
                 doWorker();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            done.countDown();
+            try {
+                Thread.sleep(5000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             System.out.println(">>>>同时执行的逻辑.....do end");
         }
 
         void doWorker() throws InterruptedException {
             System.out.println("doWorkder>>>>>" + Thread.currentThread().getName() + "waiting.....");
-            Thread.sleep(5000);
+
         }
     }
 
