@@ -1,5 +1,6 @@
 package com.server.web;
 
+import com.server.service.GenRedPackService;
 import com.server.service.TicketService;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -19,6 +20,8 @@ public class LockController {
 
     @Autowired
     private TicketService ticketService;
+    @Autowired
+    private GenRedPackService genRedPackService;
 
 
     @ApiOperation(value = "售票")
@@ -27,5 +30,12 @@ public class LockController {
         int count = ticketService.sale();
         log.info("====剩余ticket:{}", count);
         return count;
+    }
+
+    @RequestMapping(value = "/red", method = RequestMethod.GET)
+    public String redpack() {
+        log.info("抢红包了....");
+        genRedPackService.redPack();
+        return "redPack";
     }
 }

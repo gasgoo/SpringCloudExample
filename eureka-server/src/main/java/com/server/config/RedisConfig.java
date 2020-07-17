@@ -9,15 +9,19 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.cache.annotation.CachingConfigurerSupport;
 import org.springframework.context.annotation.Bean;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.data.redis.core.script.DefaultRedisScript;
 import org.springframework.data.redis.listener.PatternTopic;
 import org.springframework.data.redis.listener.RedisMessageListenerContainer;
 import org.springframework.data.redis.listener.adapter.MessageListenerAdapter;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
+import org.springframework.scripting.support.ResourceScriptSource;
 
+import java.util.List;
 import java.util.concurrent.CountDownLatch;
 
 /**
@@ -54,6 +58,15 @@ public class RedisConfig extends CachingConfigurerSupport {
         config.useSingleServer().setAddress(host + ":" + port);
         RedissonClient redisson = Redisson.create(config);
         return redisson;
+    }
+
+    //lua脚本执行配置
+    @Bean
+    public DefaultRedisScript<List> defaultRedisScript() {
+        DefaultRedisScript<List> defaultRedisScript = new DefaultRedisScript<>();
+        defaultRedisScript.setResultType(List.class);
+        defaultRedisScript.setScriptSource(new ResourceScriptSource(new ClassPathResource("lua/redPack.lua")));
+        return defaultRedisScript;
     }
 
     /*以下 是使用redis实现消息队列需要注入的bean*/

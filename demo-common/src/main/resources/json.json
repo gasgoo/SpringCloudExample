@@ -3,33 +3,87 @@
     "TRANS_BASIC_INFO": {
       "data": {
         "RED": [
+          {
+            "riskLevelEnum": "RED",
+            "riskTypeEnum": "CREDIT_RISK",
+            "showRiskHint": "多头信贷风险-王伟明疑似有民间借贷，不良概率高",
+            "riskConclusion": "高风险，需特批",
+            "riskHint": "疑似有民间借贷，不良概率高",
+            "bold": true,
+            "orderByLevel": 0,
+            "orderByType": 0
+          },
+          {
+            "riskLevelEnum": "RED",
+            "riskTypeEnum": "TRANS_RISK",
+            "showRiskHint": "资金调动风险-王伟明资金调头能力低，不良概率高",
+            "riskConclusion": "高风险，需特批",
+            "riskHint": "资金调头能力低，不良概率高",
+            "bold": true,
+            "orderByLevel": 0,
+            "orderByType": 0
+          }
         ],
         "YELLOW": [
-        ]
+          {
+            "riskLevelEnum": "YELLOW",
+            "riskTypeEnum": "CREDIT_RISK",
+            "showRiskHint": "多头信贷风险-王伟明该客户月平均还款笔数较多。",
+            "riskConclusion": "中风险，人工核实",
+            "riskHint": "该客户月平均还款笔数较多。",
+            "bold": false,
+            "orderByLevel": 0,
+            "orderByType": 0
+          },
+          {
+            "riskLevelEnum": "YELLOW",
+            "riskTypeEnum": "EXCEPTION_TRANS",
+            "showRiskHint": "异常交易风险-王伟明该客户医疗相关交易较多。",
+            "riskConclusion": "中风险，人工核实",
+            "riskHint": "该客户医疗相关交易较多。",
+            "bold": false,
+            "orderByLevel": 0,
+            "orderByType": 0
+          }
+        ],
+        "finalRiskConclusion": "中风险，人工核实"
       },
       "flowBasicInfo": [
         {
-          "bankAccount": 6228480038574396172,
+          "bankAccount": "6222620110014694302",
+          "bankName": "交通银行银行卡交易明细查询表",
+          "relatedName": "王伟芳",
+          "relation": "借款人配偶",
+          "startEndDate": "2019年11月01日——2020年03月31日"
+        },
+        {
+          "bankAccount": "6228480038574396172",
           "bankName": "工商银行",
-          "startEndDate": "2019年04月01日——2020年03月31日"
+          "relatedName": "王伟明",
+          "relation": "借款人",
+          "startEndDate": "2019年11月01日——2020年03月31日"
         }
       ],
       "percent": 0,
       "relation": [
         {
+          "name": "王伟芳",
+          "relation": "借款人配偶"
+        },
+        {
           "name": "王伟明",
-          "relation": "借款企业"
+          "relation": "借款人"
         }
       ],
       "reportHeader": {
         "name": "王伟明",
         "idno": "202007091402563453",
-        "reportNo": "R480460163967516672",
-        "reportTime": "2020-07-14 16:58:08",
+        "reportNo": "R481102991601074176",
+        "reportTime": "2020-07-16 11:32:22",
         "reportGenTime": null,
-        "code": "R480460163967516672"
+        "code": "R481102991601074176"
       },
-      "score": 0,
+      "score": 500,
       "title": "流水报告"
     },
     "TRANS_DAILY_IO": {
@@ -291,11 +345,332 @@
     },
     "TRANS_TURNOVER_TOP10": {
       "riskDetails": [
+
       ],
       "transRemarkTop": {
         "transInRemark": [
+          {
+            "order": 1,
+            "remarkType": "23",
+            "transCnt": 3,
+            "transAmt": 3,
+            "detailsVOList": [
+              {
+                "bank": "银行名",
+                "accountNo": "666666655588888888",
+                "transDate": "2012-12-12",
+                "oppName": "oppName",
+                "transAmt": "80000",
+                "remark": "remarkinfo"
+              }
+            ]
+          },
+          {
+            "order": 2,
+            "remarkType": "",
+            "transCnt": 0,
+            "transAmt": 0,
+            "detailsVOList": [
+              {
+                "bank": "",
+                "accountNo": "",
+                "transDate": "",
+                "oppName": "",
+                "transAmt": "",
+                "remark": ""
+              }
+            ]
+          },
+          {
+            "order": 3,
+            "remarkType": "",
+            "transCnt": 0,
+            "transAmt": 0,
+            "detailsVOList": [
+              {
+                "bank": "",
+                "accountNo": "",
+                "transDate": "",
+                "oppName": "",
+                "transAmt": "",
+                "remark": ""
+              }
+            ]
+          },
+          {
+            "order": 4,
+            "remarkType": "",
+            "transCnt": 0,
+            "transAmt": 0,
+            "detailsVOList": [
+              {
+                "bank": "",
+                "accountNo": "",
+                "transDate": "",
+                "oppName": "",
+                "transAmt": "",
+                "remark": ""
+              }
+            ]
+          },
+          {
+            "order": 5,
+            "remarkType": "",
+            "transCnt": 0,
+            "transAmt": 0,
+            "detailsVOList": [
+              {
+                "bank": "",
+                "accountNo": "",
+                "transDate": "",
+                "oppName": "",
+                "transAmt": "",
+                "remark": ""
+              }
+            ]
+          },
+          {
+            "order": 6,
+            "remarkType": "",
+            "transCnt": 0,
+            "transAmt": 0,
+            "detailsVOList": [
+              {
+                "bank": "",
+                "accountNo": "",
+                "transDate": "",
+                "oppName": "",
+                "transAmt": "",
+                "remark": ""
+              }
+            ]
+          },
+          {
+            "order": 7,
+            "remarkType": "",
+            "transCnt": 0,
+            "transAmt": 0,
+            "detailsVOList": [
+              {
+                "bank": "",
+                "accountNo": "",
+                "transDate": "",
+                "oppName": "",
+                "transAmt": "",
+                "remark": ""
+              }
+            ]
+          },
+          {
+            "order": 8,
+            "remarkType": "",
+            "transCnt": 0,
+            "transAmt": 0,
+            "detailsVOList": [
+              {
+                "bank": "",
+                "accountNo": "",
+                "transDate": "",
+                "oppName": "",
+                "transAmt": "",
+                "remark": ""
+              }
+            ]
+          },
+          {
+            "order": 9,
+            "remarkType": "",
+            "transCnt": 0,
+            "transAmt": 0,
+            "detailsVOList": [
+              {
+                "bank": "",
+                "accountNo": "",
+                "transDate": "",
+                "oppName": "",
+                "transAmt": "",
+                "remark": ""
+              }
+            ]
+          },
+          {
+            "order": 10,
+            "remarkType": "",
+            "transCnt": 0,
+            "transAmt": 0,
+            "detailsVOList": [
+              {
+                "bank": "",
+                "accountNo": "",
+                "transDate": "",
+                "oppName": "",
+                "transAmt": "",
+                "remark": ""
+              }
+            ]
+          }
         ],
         "transOutRemark": [
+          {
+            "order": 1,
+            "remarkType": "",
+            "transCnt": 0,
+            "transAmt": 0,
+            "detailsVOList": [
+              {
+                "bank": "",
+                "accountNo": "",
+                "transDate": "",
+                "oppName": "",
+                "transAmt": "",
+                "remark": ""
+              }
+            ]
+          },
+          {
+            "order": 2,
+            "remarkType": "",
+            "transCnt": 0,
+            "transAmt": 0,
+            "detailsVOList": [
+              {
+                "bank": "",
+                "accountNo": "",
+                "transDate": "",
+                "oppName": "",
+                "transAmt": "",
+                "remark": ""
+              }
+            ]
+          },
+          {
+            "order": 3,
+            "remarkType": "",
+            "transCnt": 0,
+            "transAmt": 0,
+            "detailsVOList": [
+              {
+                "bank": "",
+                "accountNo": "",
+                "transDate": "",
+                "oppName": "",
+                "transAmt": "",
+                "remark": ""
+              }
+            ]
+          },
+          {
+            "order": 4,
+            "remarkType": "",
+            "transCnt": 0,
+            "transAmt": 0,
+            "detailsVOList": [
+              {
+                "bank": "",
+                "accountNo": "",
+                "transDate": "",
+                "oppName": "",
+                "transAmt": "",
+                "remark": ""
+              }
+            ]
+          },
+          {
+            "order": 5,
+            "remarkType": "",
+            "transCnt": 0,
+            "transAmt": 0,
+            "detailsVOList": [
+              {
+                "bank": "",
+                "accountNo": "",
+                "transDate": "",
+                "oppName": "",
+                "transAmt": "",
+                "remark": ""
+              }
+            ]
+          },
+          {
+            "order": 6,
+            "remarkType": "",
+            "transCnt": 0,
+            "transAmt": 0,
+            "detailsVOList": [
+              {
+                "bank": "",
+                "accountNo": "",
+                "transDate": "",
+                "oppName": "",
+                "transAmt": "",
+                "remark": ""
+              }
+            ]
+          },
+          {
+            "order": 7,
+            "remarkType": "",
+            "transCnt": 0,
+            "transAmt": 0,
+            "detailsVOList": [
+              {
+                "bank": "",
+                "accountNo": "",
+                "transDate": "",
+                "oppName": "",
+                "transAmt": "",
+                "remark": ""
+              }
+            ]
+          },
+          {
+            "order": 8,
+            "remarkType": "",
+            "transCnt": 0,
+            "transAmt": 0,
+            "detailsVOList": [
+              {
+                "bank": "",
+                "accountNo": "",
+                "transDate": "",
+                "oppName": "",
+                "transAmt": "",
+                "remark": ""
+              }
+            ]
+          },
+          {
+            "order": 9,
+            "remarkType": "",
+            "transCnt": 0,
+            "transAmt": 0,
+            "detailsVOList": [
+              {
+                "bank": "",
+                "accountNo": "",
+                "transDate": "",
+                "oppName": "",
+                "transAmt": "",
+                "remark": ""
+              }
+            ]
+          },
+          {
+            "order": 10,
+            "remarkType": "",
+            "transCnt": 0,
+            "transAmt": 0,
+            "detailsVOList": [
+              {
+                "bank": "",
+                "accountNo": "",
+                "transDate": "",
+                "oppName": "",
+                "transAmt": "",
+                "remark": ""
+              }
+            ]
+          }
         ]
       }
     },
@@ -306,23 +681,124 @@
             "relationship": "借款人",
             "opponentName": "王伟明",
             "incomeAmt": "1.6000",
-            "incomeAmtProportion": 1,
+            "incomeAmtProportion": 1.0,
             "expenseAmt": "0.0000",
-            "expenseAmtProportion": 0
+            "expenseAmtProportion": 0.0
           }
         ],
         "relatedTips": [
-          "经营性进账9.3万元,",
+          "经营性进账12.3万元,",
           "关联人进账1.6万元,"
         ],
-        "guaranteList": null,
-        "guaranteTips": null,
+        "guaranteList": [
+          {
+            "guarantor": "王伟明",
+            "transAmt": "0.1720",
+            "transTime": "2020-07-16",
+            "remark": "超级网银往贷 南通运费",
+            "isBeforeInterestRepay": true
+          },
+          {
+            "guarantor": "刘朝武",
+            "transAmt": "0.1720",
+            "transTime": "2020-07-16",
+            "remark": "超级网银往贷抹账",
+            "isBeforeInterestRepay": true
+          },
+          {
+            "guarantor": "刘朝武",
+            "transAmt": "0.2093",
+            "transTime": "2020-07-16",
+            "remark": "超级网银往贷 南通运费",
+            "isBeforeInterestRepay": true
+          },
+          {
+            "guarantor": "刘朝武",
+            "transAmt": "0.2093",
+            "transTime": "2020-07-16",
+            "remark": "超级网银往贷抹账",
+            "isBeforeInterestRepay": true
+          },
+          {
+            "guarantor": "刘朝武",
+            "transAmt": "0.0968",
+            "transTime": "2020-07-16",
+            "remark": "超级网银往贷 南通运费",
+            "isBeforeInterestRepay": true
+          },
+          {
+            "guarantor": "刘朝武",
+            "transAmt": "0.1715",
+            "transTime": "2020-07-16",
+            "remark": "超级网银往贷 南通运费",
+            "isBeforeInterestRepay": true
+          },
+          {
+            "guarantor": "刘朝武",
+            "transAmt": "0.1505",
+            "transTime": "2020-07-16",
+            "remark": "超级网银往贷 南通运费",
+            "isBeforeInterestRepay": true
+          },
+          {
+            "guarantor": "刘朝武",
+            "transAmt": "0.1720",
+            "transTime": "2020-07-16",
+            "remark": "超级网银往贷 南通运费",
+            "isBeforeInterestRepay": true
+          },
+          {
+            "guarantor": "刘朝武",
+            "transAmt": "0.1720",
+            "transTime": "2020-07-16",
+            "remark": "超级网银往贷抹账",
+            "isBeforeInterestRepay": true
+          },
+          {
+            "guarantor": "刘朝武",
+            "transAmt": "0.2093",
+            "transTime": "2020-07-16",
+            "remark": "超级网银往贷 南通运费",
+            "isBeforeInterestRepay": true
+          },
+          {
+            "guarantor": "刘朝武",
+            "transAmt": "0.2093",
+            "transTime": "2020-07-16",
+            "remark": "超级网银往贷抹账",
+            "isBeforeInterestRepay": true
+          },
+          {
+            "guarantor": "刘朝武",
+            "transAmt": "0.0968",
+            "transTime": "2020-07-16",
+            "remark": "超级网银往贷 南通运费",
+            "isBeforeInterestRepay": true
+          },
+          {
+            "guarantor": "刘朝武",
+            "transAmt": "0.1715",
+            "transTime": "2020-07-16",
+            "remark": "超级网银往贷 南通运费",
+            "isBeforeInterestRepay": true
+          },
+          {
+            "guarantor": "刘朝武",
+            "transAmt": "0.1505",
+            "transTime": "2020-07-16",
+            "remark": "超级网银往贷 南通运费",
+            "isBeforeInterestRepay": true
+          }
+        ],
+        "guaranteTips": [
+          "结息、还款前一周内，资金来源于第三方担保人，可能为借户贷款。",
+          "担保人刘朝武,进账金额为0.7626万元,进账笔数为4笔,出账金额1.6002万元,出账笔数为10笔"
+        ],
         "incomeAmtSum": "1.6000",
         "expenseAmtSum": "0.0000",
-        "inAmtProSum": 1,
-        "expenseAmtProSum": 0,
-        "riskDetails": [
-        ]
+        "inAmtProSum": 1.0,
+        "expenseAmtProSum": 0.0,
+        "riskDetails": []
       }
     },
     "TRANS_RISK_EXCEPTION": {
@@ -372,203 +848,78 @@
       }
     },
     "TRANS_RISK_MARKETING": {
-      "transLoan": {
-        "month3List": [
+      "transMarketing": {
+        "privateExpense": [
           {
-            "loanType": "其他金融",
-            "month": "近3个月",
-            "loanAmt": "1786.8067",
-            "loanCnt": 342.0,
-            "repayAmt": "335.0674",
-            "repayCnt": 506.0,
-            "loanMean": "5.2246",
-            "repayMean": "0.6622"
+            "incomeCntOrder": "No.1",
+            "opponentName": "孙志平",
+            "transCnt": 10,
+            "transAmt": "82.1000",
+            "phone": ""
           }
         ],
-        "month6List": [
+        "privateIncome": [
           {
-            "loanType": "消金",
-            "month": "近6个月",
-            "loanAmt": "4406.0698",
-            "loanCnt": 697.0,
-            "repayAmt": "649.1420",
-            "repayCnt": 759.0,
-            "loanMean": "6.3215",
-            "repayMean": "0.8553"
+            "incomeCntOrder": "No.1",
+            "opponentName": "跨行汇出",
+            "transCnt": 38,
+            "transAmt": "935.5070",
+            "phone": "1580652xxxx"
+          },
+          {
+            "incomeCntOrder": "No.2",
+            "opponentName": "孙志平",
+            "transCnt": 12,
+            "transAmt": "90.1000",
+            "phone": ""
+          },
+          {
+            "incomeCntOrder": "No.3",
+            "opponentName": "理财购买-“农银私行・安心快线天天利”开放式人民币理财产品",
+            "transCnt": 3,
+            "transAmt": "1000.0000",
+            "phone": ""
           }
         ],
-        "month12List": [
+        "publicExpense": [
           {
-            "loanType": "消金",
-            "month": "近12个月",
-            "loanAmt": "5600.7180",
-            "loanCnt": 1515.0,
-            "repayAmt": "929.4258",
-            "repayCnt": 1014.0,
-            "loanMean": "3.6968",
-            "repayMean": "0.9166"
+            "incomeCntOrder": "No.2",
+            "opponentName": "理财赎回-安心快线天天利滚利第２期",
+            "transCnt": 1,
+            "transAmt": "208.7259",
+            "phone": ""
+          },
+          {
+            "incomeCntOrder": "No.2",
+            "opponentName": "自动理财-安心快线天天利滚利第２期",
+            "transCnt": 6,
+            "transAmt": "208.6117",
+            "phone": ""
           }
         ],
-        "historyList": [
+        "publicIncome": [
           {
-            "loanType": "民间借贷",
-            "month": "历史可查",
-            "loanAmt": "5600.7180",
-            "loanCnt": 1515.0,
-            "repayAmt": "929.4258",
-            "repayCnt": 1014.0,
-            "loanMean": "3.6968",
-            "repayMean": "0.9166"
+            "incomeCntOrder": "No.2",
+            "opponentName": "支付宝（中国）网络技术有限公司客户备付金",
+            "transCnt": 17,
+            "transAmt": "7.1587",
+            "phone": ""
+          },
+          {
+            "incomeCntOrder": "No.3",
+            "opponentName": "理财购买-“农银私行・安心快线天天利”开放式人民币理财产品",
+            "transCnt": 2,
+            "transAmt": "480.0000",
+            "phone": ""
+          },
+          {
+            "incomeCntOrder": "No.3",
+            "opponentName": "理财赎回-“农银私行・安心快线天天利”开放式人民币理财产品",
+            "transCnt": 11,
+            "transAmt": "3260.9634",
+            "phone": ""
           }
-        ],
-        "detailMap": {
-          "保理": [
-            {
-              "loanType": "保理",
-              "month": "2020-12",
-              "loanAmt": "71.4362",
-              "loanCnt": 0,
-              "repayAmt": "0.0000",
-              "repayCnt": 0,
-              "loanMean": "0.0000",
-              "repayMean": "0.0000"
-            },
-            {
-              "loanType": "保理",
-              "month": "2021-03",
-              "loanAmt": "1273.6476",
-              "loanCnt": 0,
-              "repayAmt": "221.0538",
-              "repayCnt": 0,
-              "loanMean": "0.0000",
-              "repayMean": "0.0000"
-            }
-          ],
-          "其他金融": [
-            {
-              "loanType": "其他金融",
-              "month": "2021-07",
-              "loanAmt": "745.2016",
-              "loanCnt": 0,
-              "repayAmt": "66.8007",
-              "repayCnt": 0,
-              "loanMean": "0.0000",
-              "repayMean": "0.0000"
-            }
-          ],
-          "小贷": [
-            {
-              "loanType": "小贷",
-              "month": "2021-02",
-              "loanAmt": "375.9383",
-              "loanCnt": 0,
-              "repayAmt": "102.8948",
-              "repayCnt": 0,
-              "loanMean": "0.0000",
-              "repayMean": "0.0000"
-            },
-            {
-              "loanType": "小贷",
-              "month": "2021-04",
-              "loanAmt": "80.2673",
-              "loanCnt": 0,
-              "repayAmt": "57.9715",
-              "repayCnt": 0,
-              "loanMean": "0.0000",
-              "repayMean": "0.0000"
-            }
-          ],
-          "担保": [],
-          "民间借贷": [
-            {
-              "loanType": "民间借贷",
-              "month": "2021-05",
-              "loanAmt": "1246.7752",
-              "loanCnt": 0,
-              "repayAmt": "25.8452",
-              "repayCnt": 0,
-              "loanMean": "0.0000",
-              "repayMean": "0.0000"
-            },
-            {
-              "loanType": "民间借贷",
-              "month": "2021-08",
-              "loanAmt": "783.2822",
-              "loanCnt": 0,
-              "repayAmt": "183.7341",
-              "repayCnt": 0,
-              "loanMean": "0.0000",
-              "repayMean": "0.0000"
-            }
-          ],
-          "消金": [
-            {
-              "loanType": "消金",
-              "month": "2021-01",
-              "loanAmt": "507.2391",
-              "loanCnt": 0,
-              "repayAmt": "190.0799",
-              "repayCnt": 0,
-              "loanMean": "0.0000",
-              "repayMean": "0.0000"
-            }
-          ],
-          "融资租赁": [
-            {
-              "loanType": "融资租赁",
-              "month": "2020-08",
-              "loanAmt": "42.1150",
-              "loanCnt": 0,
-              "repayAmt": "0.0000",
-              "repayCnt": 0,
-              "loanMean": "0.0000",
-              "repayMean": "0.0000"
-            },
-            {
-              "loanType": "融资租赁",
-              "month": "2020-09",
-              "loanAmt": "84.8704",
-              "loanCnt": 0,
-              "repayAmt": "0.0000",
-              "repayCnt": 0,
-              "loanMean": "0.0000",
-              "repayMean": "0.0000"
-            },
-            {
-              "loanType": "融资租赁",
-              "month": "2020-10",
-              "loanAmt": "99.7298",
-              "loanCnt": 0,
-              "repayAmt": "0.0000",
-              "repayCnt": 0,
-              "loanMean": "0.0000",
-              "repayMean": "0.0000"
-            },
-            {
-              "loanType": "融资租赁",
-              "month": "2020-11",
-              "loanAmt": "41.7986",
-              "loanCnt": 0,
-              "repayAmt": "0.0000",
-              "repayCnt": 0,
-              "loanMean": "0.0000",
-              "repayMean": "0.0000"
-            }
-          ],
-          "银行": [
-            {
-              "loanType": "银行",
-              "month": "2021-06",
-              "loanAmt": "248.4167",
-              "loanCnt": 0,
-              "repayAmt": "81.0458",
-              "repayCnt": 0,
-              "loanMean": "0.0000",
-              "repayMean": "0.0000"
-            }
-          ]
-        },
-        "riskDetails": []
+        ]
       }
     },
     "TRANS_RISK_BULL": {
@@ -661,967 +1012,381 @@
       }
     },
     "TRANS_DAILY_COUNTER": {
-      "riskDetails": [
-      ],
+      "riskDetails": [],
       "transCounter": {
         "top10Prop": "本次流水中进账金额排名前10%的客户贡献率为23。请结合客户行业，观察主要交易对手是否分散。",
         "transInAmtList": [
           {
             "type": "前10%",
-            "transDate": "2018-02-10",
-            "incomeAmtProp": 23
-          },
-          {
-            "type": "前10%",
-            "transDate": "2018-04-10",
-            "incomeAmtProp": 0
-          },
-          {
-            "type": "前20%",
-            "transDate": "2018-02-10",
-            "incomeAmtProp": 0
-          },
-          {
-            "type": "前20%",
-            "transDate": "2018-03-10",
-            "incomeAmtProp": 0
-          },
-          {
-            "type": "前20%",
-            "transDate": "2018-04-10",
-            "incomeAmtProp": 0
-          },
-          {
-            "type": "前20%",
-            "transDate": "2018-05-10",
-            "incomeAmtProp": 0
-          },
-          {
-            "type": "前20%",
-            "transDate": "2018-06-10",
-            "incomeAmtProp": 0
-          },
-          {
-            "type": "前20%",
-            "transDate": "2018-07-10",
-            "incomeAmtProp": 0
-          },
-          {
-            "type": "前20%",
-            "transDate": "2018-08-10",
-            "incomeAmtProp": 0
-          },
-          {
-            "type": "前20%",
-            "transDate": "2018-09-10",
-            "incomeAmtProp": 0
-          },
-          {
-            "type": "前20%",
-            "transDate": "2018-10-10",
-            "incomeAmtProp": 0
-          },
-          {
-            "type": "前20%",
-            "transDate": "2018-11-10",
-            "incomeAmtProp": 0
-          },
-          {
-            "type": "前20%",
-            "transDate": "2018-12-10",
-            "incomeAmtProp": 0
-          },
-          {
-            "type": "前20%",
-            "transDate": "2019-01-10",
-            "incomeAmtProp": 0
-          },
-          {
-            "type": "前20%",
-            "transDate": "2019-02-10",
-            "incomeAmtProp": 0
-          },
-          {
-            "type": "前20%",
-            "transDate": "2019-02-10",
-            "incomeAmtProp": 0
-          },
-          {
-            "type": "前50%",
-            "transDate": "2018-02-10",
-            "incomeAmtProp": 0
-          },
-          {
-            "type": "前50%",
-            "transDate": "2018-03-10",
-            "incomeAmtProp": 0
-          },
-          {
-            "type": "前50%",
-            "transDate": "2018-04-10",
-            "incomeAmtProp": 0
-          },
-          {
-            "type": "前50%",
-            "transDate": "2018-05-10",
-            "incomeAmtProp": 0
-          },
-          {
-            "type": "前50%",
-            "transDate": "2018-06-10",
-            "incomeAmtProp": 0
-          },
-          {
-            "type": "前50%",
-            "transDate": "2018-07-10",
-            "incomeAmtProp": 0
-          },
-          {
-            "type": "前50%",
-            "transDate": "2018-08-10",
-            "incomeAmtProp": 0
-          },
-          {
-            "type": "前50%",
-            "transDate": "2018-09-10",
-            "incomeAmtProp": 0
-          },
-          {
-            "type": "前50%",
-            "transDate": "2018-10-10",
-            "incomeAmtProp": 0
-          },
-          {
-            "type": "前50%",
-            "transDate": "2018-11-10",
-            "incomeAmtProp": 0
-          },
-          {
-            "type": "前50%",
-            "transDate": "2018-12-10",
-            "incomeAmtProp": 0
-          },
-          {
-            "type": "前50%",
-            "transDate": "2019-01-10",
-            "incomeAmtProp": 0
-          },
-          {
-            "type": "前50%",
-            "transDate": "2019-02-10",
-            "incomeAmtProp": 0
-          },
-          {
-            "type": "前50%",
-            "transDate": "2019-02-10",
+            "transDate": "2021-02-12",
             "incomeAmtProp": 0
           },
           {
             "type": "前100%",
-            "transDate": "2018-02-10",
-            "incomeAmtProp": 0
+            "transDate": "2021-02-12",
+            "incomeAmtProp": 55
           },
           {
-            "type": "前100%",
-            "transDate": "2018-03-10",
-            "incomeAmtProp": 0
-          },
-          {
-            "type": "前100%",
-            "transDate": "2018-04-10",
-            "incomeAmtProp": 0
-          },
-          {
-            "type": "前100%",
-            "transDate": "2018-05-10",
-            "incomeAmtProp": 0
-          },
-          {
-            "type": "前100%",
-            "transDate": "2018-06-10",
-            "incomeAmtProp": 0
-          },
-          {
-            "type": "前100%",
-            "transDate": "2018-07-10",
-            "incomeAmtProp": 0
-          },
-          {
-            "type": "前100%",
-            "transDate": "2018-08-10",
-            "incomeAmtProp": 0
-          },
-          {
-            "type": "前100%",
-            "transDate": "2018-09-10",
-            "incomeAmtProp": 0
-          },
-          {
-            "type": "前100%",
-            "transDate": "2018-10-10",
-            "incomeAmtProp": 0
-          },
-          {
-            "type": "前100%",
-            "transDate": "2018-11-10",
-            "incomeAmtProp": 0
-          },
-          {
-            "type": "前100%",
-            "transDate": "2018-12-10",
-            "incomeAmtProp": 0
-          },
-          {
-            "type": "前100%",
-            "transDate": "2019-01-10",
-            "incomeAmtProp": 0
-          },
-          {
-            "type": "前100%",
-            "transDate": "2019-02-10",
-            "incomeAmtProp": 0
-          },
-          {
-            "type": "前100%",
-            "transDate": "2019-02-10",
+            "type": "前20%",
+            "transDate": "2021-02-12",
             "incomeAmtProp": 0
           },
           {
             "type": "前30%",
-            "transDate": "2018-02-10",
-            "incomeAmtProp": 0
-          },
-          {
-            "type": "前30%",
-            "transDate": "2018-03-10",
-            "incomeAmtProp": 0
-          },
-          {
-            "type": "前30%",
-            "transDate": "2018-04-10",
-            "incomeAmtProp": 0
-          },
-          {
-            "type": "前30%",
-            "transDate": "2018-05-10",
-            "incomeAmtProp": 0
-          },
-          {
-            "type": "前30%",
-            "transDate": "2018-06-10",
-            "incomeAmtProp": 0
-          },
-          {
-            "type": "前30%",
-            "transDate": "2018-07-10",
-            "incomeAmtProp": 0
-          },
-          {
-            "type": "前30%",
-            "transDate": "2018-08-10",
-            "incomeAmtProp": 0
-          },
-          {
-            "type": "前30%",
-            "transDate": "2018-09-10",
-            "incomeAmtProp": 0
-          },
-          {
-            "type": "前30%",
-            "transDate": "2018-10-10",
-            "incomeAmtProp": 0
-          },
-          {
-            "type": "前30%",
-            "transDate": "2018-11-10",
-            "incomeAmtProp": 0
-          },
-          {
-            "type": "前30%",
-            "transDate": "2018-12-10",
-            "incomeAmtProp": 0
-          },
-          {
-            "type": "前30%",
-            "transDate": "2019-01-10",
-            "incomeAmtProp": 0
-          },
-          {
-            "type": "前30%",
-            "transDate": "2019-02-10",
-            "incomeAmtProp": 0
-          },
-          {
-            "type": "前30%",
-            "transDate": "2019-02-10",
+            "transDate": "2021-02-12",
             "incomeAmtProp": 0
           },
           {
             "type": "前40%",
-            "transDate": "2018-02-10",
+            "transDate": "2021-02-12",
             "incomeAmtProp": 0
           },
           {
-            "type": "前40%",
-            "transDate": "2018-03-10",
-            "incomeAmtProp": 0
-          },
-          {
-            "type": "前40%",
-            "transDate": "2018-04-10",
-            "incomeAmtProp": 0
-          },
-          {
-            "type": "前40%",
-            "transDate": "2018-05-10",
-            "incomeAmtProp": 0
-          },
-          {
-            "type": "前40%",
-            "transDate": "2018-06-10",
-            "incomeAmtProp": 0
-          },
-          {
-            "type": "前40%",
-            "transDate": "2018-07-10",
-            "incomeAmtProp": 0
-          },
-          {
-            "type": "前40%",
-            "transDate": "2018-08-10",
-            "incomeAmtProp": 0
-          },
-          {
-            "type": "前40%",
-            "transDate": "2018-09-10",
-            "incomeAmtProp": 0
-          },
-          {
-            "type": "前40%",
-            "transDate": "2018-10-10",
-            "incomeAmtProp": 0
-          },
-          {
-            "type": "前40%",
-            "transDate": "2018-11-10",
-            "incomeAmtProp": 0
-          },
-          {
-            "type": "前40%",
-            "transDate": "2018-12-10",
-            "incomeAmtProp": 0
-          },
-          {
-            "type": "前40%",
-            "transDate": "2019-01-10",
-            "incomeAmtProp": 0
-          },
-          {
-            "type": "前40%",
-            "transDate": "2019-02-10",
-            "incomeAmtProp": 0
-          },
-          {
-            "type": "前40%",
-            "transDate": "2019-02-10",
+            "type": "前50%",
+            "transDate": "2021-02-12",
             "incomeAmtProp": 0
           },
           {
             "type": "前60%",
-            "transDate": "2018-02-10",
-            "incomeAmtProp": 0
-          },
-          {
-            "type": "前60%",
-            "transDate": "2018-03-10",
-            "incomeAmtProp": 0
-          },
-          {
-            "type": "前60%",
-            "transDate": "2018-04-10",
-            "incomeAmtProp": 0
-          },
-          {
-            "type": "前60%",
-            "transDate": "2018-05-10",
-            "incomeAmtProp": 0
-          },
-          {
-            "type": "前60%",
-            "transDate": "2018-06-10",
-            "incomeAmtProp": 0
-          },
-          {
-            "type": "前60%",
-            "transDate": "2018-07-10",
-            "incomeAmtProp": 0
-          },
-          {
-            "type": "前60%",
-            "transDate": "2018-08-10",
-            "incomeAmtProp": 0
-          },
-          {
-            "type": "前60%",
-            "transDate": "2018-09-10",
-            "incomeAmtProp": 0
-          },
-          {
-            "type": "前60%",
-            "transDate": "2018-10-10",
-            "incomeAmtProp": 0
-          },
-          {
-            "type": "前60%",
-            "transDate": "2018-11-10",
-            "incomeAmtProp": 0
-          },
-          {
-            "type": "前60%",
-            "transDate": "2018-12-10",
-            "incomeAmtProp": 0
-          },
-          {
-            "type": "前60%",
-            "transDate": "2019-01-10",
-            "incomeAmtProp": 0
-          },
-          {
-            "type": "前60%",
-            "transDate": "2019-02-10",
-            "incomeAmtProp": 0
-          },
-          {
-            "type": "前60%",
-            "transDate": "2019-02-10",
+            "transDate": "2021-02-12",
             "incomeAmtProp": 0
           },
           {
             "type": "前70%",
-            "transDate": "2018-02-10",
-            "incomeAmtProp": 0
-          },
-          {
-            "type": "前70%",
-            "transDate": "2018-03-10",
-            "incomeAmtProp": 0
-          },
-          {
-            "type": "前70%",
-            "transDate": "2018-04-10",
-            "incomeAmtProp": 0
-          },
-          {
-            "type": "前70%",
-            "transDate": "2018-05-10",
-            "incomeAmtProp": 0
-          },
-          {
-            "type": "前70%",
-            "transDate": "2018-06-10",
-            "incomeAmtProp": 0
-          },
-          {
-            "type": "前70%",
-            "transDate": "2018-07-10",
-            "incomeAmtProp": 0
-          },
-          {
-            "type": "前70%",
-            "transDate": "2018-08-10",
-            "incomeAmtProp": 0
-          },
-          {
-            "type": "前70%",
-            "transDate": "2018-09-10",
-            "incomeAmtProp": 0
-          },
-          {
-            "type": "前70%",
-            "transDate": "2018-10-10",
-            "incomeAmtProp": 0
-          },
-          {
-            "type": "前70%",
-            "transDate": "2018-11-10",
-            "incomeAmtProp": 0
-          },
-          {
-            "type": "前70%",
-            "transDate": "2018-12-10",
-            "incomeAmtProp": 0
-          },
-          {
-            "type": "前70%",
-            "transDate": "2019-01-10",
-            "incomeAmtProp": 0
-          },
-          {
-            "type": "前70%",
-            "transDate": "2019-02-10",
-            "incomeAmtProp": 0
-          },
-          {
-            "type": "前70%",
-            "transDate": "2019-02-10",
+            "transDate": "2021-02-12",
             "incomeAmtProp": 0
           },
           {
             "type": "前80%",
-            "transDate": "2018-02-10",
-            "incomeAmtProp": 0
-          },
-          {
-            "type": "前80%",
-            "transDate": "2018-03-10",
-            "incomeAmtProp": 0
-          },
-          {
-            "type": "前80%",
-            "transDate": "2018-04-10",
-            "incomeAmtProp": 0
-          },
-          {
-            "type": "前80%",
-            "transDate": "2018-05-10",
-            "incomeAmtProp": 0
-          },
-          {
-            "type": "前80%",
-            "transDate": "2018-06-10",
-            "incomeAmtProp": 0
-          },
-          {
-            "type": "前80%",
-            "transDate": "2018-07-10",
-            "incomeAmtProp": 0
-          },
-          {
-            "type": "前80%",
-            "transDate": "2018-08-10",
-            "incomeAmtProp": 0
-          },
-          {
-            "type": "前80%",
-            "transDate": "2018-09-10",
-            "incomeAmtProp": 0
-          },
-          {
-            "type": "前80%",
-            "transDate": "2018-10-10",
-            "incomeAmtProp": 0
-          },
-          {
-            "type": "前80%",
-            "transDate": "2018-11-10",
-            "incomeAmtProp": 0
-          },
-          {
-            "type": "前80%",
-            "transDate": "2018-12-10",
-            "incomeAmtProp": 0
-          },
-          {
-            "type": "前80%",
-            "transDate": "2019-01-10",
-            "incomeAmtProp": 0
-          },
-          {
-            "type": "前80%",
-            "transDate": "2019-02-10",
-            "incomeAmtProp": 0
-          },
-          {
-            "type": "前80%",
-            "transDate": "2019-02-10",
+            "transDate": "2021-02-12",
             "incomeAmtProp": 0
           },
           {
             "type": "前90%",
-            "transDate": "2018-02-10",
-            "incomeAmtProp": 0
-          },
-          {
-            "type": "前90%",
-            "transDate": "2018-03-10",
-            "incomeAmtProp": 0
-          },
-          {
-            "type": "前90%",
-            "transDate": "2018-04-10",
-            "incomeAmtProp": 0
-          },
-          {
-            "type": "前90%",
-            "transDate": "2018-05-10",
-            "incomeAmtProp": 0
-          },
-          {
-            "type": "前90%",
-            "transDate": "2018-06-10",
-            "incomeAmtProp": 0
-          },
-          {
-            "type": "前90%",
-            "transDate": "2018-07-10",
-            "incomeAmtProp": 0
-          },
-          {
-            "type": "前90%",
-            "transDate": "2018-08-10",
-            "incomeAmtProp": 0
-          },
-          {
-            "type": "前90%",
-            "transDate": "2018-09-10",
-            "incomeAmtProp": 0
-          },
-          {
-            "type": "前90%",
-            "transDate": "2018-10-10",
-            "incomeAmtProp": 0
-          },
-          {
-            "type": "前90%",
-            "transDate": "2018-11-10",
-            "incomeAmtProp": 0
-          },
-          {
-            "type": "前90%",
-            "transDate": "2018-12-10",
-            "incomeAmtProp": 0
-          },
-          {
-            "type": "前90%",
-            "transDate": "2019-01-10",
-            "incomeAmtProp": 0
-          },
-          {
-            "type": "前90%",
-            "transDate": "2019-02-10",
-            "incomeAmtProp": 0
-          },
-          {
-            "type": "前90%",
-            "transDate": "2019-02-10",
+            "transDate": "2021-02-12",
             "incomeAmtProp": 0
           }
         ],
         "transInRateList": [
           {
             "type": "NO.1",
-            "transDate": "2018-02-10",
+            "transDate": "2020-02-12",
             "incomeAmtProp": 11
           },
           {
             "type": "NO.1",
-            "transDate": "2018-03-10",
+            "transDate": "2020-03-12",
             "incomeAmtProp": 12
           },
           {
             "type": "NO.2",
-            "transDate": "2018-02-10",
+            "transDate": "2020-02-12",
             "incomeAmtProp": 12
           },
           {
             "type": "NO.2",
-            "transDate": "2018-03-10",
+            "transDate": "2020-03-12",
             "incomeAmtProp": 12
           },
           {
             "type": "NO.3",
-            "transDate": "2018-02-10",
+            "transDate": "2020-02-12",
             "incomeAmtProp": 67
           },
           {
             "type": "NO.3",
-            "transDate": "2018-03-10",
+            "transDate": "2020-03-12",
             "incomeAmtProp": 67
           },
           {
             "type": "NO.3",
-            "transDate": "2018-04-10",
+            "transDate": "2020-04-12",
             "incomeAmtProp": 67
           },
           {
             "type": "NO.4",
-            "transDate": "2018-02-10",
+            "transDate": "2020-02-12",
             "incomeAmtProp": 12
           },
           {
             "type": "NO.4",
-            "transDate": "2018-03-10",
+            "transDate": "2020-03-12",
             "incomeAmtProp": 12
           },
           {
             "type": "NO.4",
-            "transDate": "2018-04-10",
+            "transDate": "2020-04-12",
             "incomeAmtProp": 12
           },
           {
             "type": "NO.4",
-            "transDate": "2018-05-10",
+            "transDate": "2020-05-12",
             "incomeAmtProp": 12
           },
           {
             "type": "前5",
-            "transDate": "2018-02-10",
+            "transDate": "2020-02-12",
             "incomeAmtProp": 12
           },
           {
             "type": "前5",
-            "transDate": "2018-03-10",
+            "transDate": "2020-03-12",
             "incomeAmtProp": 12
           },
           {
             "type": "前5",
-            "transDate": "2018-04-10",
+            "transDate": "2020-04-12",
             "incomeAmtProp": 12
           },
           {
             "type": "前5",
-            "transDate": "2018-05-10",
+            "transDate": "2020-05-12",
             "incomeAmtProp": 12
           },
           {
             "type": "前10",
-            "transDate": "2018-02-10",
+            "transDate": "2020-02-12",
             "incomeAmtProp": 12
           },
           {
             "type": "前10",
-            "transDate": "2018-03-10",
+            "transDate": "2020-03-12",
             "incomeAmtProp": 0
           },
           {
             "type": "前10",
-            "transDate": "2018-04-10",
+            "transDate": "2020-04-12",
             "incomeAmtProp": 23
           },
           {
             "type": "前10",
-            "transDate": "2019-02-10",
+            "transDate": null,
             "incomeAmtProp": 0.88
           },
           {
             "type": "前10%",
-            "transDate": "2018-02-10",
+            "transDate": "2020-02-12",
             "incomeAmtProp": 23
           },
           {
             "type": "前10%",
-            "transDate": "2018-04-10",
+            "transDate": "2020-04-12",
+            "incomeAmtProp": 0
+          },
+          {
+            "type": "前10%",
+            "transDate": null,
             "incomeAmtProp": 0
           },
           {
             "type": "前20%",
-            "transDate": "2018-02-10",
+            "transDate": "2020-02-12",
             "incomeAmtProp": 0
           },
           {
             "type": "前20%",
-            "transDate": "2018-03-10",
+            "transDate": "2020-03-12",
             "incomeAmtProp": 0
           },
           {
             "type": "前20%",
-            "transDate": "2018-04-10",
+            "transDate": "2020-04-12",
             "incomeAmtProp": 0
           },
           {
             "type": "前20%",
-            "transDate": "2018-05-10",
+            "transDate": "2020-05-12",
             "incomeAmtProp": 0
           },
           {
             "type": "前20%",
-            "transDate": "2018-06-10",
+            "transDate": "2020-06-12",
             "incomeAmtProp": 0
           },
           {
             "type": "前20%",
-            "transDate": "2018-07-10",
+            "transDate": "2020-07-12",
             "incomeAmtProp": 0
           },
           {
             "type": "前20%",
-            "transDate": "2018-08-10",
+            "transDate": "2020-08-12",
             "incomeAmtProp": 0
           },
           {
             "type": "前20%",
-            "transDate": "2018-09-10",
+            "transDate": "2020-09-12",
             "incomeAmtProp": 0
           },
           {
             "type": "前20%",
-            "transDate": "2018-10-10",
+            "transDate": "2020-10-12",
             "incomeAmtProp": 0
           },
           {
             "type": "前20%",
-            "transDate": "2018-11-10",
+            "transDate": "2020-11-12",
             "incomeAmtProp": 0
           },
           {
             "type": "前20%",
-            "transDate": "2018-12-10",
+            "transDate": "2020-12-12",
             "incomeAmtProp": 0
           },
           {
             "type": "前20%",
-            "transDate": "2019-01-10",
+            "transDate": "2021-01-12",
             "incomeAmtProp": 0
           },
           {
             "type": "前20%",
-            "transDate": "2019-02-10",
+            "transDate": "2021-02-12",
             "incomeAmtProp": 0
           },
           {
             "type": "前20%",
-            "transDate": "2019-02-10",
+            "transDate": null,
             "incomeAmtProp": 0
           },
           {
             "type": "前50%",
-            "transDate": "2018-02-10",
+            "transDate": "2020-02-12",
             "incomeAmtProp": 0
           },
           {
             "type": "前50%",
-            "transDate": "2018-03-10",
+            "transDate": "2020-03-12",
             "incomeAmtProp": 0
           },
           {
             "type": "前50%",
-            "transDate": "2018-04-10",
+            "transDate": "2020-04-12",
             "incomeAmtProp": 0
           },
           {
             "type": "前50%",
-            "transDate": "2018-05-10",
+            "transDate": "2020-05-12",
             "incomeAmtProp": 0
           },
           {
             "type": "前50%",
-            "transDate": "2018-06-10",
+            "transDate": "2020-06-12",
             "incomeAmtProp": 0
           },
           {
             "type": "前50%",
-            "transDate": "2018-07-10",
+            "transDate": "2020-07-12",
             "incomeAmtProp": 0
           },
           {
             "type": "前50%",
-            "transDate": "2018-08-10",
+            "transDate": "2020-08-12",
             "incomeAmtProp": 0
           },
           {
             "type": "前50%",
-            "transDate": "2018-09-10",
+            "transDate": "2020-09-12",
             "incomeAmtProp": 0
           },
           {
             "type": "前50%",
-            "transDate": "2018-10-10",
+            "transDate": "2020-10-12",
             "incomeAmtProp": 0
           },
           {
             "type": "前50%",
-            "transDate": "2018-11-10",
+            "transDate": "2020-11-12",
             "incomeAmtProp": 0
           },
           {
             "type": "前50%",
-            "transDate": "2018-12-10",
+            "transDate": "2020-12-12",
             "incomeAmtProp": 0
           },
           {
             "type": "前50%",
-            "transDate": "2019-01-10",
+            "transDate": "2021-01-12",
             "incomeAmtProp": 0
           },
           {
             "type": "前50%",
-            "transDate": "2019-02-10",
+            "transDate": "2021-02-12",
             "incomeAmtProp": 0
           },
           {
             "type": "前50%",
-            "transDate": "2019-02-10",
+            "transDate": null,
             "incomeAmtProp": 0
           },
           {
             "type": "前100%",
-            "transDate": "2018-02-10",
+            "transDate": "2020-02-12",
             "incomeAmtProp": 0
           },
           {
             "type": "前100%",
-            "transDate": "2018-03-10",
+            "transDate": "2020-03-12",
             "incomeAmtProp": 0
           },
           {
             "type": "前100%",
-            "transDate": "2018-04-10",
+            "transDate": "2020-04-12",
             "incomeAmtProp": 0
           },
           {
             "type": "前100%",
-            "transDate": "2018-05-10",
+            "transDate": "2020-05-12",
             "incomeAmtProp": 0
           },
           {
             "type": "前100%",
-            "transDate": "2018-06-10",
+            "transDate": "2020-06-12",
             "incomeAmtProp": 0
           },
           {
             "type": "前100%",
-            "transDate": "2018-07-10",
+            "transDate": "2020-07-12",
             "incomeAmtProp": 0
           },
           {
             "type": "前100%",
-            "transDate": "2018-08-10",
+            "transDate": "2020-08-12",
             "incomeAmtProp": 0
           },
           {
             "type": "前100%",
-            "transDate": "2018-09-10",
+            "transDate": "2020-09-12",
             "incomeAmtProp": 0
           },
           {
             "type": "前100%",
-            "transDate": "2018-10-10",
+            "transDate": "2020-10-12",
             "incomeAmtProp": 0
           },
           {
             "type": "前100%",
-            "transDate": "2018-11-10",
+            "transDate": "2020-11-12",
             "incomeAmtProp": 0
           },
           {
             "type": "前100%",
-            "transDate": "2018-12-10",
+            "transDate": "2020-12-12",
             "incomeAmtProp": 0
           },
           {
             "type": "前100%",
-            "transDate": "2019-01-10",
+            "transDate": "2021-01-12",
             "incomeAmtProp": 0
           },
           {
             "type": "前100%",
-            "transDate": "2019-02-10",
+            "transDate": "2021-02-12",
             "incomeAmtProp": 0
           },
           {
             "type": "前100%",
-            "transDate": "2019-02-10",
-            "incomeAmtProp": 0
+            "transDate": null,
+            "incomeAmtProp": 55
           }
         ],
         "transInTop10": [
@@ -1635,7 +1400,27 @@
             "transMean": 0.0,
             "transAmtProp": 12,
             "transGapAvg": 12,
-            "transDate": "2019-02-10"
+            "transDate": "2021-02-12",
+            "trendViewList": [
+              {
+                "opponentName": "",
+                "transAmt": 0.0,
+                "transCnt": 0,
+                "transDate": "2020-02-12"
+              },
+              {
+                "opponentName": "",
+                "transAmt": 0.0,
+                "transCnt": 0,
+                "transDate": "2020-03-12"
+              },
+              {
+                "opponentName": "",
+                "transAmt": 0.0,
+                "transCnt": 0,
+                "transDate": "2020-04-12"
+              }
+            ]
           }
         ],
         "transOutTop10": [
@@ -1649,7 +1434,87 @@
             "transMean": 0.0,
             "transAmtProp": 99,
             "transGapAvg": 99,
-            "transDate": "2019-02-10"
+            "transDate": "2021-02-12",
+            "trendViewList": [
+              {
+                "opponentName": "",
+                "transAmt": 0.0,
+                "transCnt": 0,
+                "transDate": "2020-02-12"
+              },
+              {
+                "opponentName": "",
+                "transAmt": 0.0,
+                "transCnt": 0,
+                "transDate": "2020-03-12"
+              },
+              {
+                "opponentName": "",
+                "transAmt": 0.0,
+                "transCnt": 0,
+                "transDate": "2020-04-12"
+              },
+              {
+                "opponentName": "",
+                "transAmt": 0.0,
+                "transCnt": 0,
+                "transDate": "2020-05-12"
+              },
+              {
+                "opponentName": "",
+                "transAmt": 0.0,
+                "transCnt": 0,
+                "transDate": "2020-06-12"
+              },
+              {
+                "opponentName": "",
+                "transAmt": 0.0,
+                "transCnt": 0,
+                "transDate": "2020-07-12"
+              },
+              {
+                "opponentName": "",
+                "transAmt": 0.0,
+                "transCnt": 0,
+                "transDate": "2020-08-12"
+              },
+              {
+                "opponentName": "",
+                "transAmt": 0.0,
+                "transCnt": 0,
+                "transDate": "2020-09-12"
+              },
+              {
+                "opponentName": "",
+                "transAmt": 0.0,
+                "transCnt": 0,
+                "transDate": "2020-10-12"
+              },
+              {
+                "opponentName": "",
+                "transAmt": 0.0,
+                "transCnt": 0,
+                "transDate": "2020-11-12"
+              },
+              {
+                "opponentName": "",
+                "transAmt": 0.0,
+                "transCnt": 0,
+                "transDate": "2020-12-12"
+              },
+              {
+                "opponentName": "",
+                "transAmt": 0.0,
+                "transCnt": 0,
+                "transDate": "2021-01-12"
+              },
+              {
+                "opponentName": "",
+                "transAmt": 0.0,
+                "transCnt": 0,
+                "transDate": "2021-02-12"
+              }
+            ]
           },
           {
             "month": "汇总",
@@ -1661,7 +1526,87 @@
             "transMean": 0.0,
             "transAmtProp": 0,
             "transGapAvg": 0,
-            "transDate": "2019-02-10"
+            "transDate": "2021-02-12",
+            "trendViewList": [
+              {
+                "opponentName": "",
+                "transAmt": 0.0,
+                "transCnt": 0,
+                "transDate": "2020-02-12"
+              },
+              {
+                "opponentName": "",
+                "transAmt": 0.0,
+                "transCnt": 0,
+                "transDate": "2020-03-12"
+              },
+              {
+                "opponentName": "",
+                "transAmt": 0.0,
+                "transCnt": 0,
+                "transDate": "2020-04-12"
+              },
+              {
+                "opponentName": "",
+                "transAmt": 0.0,
+                "transCnt": 0,
+                "transDate": "2020-05-12"
+              },
+              {
+                "opponentName": "",
+                "transAmt": 0.0,
+                "transCnt": 0,
+                "transDate": "2020-06-12"
+              },
+              {
+                "opponentName": "",
+                "transAmt": 0.0,
+                "transCnt": 0,
+                "transDate": "2020-07-12"
+              },
+              {
+                "opponentName": "",
+                "transAmt": 0.0,
+                "transCnt": 0,
+                "transDate": "2020-08-12"
+              },
+              {
+                "opponentName": "",
+                "transAmt": 0.0,
+                "transCnt": 0,
+                "transDate": "2020-09-12"
+              },
+              {
+                "opponentName": "",
+                "transAmt": 0.0,
+                "transCnt": 0,
+                "transDate": "2020-10-12"
+              },
+              {
+                "opponentName": "",
+                "transAmt": 0.0,
+                "transCnt": 0,
+                "transDate": "2020-11-12"
+              },
+              {
+                "opponentName": "",
+                "transAmt": 0.0,
+                "transCnt": 0,
+                "transDate": "2020-12-12"
+              },
+              {
+                "opponentName": "",
+                "transAmt": 0.0,
+                "transCnt": 0,
+                "transDate": "2021-01-12"
+              },
+              {
+                "opponentName": "",
+                "transAmt": 0.0,
+                "transCnt": 0,
+                "transDate": "2021-02-12"
+              }
+            ]
           },
           {
             "month": "汇总",
@@ -1673,7 +1618,87 @@
             "transMean": 0.0,
             "transAmtProp": 0,
             "transGapAvg": 0,
-            "transDate": "2019-02-10"
+            "transDate": "2021-02-12",
+            "trendViewList": [
+              {
+                "opponentName": "",
+                "transAmt": 0.0,
+                "transCnt": 0,
+                "transDate": "2020-02-12"
+              },
+              {
+                "opponentName": "",
+                "transAmt": 0.0,
+                "transCnt": 0,
+                "transDate": "2020-03-12"
+              },
+              {
+                "opponentName": "",
+                "transAmt": 0.0,
+                "transCnt": 0,
+                "transDate": "2020-04-12"
+              },
+              {
+                "opponentName": "",
+                "transAmt": 0.0,
+                "transCnt": 0,
+                "transDate": "2020-05-12"
+              },
+              {
+                "opponentName": "",
+                "transAmt": 0.0,
+                "transCnt": 0,
+                "transDate": "2020-06-12"
+              },
+              {
+                "opponentName": "",
+                "transAmt": 0.0,
+                "transCnt": 0,
+                "transDate": "2020-07-12"
+              },
+              {
+                "opponentName": "",
+                "transAmt": 0.0,
+                "transCnt": 0,
+                "transDate": "2020-08-12"
+              },
+              {
+                "opponentName": "",
+                "transAmt": 0.0,
+                "transCnt": 0,
+                "transDate": "2020-09-12"
+              },
+              {
+                "opponentName": "",
+                "transAmt": 0.0,
+                "transCnt": 0,
+                "transDate": "2020-10-12"
+              },
+              {
+                "opponentName": "",
+                "transAmt": 0.0,
+                "transCnt": 0,
+                "transDate": "2020-11-12"
+              },
+              {
+                "opponentName": "",
+                "transAmt": 0.0,
+                "transCnt": 0,
+                "transDate": "2020-12-12"
+              },
+              {
+                "opponentName": "",
+                "transAmt": 0.0,
+                "transCnt": 0,
+                "transDate": "2021-01-12"
+              },
+              {
+                "opponentName": "",
+                "transAmt": 0.0,
+                "transCnt": 0,
+                "transDate": "2021-02-12"
+              }
+            ]
           },
           {
             "month": "汇总",
@@ -1685,7 +1710,87 @@
             "transMean": 0.0,
             "transAmtProp": 0,
             "transGapAvg": 0,
-            "transDate": "2019-02-10"
+            "transDate": "2021-02-12",
+            "trendViewList": [
+              {
+                "opponentName": "",
+                "transAmt": 0.0,
+                "transCnt": 0,
+                "transDate": "2020-02-12"
+              },
+              {
+                "opponentName": "",
+                "transAmt": 0.0,
+                "transCnt": 0,
+                "transDate": "2020-03-12"
+              },
+              {
+                "opponentName": "",
+                "transAmt": 0.0,
+                "transCnt": 0,
+                "transDate": "2020-04-12"
+              },
+              {
+                "opponentName": "",
+                "transAmt": 0.0,
+                "transCnt": 0,
+                "transDate": "2020-05-12"
+              },
+              {
+                "opponentName": "",
+                "transAmt": 0.0,
+                "transCnt": 0,
+                "transDate": "2020-06-12"
+              },
+              {
+                "opponentName": "",
+                "transAmt": 0.0,
+                "transCnt": 0,
+                "transDate": "2020-07-12"
+              },
+              {
+                "opponentName": "",
+                "transAmt": 0.0,
+                "transCnt": 0,
+                "transDate": "2020-08-12"
+              },
+              {
+                "opponentName": "",
+                "transAmt": 0.0,
+                "transCnt": 0,
+                "transDate": "2020-09-12"
+              },
+              {
+                "opponentName": "",
+                "transAmt": 0.0,
+                "transCnt": 0,
+                "transDate": "2020-10-12"
+              },
+              {
+                "opponentName": "",
+                "transAmt": 0.0,
+                "transCnt": 0,
+                "transDate": "2020-11-12"
+              },
+              {
+                "opponentName": "",
+                "transAmt": 0.0,
+                "transCnt": 0,
+                "transDate": "2020-12-12"
+              },
+              {
+                "opponentName": "",
+                "transAmt": 0.0,
+                "transCnt": 0,
+                "transDate": "2021-01-12"
+              },
+              {
+                "opponentName": "",
+                "transAmt": 0.0,
+                "transCnt": 0,
+                "transDate": "2021-02-12"
+              }
+            ]
           },
           {
             "month": "汇总",
@@ -1697,7 +1802,87 @@
             "transMean": 0.0,
             "transAmtProp": 0,
             "transGapAvg": 0,
-            "transDate": "2019-02-10"
+            "transDate": "2021-02-12",
+            "trendViewList": [
+              {
+                "opponentName": "",
+                "transAmt": 0.0,
+                "transCnt": 0,
+                "transDate": "2020-02-12"
+              },
+              {
+                "opponentName": "",
+                "transAmt": 0.0,
+                "transCnt": 0,
+                "transDate": "2020-03-12"
+              },
+              {
+                "opponentName": "",
+                "transAmt": 0.0,
+                "transCnt": 0,
+                "transDate": "2020-04-12"
+              },
+              {
+                "opponentName": "",
+                "transAmt": 0.0,
+                "transCnt": 0,
+                "transDate": "2020-05-12"
+              },
+              {
+                "opponentName": "",
+                "transAmt": 0.0,
+                "transCnt": 0,
+                "transDate": "2020-06-12"
+              },
+              {
+                "opponentName": "",
+                "transAmt": 0.0,
+                "transCnt": 0,
+                "transDate": "2020-07-12"
+              },
+              {
+                "opponentName": "",
+                "transAmt": 0.0,
+                "transCnt": 0,
+                "transDate": "2020-08-12"
+              },
+              {
+                "opponentName": "",
+                "transAmt": 0.0,
+                "transCnt": 0,
+                "transDate": "2020-09-12"
+              },
+              {
+                "opponentName": "",
+                "transAmt": 0.0,
+                "transCnt": 0,
+                "transDate": "2020-10-12"
+              },
+              {
+                "opponentName": "",
+                "transAmt": 0.0,
+                "transCnt": 0,
+                "transDate": "2020-11-12"
+              },
+              {
+                "opponentName": "",
+                "transAmt": 0.0,
+                "transCnt": 0,
+                "transDate": "2020-12-12"
+              },
+              {
+                "opponentName": "",
+                "transAmt": 0.0,
+                "transCnt": 0,
+                "transDate": "2021-01-12"
+              },
+              {
+                "opponentName": "",
+                "transAmt": 0.0,
+                "transCnt": 0,
+                "transDate": "2021-02-12"
+              }
+            ]
           },
           {
             "month": "汇总",
@@ -1709,7 +1894,87 @@
             "transMean": 0.0,
             "transAmtProp": 0,
             "transGapAvg": 0,
-            "transDate": "2019-02-10"
+            "transDate": "2021-02-12",
+            "trendViewList": [
+              {
+                "opponentName": "",
+                "transAmt": 0.0,
+                "transCnt": 0,
+                "transDate": "2020-02-12"
+              },
+              {
+                "opponentName": "",
+                "transAmt": 0.0,
+                "transCnt": 0,
+                "transDate": "2020-03-12"
+              },
+              {
+                "opponentName": "",
+                "transAmt": 0.0,
+                "transCnt": 0,
+                "transDate": "2020-04-12"
+              },
+              {
+                "opponentName": "",
+                "transAmt": 0.0,
+                "transCnt": 0,
+                "transDate": "2020-05-12"
+              },
+              {
+                "opponentName": "",
+                "transAmt": 0.0,
+                "transCnt": 0,
+                "transDate": "2020-06-12"
+              },
+              {
+                "opponentName": "",
+                "transAmt": 0.0,
+                "transCnt": 0,
+                "transDate": "2020-07-12"
+              },
+              {
+                "opponentName": "",
+                "transAmt": 0.0,
+                "transCnt": 0,
+                "transDate": "2020-08-12"
+              },
+              {
+                "opponentName": "",
+                "transAmt": 0.0,
+                "transCnt": 0,
+                "transDate": "2020-09-12"
+              },
+              {
+                "opponentName": "",
+                "transAmt": 0.0,
+                "transCnt": 0,
+                "transDate": "2020-10-12"
+              },
+              {
+                "opponentName": "",
+                "transAmt": 0.0,
+                "transCnt": 0,
+                "transDate": "2020-11-12"
+              },
+              {
+                "opponentName": "",
+                "transAmt": 0.0,
+                "transCnt": 0,
+                "transDate": "2020-12-12"
+              },
+              {
+                "opponentName": "",
+                "transAmt": 0.0,
+                "transCnt": 0,
+                "transDate": "2021-01-12"
+              },
+              {
+                "opponentName": "",
+                "transAmt": 0.0,
+                "transCnt": 0,
+                "transDate": "2021-02-12"
+              }
+            ]
           },
           {
             "month": "汇总",
@@ -1721,7 +1986,87 @@
             "transMean": 0.0,
             "transAmtProp": 0,
             "transGapAvg": 0,
-            "transDate": "2019-02-10"
+            "transDate": "2021-02-12",
+            "trendViewList": [
+              {
+                "opponentName": "",
+                "transAmt": 0.0,
+                "transCnt": 0,
+                "transDate": "2020-02-12"
+              },
+              {
+                "opponentName": "",
+                "transAmt": 0.0,
+                "transCnt": 0,
+                "transDate": "2020-03-12"
+              },
+              {
+                "opponentName": "",
+                "transAmt": 0.0,
+                "transCnt": 0,
+                "transDate": "2020-04-12"
+              },
+              {
+                "opponentName": "",
+                "transAmt": 0.0,
+                "transCnt": 0,
+                "transDate": "2020-05-12"
+              },
+              {
+                "opponentName": "",
+                "transAmt": 0.0,
+                "transCnt": 0,
+                "transDate": "2020-06-12"
+              },
+              {
+                "opponentName": "",
+                "transAmt": 0.0,
+                "transCnt": 0,
+                "transDate": "2020-07-12"
+              },
+              {
+                "opponentName": "",
+                "transAmt": 0.0,
+                "transCnt": 0,
+                "transDate": "2020-08-12"
+              },
+              {
+                "opponentName": "",
+                "transAmt": 0.0,
+                "transCnt": 0,
+                "transDate": "2020-09-12"
+              },
+              {
+                "opponentName": "",
+                "transAmt": 0.0,
+                "transCnt": 0,
+                "transDate": "2020-10-12"
+              },
+              {
+                "opponentName": "",
+                "transAmt": 0.0,
+                "transCnt": 0,
+                "transDate": "2020-11-12"
+              },
+              {
+                "opponentName": "",
+                "transAmt": 0.0,
+                "transCnt": 0,
+                "transDate": "2020-12-12"
+              },
+              {
+                "opponentName": "",
+                "transAmt": 0.0,
+                "transCnt": 0,
+                "transDate": "2021-01-12"
+              },
+              {
+                "opponentName": "",
+                "transAmt": 0.0,
+                "transCnt": 0,
+                "transDate": "2021-02-12"
+              }
+            ]
           },
           {
             "month": "汇总",
@@ -1733,7 +2078,87 @@
             "transMean": 0.0,
             "transAmtProp": 0,
             "transGapAvg": 0,
-            "transDate": "2019-02-10"
+            "transDate": "2021-02-12",
+            "trendViewList": [
+              {
+                "opponentName": "",
+                "transAmt": 0.0,
+                "transCnt": 0,
+                "transDate": "2020-02-12"
+              },
+              {
+                "opponentName": "",
+                "transAmt": 0.0,
+                "transCnt": 0,
+                "transDate": "2020-03-12"
+              },
+              {
+                "opponentName": "",
+                "transAmt": 0.0,
+                "transCnt": 0,
+                "transDate": "2020-04-12"
+              },
+              {
+                "opponentName": "",
+                "transAmt": 0.0,
+                "transCnt": 0,
+                "transDate": "2020-05-12"
+              },
+              {
+                "opponentName": "",
+                "transAmt": 0.0,
+                "transCnt": 0,
+                "transDate": "2020-06-12"
+              },
+              {
+                "opponentName": "",
+                "transAmt": 0.0,
+                "transCnt": 0,
+                "transDate": "2020-07-12"
+              },
+              {
+                "opponentName": "",
+                "transAmt": 0.0,
+                "transCnt": 0,
+                "transDate": "2020-08-12"
+              },
+              {
+                "opponentName": "",
+                "transAmt": 0.0,
+                "transCnt": 0,
+                "transDate": "2020-09-12"
+              },
+              {
+                "opponentName": "",
+                "transAmt": 0.0,
+                "transCnt": 0,
+                "transDate": "2020-10-12"
+              },
+              {
+                "opponentName": "",
+                "transAmt": 0.0,
+                "transCnt": 0,
+                "transDate": "2020-11-12"
+              },
+              {
+                "opponentName": "",
+                "transAmt": 0.0,
+                "transCnt": 0,
+                "transDate": "2020-12-12"
+              },
+              {
+                "opponentName": "",
+                "transAmt": 0.0,
+                "transCnt": 0,
+                "transDate": "2021-01-12"
+              },
+              {
+                "opponentName": "",
+                "transAmt": 0.0,
+                "transCnt": 0,
+                "transDate": "2021-02-12"
+              }
+            ]
           },
           {
             "month": "汇总",
@@ -1745,7 +2170,87 @@
             "transMean": 0.0,
             "transAmtProp": 0,
             "transGapAvg": 0,
-            "transDate": "2019-02-10"
+            "transDate": "2021-02-12",
+            "trendViewList": [
+              {
+                "opponentName": "",
+                "transAmt": 0.0,
+                "transCnt": 0,
+                "transDate": "2020-02-12"
+              },
+              {
+                "opponentName": "",
+                "transAmt": 0.0,
+                "transCnt": 0,
+                "transDate": "2020-03-12"
+              },
+              {
+                "opponentName": "",
+                "transAmt": 0.0,
+                "transCnt": 0,
+                "transDate": "2020-04-12"
+              },
+              {
+                "opponentName": "",
+                "transAmt": 0.0,
+                "transCnt": 0,
+                "transDate": "2020-05-12"
+              },
+              {
+                "opponentName": "",
+                "transAmt": 0.0,
+                "transCnt": 0,
+                "transDate": "2020-06-12"
+              },
+              {
+                "opponentName": "",
+                "transAmt": 0.0,
+                "transCnt": 0,
+                "transDate": "2020-07-12"
+              },
+              {
+                "opponentName": "",
+                "transAmt": 0.0,
+                "transCnt": 0,
+                "transDate": "2020-08-12"
+              },
+              {
+                "opponentName": "",
+                "transAmt": 0.0,
+                "transCnt": 0,
+                "transDate": "2020-09-12"
+              },
+              {
+                "opponentName": "",
+                "transAmt": 0.0,
+                "transCnt": 0,
+                "transDate": "2020-10-12"
+              },
+              {
+                "opponentName": "",
+                "transAmt": 0.0,
+                "transCnt": 0,
+                "transDate": "2020-11-12"
+              },
+              {
+                "opponentName": "",
+                "transAmt": 0.0,
+                "transCnt": 0,
+                "transDate": "2020-12-12"
+              },
+              {
+                "opponentName": "",
+                "transAmt": 0.0,
+                "transCnt": 0,
+                "transDate": "2021-01-12"
+              },
+              {
+                "opponentName": "",
+                "transAmt": 0.0,
+                "transCnt": 0,
+                "transDate": "2021-02-12"
+              }
+            ]
           },
           {
             "month": "汇总",
@@ -1757,7 +2262,87 @@
             "transMean": 0.0,
             "transAmtProp": 0,
             "transGapAvg": 0,
-            "transDate": "2019-02-10"
+            "transDate": "2021-02-12",
+            "trendViewList": [
+              {
+                "opponentName": "",
+                "transAmt": 0.0,
+                "transCnt": 0,
+                "transDate": "2020-02-12"
+              },
+              {
+                "opponentName": "",
+                "transAmt": 0.0,
+                "transCnt": 0,
+                "transDate": "2020-03-12"
+              },
+              {
+                "opponentName": "",
+                "transAmt": 0.0,
+                "transCnt": 0,
+                "transDate": "2020-04-12"
+              },
+              {
+                "opponentName": "",
+                "transAmt": 0.0,
+                "transCnt": 0,
+                "transDate": "2020-05-12"
+              },
+              {
+                "opponentName": "",
+                "transAmt": 0.0,
+                "transCnt": 0,
+                "transDate": "2020-06-12"
+              },
+              {
+                "opponentName": "",
+                "transAmt": 0.0,
+                "transCnt": 0,
+                "transDate": "2020-07-12"
+              },
+              {
+                "opponentName": "",
+                "transAmt": 0.0,
+                "transCnt": 0,
+                "transDate": "2020-08-12"
+              },
+              {
+                "opponentName": "",
+                "transAmt": 0.0,
+                "transCnt": 0,
+                "transDate": "2020-09-12"
+              },
+              {
+                "opponentName": "",
+                "transAmt": 0.0,
+                "transCnt": 0,
+                "transDate": "2020-10-12"
+              },
+              {
+                "opponentName": "",
+                "transAmt": 0.0,
+                "transCnt": 0,
+                "transDate": "2020-11-12"
+              },
+              {
+                "opponentName": "",
+                "transAmt": 0.0,
+                "transCnt": 0,
+                "transDate": "2020-12-12"
+              },
+              {
+                "opponentName": "",
+                "transAmt": 0.0,
+                "transCnt": 0,
+                "transDate": "2021-01-12"
+              },
+              {
+                "opponentName": "",
+                "transAmt": 0.0,
+                "transCnt": 0,
+                "transDate": "2021-02-12"
+              }
+            ]
           }
         ]
       }
