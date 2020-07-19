@@ -28,6 +28,7 @@
 2. 常量  final String ss="the value"
 3. 静态变量 static String st=";
 4. 1.8去除永久代 使用元数据区 则避免元数据导致的fullGC和OOM，元数据区的空间只受制于内存
+5. 常量池、符号引用-直接引用
 
 Object obj=new Object();
 #jvm遇见new指令时：
