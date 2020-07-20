@@ -92,6 +92,35 @@ void updateStatistics(@PathVariable("accountName") String accountName, Account a
 >>>
 
 
+#网关  
+>zuul  
+1. 入口 zuulServlet 继承HttpServlet 
+2. 调用链是由ZuulFilter来组成，对于用户而言，只需要关心如果构建自定义的ZuulFilter以及它们之间的顺序。
+       FilterRegistry用户内存中管理过滤器的
+3. zuulServlet的servie方法中有 前置过路由preRoute()方法 route()  postRoute()  后置路由
+4. 由于底层是servlet，Zuul处理的是http请求
+  Zuul的抽象写的非常简单易懂，易于扩展，易于debug
+  提供了两种特殊的抽象类，用户使用起来，比较灵活
+  zuul-core包不依赖Spring，依赖的包很少
+  没有提供异步支持
+  流控等均由hystrix支持
+  
+>gateway
+1. 底层还是Servlet 基于WebFlux流式编程 GatewayAutoConfiguration、支持异步、集成了负载均衡过滤器 
+2. filter、handler、locator  GlobalFilter
+3. RateLimiter是一个接口，用户可以自行实现想要的限流策略及实现方式
+提供了异步支持
+提供函数式编程api，使用起来方便快捷
+提供了抽象流控，并默认实现了RedisRateLimiter
+提供了抽象负载均衡
+支持HttpClient、WebClient代理请求
+
+>区别
+
+
+
+
+
 #分布式配置中心
 加密接口： http://localhost:8761/encrypt?data=123456 
 解密接口：http://localhost:8761/decrypt
