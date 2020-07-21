@@ -227,5 +227,7 @@ java -Dserver.port=8090 -Dcsp.sentinel.dashboard.server=localhost:8090 -Dproject
   FallBack是系统异常后的降级响应。
  
 # seata 分布式事物解决方案
+1. 需要在事物的子事物系统中建立一张undolog表。比如做insert操作， Seata自动逆向插入对应的delete记录。
+2. 
 缺课 5.12 5.14
 

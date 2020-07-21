@@ -4,6 +4,7 @@ import com.common.utils.DateTimeUtils;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.time.LocalDate;
 import java.util.Date;
 
 /**
@@ -15,16 +16,6 @@ import java.util.Date;
 public class Test {
 
     public static void main(String[] args) {
-        String s1 = new String("1");
-        String s2 = "1";
-        s1.intern();
-        System.out.println(s1 == s2);
-
-        String s3 = new String("1") + new String("1");
-        String s4 = "11";
-        s3.intern();
-        System.out.println(s3 == s4);
-        System.out.println(s3.equals(s4));
 
         System.out.println("==========================abc");
         String str1="abc";
@@ -38,6 +29,10 @@ public class Test {
         System.out.println(str2.equals(str3));
         System.out.println(str1.equals(str3));
 
+        LocalDate analyseStartTime = LocalDate.now();
+        Date startDate = DateTimeUtils.asUtilDate(analyseStartTime);
+        DateTimeUtils.formatDateTime(startDate);
+        System.out.println("====" + startDate);
 
 
     }

@@ -132,7 +132,8 @@ PlatformTransactionManager.getTransacation(db);
 1. 数据库的引擎不支持事物 如 mysql的 mySlam
 2. 整个异常被捕获了没有抛出，则事物没有回滚。
 3. 非public方法上使用事物注解
-4. 方法中调用同一个类中的事物注解方法， 非事物方法调用同类的方法 this.call 没有到代理类中。
+4. 方法中调用同一个类中的事物注解方法， 非事物方法调用同类的方法 this.call 没有到代理类中。  
+    a.获取当前类的代理类 AopContext.currentProxy()  b. 用@Autowired 注入自己 然后在用注入的bean调用自己的方法也可以
 noRollBackFor=xxxException.class 指定异常事物不回滚;  rollbackFor=xxx.class 指定异常事物会滚
 ## Transaction end
 
