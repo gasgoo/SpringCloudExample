@@ -1,0 +1,53 @@
+server:
+  port: 8765
+
+tomcat:
+  max-threads: 1000
+  connection-timeout: 5000
+
+spring:
+  application:
+    name: demo-session
+  ##cloud
+  cloud:
+    inetutils:
+      preferred-networks: 127.0.0.1
+    client:
+      ip-address: 127.0.0.1
+  #redis配置
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    #password: root
+    database: 2
+
+
+##注册中心配置
+eureka:
+  server:
+    ##节点超时时间 毫秒
+    peer-node-read-timeout-ms: 3000
+    #是否开启自动我保护 默认 true 节点失效90秒内自动删除 如果关闭 则快速关闭 需要90秒
+    enable-self-preservation: false
+  ##实例ID
+  instance:
+    #是否以 IP 注册到注册中心
+    prefer-ip-address: false
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}
+  client:
+    ## 表示是否可以注册自己到server上
+    registerWithEureka: true
+    ##是否需要去检索寻找服务,因为是注册中心，他的任务是维护服务实例，所以不需要去寻找服务
+    fetchRegistry: false
+    healthcheck:
+      enabled: true
+    ##注册中心默认地址
+    serviceUrl:
+      defaultZone: http://127.0.0.1:8761/eureka/
+
+#ribbon
+ribbon:
+  eureka:
+    enabled: true
+
+

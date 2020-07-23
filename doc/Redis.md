@@ -222,12 +222,6 @@ jvm线程锁具有哪些特点 排他性 只有一个线程能获取到锁 （�
  ####缓存过期算法： LRU 最近最少使用的淘汰- 双向链表 新数据put 链表头部 被访问过的数据也移动到头部，
  链表装满 淘汰尾部数据 LFU 历史访问频率进行淘汰，过去被访问过的将来被访问的也更高。 队列 新数据尾插，count++, FIFO 先进先出 队列 淘汰头部数据
 
-##Redis实现分布式session功能
-redis介绍：  key-value存储系统，支持数据持久化 内存中保存到磁盘，
-支持数据类型：string hash list set zset 
-服务端拿着用户的cookie作为key去存储里找对应的value(session)。
-实现session共享的原理: 业务系统发起请求 把sessionID 当做key存储用户等信息到redis中，把sessionID 返回给
-业务系统，并存放到cookie中。下次请求从cookie中取sessionId 根据ID到redis中取用户数据。
 
 #缓存一致性问题处理
 1、缓存设置过期时间，保证最终一致性。

@@ -57,6 +57,12 @@
             <artifactId>demo-common</artifactId>
             <version>${demo.version}</version>
         </dependency>
+        <!--session共享的实现-->
+        <dependency>
+            <groupId>com.cloud</groupId>
+            <artifactId>demo-session</artifactId>
+            <version>${demo.version}</version>
+        </dependency>
         <!--mybatis  集成druid，使用连接池-->
         <dependency>
             <groupId>org.mybatis.spring.boot</groupId>
@@ -96,17 +102,11 @@
             <artifactId>spring-boot-starter-quartz</artifactId>
             <scope>provided</scope>
         </dependency>
-        <!--web jsp-->
         <dependency>
-            <groupId>org.apache.tomcat.embed</groupId>
-            <artifactId>tomcat-embed-jasper</artifactId>
-            <scope>provided</scope>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
         </dependency>
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>jstl</artifactId>
-        </dependency>
-        <!--wen jspEnd-->
+
     </dependencies>
 
 

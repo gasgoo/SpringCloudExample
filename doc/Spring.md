@@ -113,6 +113,8 @@ ProxyTransactionManagementConfiguration
 @EnableTransactionManagement注解 中导入 @Import TransactionManagementConfigurationSelector类。
 Selector类中 注册了 
 ProxyTransactionManagementConfiguration 事物管理配置类
+AutoProxyRegistrar
+
 事物传播属性: Propagation
 Required  当前没有事物则new 事物，如果已经存在则 加入事物中   1 default
 supports  支持当前事物，没有事物则以非事物方式运行
@@ -127,6 +129,9 @@ TransactionTemplate
 DefaultTransactionDefinition  db=new DefaultTransactionDefinition();
 db.setPropagationBehavior(0)设置传播属性
 PlatformTransactionManager.getTransacation(db);
+org.springframework.transaction.support.AbstractPlatformTransactionManager
+
+Connection和事物是一一绑定的 ，一个事物的connection
 
 >事物失效的场景:
 1. 数据库的引擎不支持事物 如 mysql的 mySlam
@@ -134,6 +139,7 @@ PlatformTransactionManager.getTransacation(db);
 3. 非public方法上使用事物注解
 4. 方法中调用同一个类中的事物注解方法， 非事物方法调用同类的方法 this.call 没有到代理类中。  
     a.获取当前类的代理类 AopContext.currentProxy()  b. 用@Autowired 注入自己 然后在用注入的bean调用自己的方法也可以
+    c. AopContext.currentProxy()获取代理类然后可以执行
 noRollBackFor=xxxException.class 指定异常事物不回滚;  rollbackFor=xxx.class 指定异常事物会滚
 ## Transaction end
 
@@ -147,7 +153,7 @@ DefaultListableBeanFactory  默认实现 实现了其他的三个接口
  ClasspathXmlApplicationContext
  ApplicationContext   高级的IOC容器
 
-# BeanDefinition  Spring扫描类解析类信息实例化 BeanDefiniton对象，
+# BeanDefinition  Spring扫描类解析类信息实例化 BeanDefiniton对象， BeanDefinitionRegistryPostProcessor 管理bd的能力 支持 import componentScan注解等
 IOC管理了我们定义的各种bean对象和对象的关系，bean对象在Spring中是以BeanDefinition来描述的；
 bean解析就是对配置文件的解析， 涉及到的类：
  BeanDefinitionReader
@@ -155,7 +161,8 @@ bean解析就是对配置文件的解析， 涉及到的类：
  BeanDefinitionDocumentReader
  DefaultBeanDefinitionDocumentReader
  XmlBeanDefinitionReader
-
+ 
+ 
 
 FileSystemXmlApplication
 ClassPathXmlApplication
