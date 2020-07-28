@@ -1,11 +1,7 @@
 #MySQL============默认 可重复读取 oracle 默认是 读已提交。
 
 select @@global.tx_isolation 查看 隔离级别： 
->主从同步原理 异步串行化 
-
- master将改变的数据记录再本地的二进制文件，主库的 binary log写(同步)到从库 通过IO线程写入 Relav log 
- 然后从库通过sql线程把RelavLog 写入database; 其中涉及 一个IO线程 一个SQL线程。
-
+mysqldump 备份数据
 auto_increment mysql自增 mysql -uroot -proot
 
 mysql体系: 自上而下 连接池组件-管理服务和工具组件- (sql接口组件-查询分析器-优化器-缓冲组件)-存储引擎-物理存储文件。
@@ -142,10 +138,10 @@ a.非索引字段做条件的当前读，不但会把每条记录添加锁，还
  c. 非唯一索引会锁满足条件的记录，并且会添加间隙锁。
 
 ###锁========================== 锁是DB区别于文件系统最大的一个特征；用于管理对共享资源的访问。 
-全局加锁： Flush tables with read lockDTO; 
-表加锁: lockDTO tables t1 read/write; 
+全局加锁： Flush tables with read lock; 
+表加锁: lock tables t1 read/write; 
 行加X锁: select * from table where id=1 for update; 
-S锁 select * from table where id =1 lockDTO in share mode; 
+S锁 select * from table where id =1 lock in share mode; 
 innodb实现的锁 共享锁、排他锁
 
         非锁定的一致性读，不用加S锁可以读取，读取的数据快照，行记录通常会有多个快照版本-即 行多版本并发控制。
@@ -177,13 +173,13 @@ undo log (回滚日志)保证事物一致性A 基础 对现有数据备份
 锁机制 写事物之间的隔离 I
 事物 保证一致性 C
 
-事物commit必须先持久化redo log
+事物commit必须先持久化 undo log、redo log   然后 binlog
 
 redo log 重做日志 两部分组成：重做日志缓冲-易丢失的、重做日志文件-持久的;顺序写 innodb层的日志 物理格式的日志 对页的修改。
  日志缓冲 fsync 刷盘到日志文件持久化的性能是由磁盘性能决定的，故决定了事物提交的性能从而影响DB的性能。 
  innodb_flush_log_at_trx_commit 参数控制重做日志刷盘策略 默认为1 参数值 0、1、2 1=提交一次事物立即刷盘; 
  0=事物提交不刷盘，由master线程每隔一秒刷一次; 2=刷新到日志缓存并没有到文件。
-  redo log 结构 头部12字节-body 492字节--尾部8字节。 
+  redo log 结构 头部12字节-body 492字节--尾部8字节。   固定大小。
   log block 日志块 重做日志块大小512字节；追加写入。 
   log buffer 日志缓冲 中存储的是 log block LSN Log Sequence Number 日志序列号，可表示重做日志的总量 页的版本
 
@@ -198,8 +194,8 @@ binlog 二进制日志 数据库层产生的、逻辑操作日志 sql语句；�
 
 mysql事物数据修改之前先写入事物日志； 事物日志的记录过程： 
 事物日志写入 日志缓存 log buffer ；然后操作系统调用 fsync()把文件从 os buffer同步到 磁盘的log file中。
-
 log buffer --buffer pool---os buffer--log file
+ 日志顺序 undo log、redo log   然后 binlog、后台线程异步刷盘。
 
 现在来看看MySQL数据库为我们提供的四种隔离级别isolation： 　　
 ① Serializable (串行化)：可避免脏读、不可重复读、幻读(insert)的发生。 　
@@ -219,7 +215,17 @@ mysql query cache 查询缓存 开启配置 在配置文件 my.cnf 中设置： 
  优化的方向：减少联合多表查询 建立正确的索引 减少统计类查询 重点是拆分表 减少 联合查询 拆分成短sql 
 3）mysql的索引分类：B+，hash；什么情况用什么索引；
 
-#数据库三范式
+##数据库三范式
 1. 表中的列都是不可再拆分的列。
 2. 要求所有的非主键依赖完全依赖主键。
 3. 表中不能存在传递依赖。
+
+##分库分表
+>主从同步原理 异步串行化   一主多从
+ master将改变的数据记录再本地的二进制binlog文件，主库的binlog异步复制到从库 通过IO线程写入 Relay log 
+ 然后从库通过sql线程把RelayLog 写入database; 其中涉及 一个IO线程 一个SQL线程。
+ after_sync半同步复制 
+ after_commit 
+1. 主从复制 1主多从 slave同步master数据，多个slave同步会影响master的性能。
+2. master挂掉后选择某一个节点当主节点，会有数据不一致的情况。
+> 双主节点   master节点间数据同步，某一台挂机可以ip漂移。
