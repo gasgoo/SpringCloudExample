@@ -84,7 +84,7 @@ ConfigurationClassPostProcessor
 #AOP 原理解读
 <aop:aspectj-autoproxy >开启注解aop配置
 @EnableAspectJAutoProxy 注解中 @Import(AspectJAutoProxyRegistrar.class)
-  AbstractAutoProxyCreator
+  AbstractAutoProxyCreator  也是一个BeanPostProcessor实现类。
   AOP入口类是什么时候注入到容器中的?
   1. 解析自定义标签  aopNameSpacesHandler init()方法中初始化了标签对应的解析类。
   AspectJAwareAdvisorAutoProxyCreator 基于xml aop:config标签

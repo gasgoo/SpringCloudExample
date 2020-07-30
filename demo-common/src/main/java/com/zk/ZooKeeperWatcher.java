@@ -167,6 +167,7 @@ public class ZooKeeperWatcher implements Watcher {
      */
     private List<String> getChildren(String path, boolean needWatch) {
         try {
+            System.out.println(">>>>>>getChildren event");
             return this.zk.getChildren(path, needWatch);
         } catch (Exception e) {
             e.printStackTrace();
