@@ -69,15 +69,6 @@ public class JsonExceptionHandler extends DefaultErrorWebExceptionHandler {
         map.put("data", null);
         return map;
     }
-    /**
-     * 根据 code 获取对应的 HttpStatus
-     * @param errorAttributes
-     */
-    @Override
-    protected int getHttpStatus(Map<String, Object> errorAttributes) {
-        int statusCode = (int) errorAttributes.get("code");
-        return statusCode;
-    }
 
     /**
      * 指定响应处理方法为 JSON 处理的方法

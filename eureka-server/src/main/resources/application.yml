@@ -77,15 +77,16 @@ eureka:
     prefer-ip-address: false
     instance-id: ${spring.cloud.client.ip-address}:${server.port}
   client:
-    ## 表示是否可以注册自己到server上
-    registerWithEureka: true
     ##是否需要去检索寻找服务,因为是注册中心，他的任务是维护服务实例，所以不需要去寻找服务
-    fetchRegistry: false
     healthcheck:
       enabled: true
     ##注册中心默认地址
     serviceUrl:
-      defaultZone: http://127.0.0.1:8700/eureka/,http://127.0.0.1:8761/eureka/
+      defaultZone: http://localhost:${server.port}/eureka/
+      ## 表示是否可以注册自己到server上
+    register-with-eureka: false
+    fetch-registry: false
+
 
 #ribbon
 ribbon:
@@ -93,7 +94,7 @@ ribbon:
     enabled: true
 
 mybatis:
-  typeAliasesPackage: com.httpServer.domain
+  typeAliasesPackage: com.server.domain
   #mapperLocations指的路径是src/main/resources
   mapperLocations: classpath:mapper/*.xml
   configuration:
