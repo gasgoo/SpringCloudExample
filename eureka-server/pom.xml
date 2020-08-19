@@ -96,11 +96,6 @@
             <artifactId>spring-boot-starter-quartz</artifactId>
             <scope>provided</scope>
         </dependency>
-      <!--  <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-thymeleaf</artifactId>
-        </dependency>-->
-
     </dependencies>
 
 
@@ -116,14 +111,14 @@
                     <include>**/*.xml</include>
                 </includes>
             </resource>
-            <!--打包把资源文件拷贝到META-INF目录中-->
+            <!--&lt;!&ndash;打包把资源文件拷贝到META-INF目录中&ndash;&gt;
             <resource>
                 <directory>src/main/webapp</directory>
                 <targetPath>META-INF/resources</targetPath>
                 <includes>
                     <include>**/**</include>
                 </includes>
-            </resource>
+            </resource>-->
             <!--jsp end-->
             <resource>
                 <directory>src/main/resources</directory>

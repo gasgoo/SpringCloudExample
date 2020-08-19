@@ -82,7 +82,7 @@ eureka:
       enabled: true
     ##注册中心默认地址
     serviceUrl:
-      defaultZone: http://localhost:${server.port}/eureka/
+      defaultZone: http://localhost:${server.port}/eureka/,http://localhost:8700/eureka/
       ## 表示是否可以注册自己到server上
     register-with-eureka: false
     fetch-registry: false
