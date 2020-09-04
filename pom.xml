@@ -15,6 +15,7 @@
         <module>demo-common</module>
         <module>demo-adminUI</module>
         <module>demo-session</module>
+        <module>demo-sharding</module>
     </modules>
 
     <properties>

@@ -5,7 +5,7 @@
 
 CREATE TABLE `news_article` (
   `id` bigint(16) NOT NULL AUTO_INCREMENT COMMENT '自增ID',
-  `gmt_create` datetime DEFAULT NULL COMMENT '创建时间',
+  `gmt_create` datetime not null DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `gmt_modified` datetime DEFAULT NULL COMMENT '修改时间',
   `title` varchar(64) DEFAULT NULL COMMENT '标题',
   `summary` varchar(256) DEFAULT NULL COMMENT '摘要',
