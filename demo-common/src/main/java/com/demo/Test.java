@@ -23,14 +23,13 @@ public class Test {
         System.out.println(str2==str3);
         System.out.println(str1==str3);
 
-        System.out.println(str1.equals(str2));
-        System.out.println(str2.equals(str3));
-        System.out.println(str1.equals(str3));
 
-        LocalDate analyseStartTime = LocalDate.now();
-        Date startDate = DateTimeUtils.asUtilDate(analyseStartTime);
-        DateTimeUtils.formatDateTime(startDate);
-        System.out.println("====" + startDate);
+        Integer n1=128;
+        Integer n2=128;
+        Integer n3=new Integer(123);
+        System.out.println("Integer compare:"+(n1==n2));
+        System.out.println("Integer compare:"+(n1==n3));
+
 
 
     }

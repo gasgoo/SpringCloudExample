@@ -1,0 +1,44 @@
+
+server:
+  port: 8766
+
+tomcat:
+  max-threads: 1000
+  connection-timeout: 5000
+
+
+
+##注册中心配置
+eureka:
+  server:
+    ##节点超时时间 毫秒
+    peer-node-read-timeout-ms: 3000
+    #是否开启自动我保护 默认 true 节点失效90秒内自动删除 如果关闭 则快速关闭 需要90秒
+    enable-self-preservation: false
+  ##实例ID
+  instance:
+    #是否以 IP 注册到注册中心
+    prefer-ip-address: false
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}
+  client:
+    ##是否需要去检索寻找服务,因为是注册中心，他的任务是维护服务实例，所以不需要去寻找服务
+    healthcheck:
+      enabled: true
+    ##注册中心默认地址
+    serviceUrl:
+      defaultZone: http://localhost:${server.port}/eureka/,http://localhost:8700/eureka/
+      ## 表示是否可以注册自己到server上
+    register-with-eureka: false
+    fetch-registry: false
+
+
+
+mybatis:
+  typeAliasesPackage: com.shard.domain
+  #mapperLocations指的路径是src/main/resources
+  mapperLocations: classpath:mapper/*.xml
+  configuration:
+    #配置项：开启下划线到驼峰的自动转换. 作用：将数据库字段根据驼峰规则自动注入到对象属性。
+    map-underscore-to-camel-case: true
+
+

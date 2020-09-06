@@ -7,10 +7,17 @@ import com.dangdang.ddframe.rdb.sharding.api.rule.ShardingRule;
 import com.dangdang.ddframe.rdb.sharding.api.rule.TableRule;
 import com.dangdang.ddframe.rdb.sharding.api.strategy.database.DatabaseShardingStrategy;
 import com.dangdang.ddframe.rdb.sharding.api.strategy.table.TableShardingStrategy;
+import com.dangdang.ddframe.rdb.sharding.jdbc.ShardingDataSource;
+import io.shardingsphere.api.config.rule.ShardingRuleConfiguration;
+import io.shardingsphere.api.config.rule.TableRuleConfiguration;
+import io.shardingsphere.api.config.strategy.StandardShardingStrategyConfiguration;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
 import javax.sql.DataSource;
 import java.sql.Driver;
+import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -19,12 +26,14 @@ import java.util.Map;
  * @Desc 数据源配置
  * @Date 2020/9/2 9:24
  **/
+@Configuration
+@MapperScan(basePackages = "com.shard.mapper")
 public class DataSourceConfig {
 
 
     @Bean
     public DataSource getDataSource() {
-        return null;
+        return buildDataSource();
     }
 
 
@@ -56,14 +65,33 @@ public class DataSourceConfig {
 
     }
 
+
+
+
+    @Bean
+    public TableRuleConfiguration getUserTableRuleConfiguration() {
+        TableRuleConfiguration orderTableRuleConfig = new TableRuleConfiguration();
+        orderTableRuleConfig.setLogicTable("t_order");
+        orderTableRuleConfig.setActualDataNodes("ds_${0..2}.t_order_{0..1}");
+        orderTableRuleConfig.setKeyGeneratorColumnName("user_id");
+        return orderTableRuleConfig;
+    }
+
+
+    private Map<String, DataSource> createDataSourceMap() {
+        Map<String, DataSource> result = new HashMap<>();
+        result.put("ds00", createDataSource("ds_0"));
+        result.put("ds01", createDataSource("ds_1"));
+        return result;
+    }
     private static DataSource createDataSource(final String dataSourceName) {
         //使用druid连接数据库
         DruidDataSource result = new DruidDataSource();
         result.setDriverClassName(Driver.class.getName());
-        result.setUrl(String.format("jdbc:mysql://localhost:3306/%s", dataSourceName));
+        result.setUrl(String.format("jdbc:mysql://localhost:3306/"+dataSourceName));
         System.out.println("====" + result.getUrl());
         result.setUsername("root");
-        result.setPassword("");
+        result.setPassword("root");
         return result;
     }
 }

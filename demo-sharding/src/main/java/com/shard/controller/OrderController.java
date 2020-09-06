@@ -1,7 +1,7 @@
 package com.shard.controller;
 
 import com.shard.domain.Order;
-import com.shard.mapper.OrderMapper;
+import com.shard.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/order")
 public class OrderController {
 
-    @Autowired
-    private OrderMapper orderMapper;
+    @Autowired(required = false)
+    private OrderService orderService;
 
     @RequestMapping("/add")
     public Object add() {
@@ -23,19 +23,19 @@ public class OrderController {
             Order order = new Order();
             order.setUserId(i);
             order.setOrderId((long) i);
-            orderMapper.insert(order);
+            orderService.insert(order);
         }
         for (int i = 10; i < 20; i++) {
             Order order = new Order();
             order.setUserId(i + 1);
             order.setOrderId((long) i);
-            orderMapper.insert(order);
+            orderService.insert(order);
         }
         return "success";
     }
 
     @RequestMapping("query")
     private Object queryAll() {
-        return orderMapper.findAll();
+        return orderService.findAll();
     }
 }

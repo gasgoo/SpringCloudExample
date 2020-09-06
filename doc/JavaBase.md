@@ -58,20 +58,6 @@ DI全称是Dependency  Injection,被译为依赖注入
 DI主要有两种注入方式，即Setter注入和构造器注入 
 静态工厂的方法注入   实例工厂方法
 
-AOP:面向切面编程   AOP核心概念  需要额外引入的两个jar 
- aopalliance.jar  aspectjweaver.jar
- AOP底层使用动态代理实现。包括两种方式：
-
-（1）使用JDK动态代理实现。
-
-（2）使用cglib 来实现 
-
-1、横切关注点  对哪些方法进行拦截，拦截后怎么处理
-2、切面（aspect）
-4、切入点（pointcut） 对连接点进行拦截的定义
-5、通知（advice）   所谓通知指的就是指拦截到连接点之后要执行的代码，通知分为前置、后置、异常、最终、环绕通知
-参考 aop.xml配置切面
-
 
 Spring注解
 @Autowired(required=false)当找不到需要注入的bean时不报错 可以快速启动
@@ -225,44 +211,10 @@ G1过程:  初始标记、根部区域扫描、并发标记、最终标记、并
 cms会产生浮动垃圾 从而可能引发FUll GC、G1则不会;
 G1把整个Yong区域划分成多个区域、不产生空间碎片  可以准确的控制停顿；
 
-3）java虚拟机运行时数据区
--XX：+HeapDumpOnOutOfMemoryError  配置显示 内存溢出时的快照
-8）如何排查死锁
-用jps 和jstack  可以分别得到死锁的进程ID和 发生死锁的类位置
- 
-这些问题可以通过 top(cpu)、free(内存)、df(磁盘)、dstat(网络流量)、pstack、vmstat、strace(底层系统调用)。
-
-jvm问题定位工具
-jps查看进程
-jstat -class/gc/complier 查看jvm类加载 gc信息
-jmap 内存  jmap -heap pid 输出当前进程 JVM 堆新生代、老年代、持久代等请情况，GC 使用的算法等信息
-jstack 线程堆栈查看
-jinfo参数查看
 
 
 
-6）类加载机制 
-过程:   加载 链接包括（验证 准备 解析）  初始化  使用 卸载
-加载 (classLoader)  
 
-验证：验证原数据 字符码  文件格式 符号引用
-准备： 分配内存 为类设置初始值
-解析：是一个不确定的顺序过程  类 接口 字段等解析 从 接口 父类 开始查询   继承关系从上往下递归搜索
-初始化：执行构造器 先执行父类在子类 static 执行 
-
-那么Java.lang.NoSuchFieldError错误可能在什么阶段抛出呢？
-很显然是在链接的验证阶段的符号引用验证时会抛出这个异常，或者NoSuchMethodError等异常。
-
-类加载器：
-bootstrapClassLoader   加载java核心类，负责加载lib/rt.jar中的class
-extensions class loader 扩展加载器 加载JRE的扩展目录，lib/ext或者由java.ext.dirs系统属性指定的目录中的JAR包的类
-application class loader）：被称为系统（也称为应用）类加载器  JVM启动时加载来自Java命令的-classpath选项、java.class.path系统属性
-
-JVM的类加载机制主要有如下3种
-全盘负责
-双亲委派：所有类加载工作先用父类加载器加载，父类加载不了再子类继续加载。
-类加载有优先级的层次关系，保证java运行的稳定
-缓存机制
 
 7） tomcat的原理
 1、用户点击网页内容，请求被发送到本机端口8080，被在那里监听的Coyote HTTP/1.1 Connector获得。

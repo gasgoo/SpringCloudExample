@@ -106,6 +106,23 @@ GC Roots 可达性分析  判断对象是否存活。哪些对象可以当作根
  2. CDN加速  反向代理缓存、Web组件分离
  3. 应用服务器优化
     缓存、集群、异步、代码优化
+    
+>问题定位的jvm命令
+
+-XX：+HeapDumpOnOutOfMemoryError  配置显示 内存溢出时的存储堆内存快照
+8）如何排查死锁
+用jps 和jstack  可以分别得到死锁的进程ID和 发生死锁的类位置   
+ 
+这些问题可以通过 top(cpu)、free(内存)、df(磁盘)、dstat(网络流量)、pstack、vmstat、strace(底层系统调用)。
+
+jvm问题定位工具
+jps查看进程
+jstat -class/gc/complier 查看jvm类加载 gc信息
+jmap 内存  jmap -heap pid 输出当前进程 JVM 堆新生代、老年代、持久代等请情况，GC 使用的算法等信息
+jmap -dump:live,format=b,file=king.bin pid  生成pid进程的内存堆快照
+
+jstack 线程堆栈查看
+jinfo参数查看
 
 双亲委派模型的破坏
 tomcat webAppClassLoader    
@@ -119,6 +136,29 @@ spi
 5. common classLoader 加载CATALINA_HOME/lib
 
 
+#类加载机制 
+过程:   加载 链接包括（验证 准备 解析）  初始化  使用 卸载
+加载 (classLoader)  
+
+验证：验证原数据 字符码  文件格式 符号引用
+准备： 分配内存 为类设置初始值
+解析：是一个不确定的顺序过程  类 接口 字段等解析 从 接口 父类 开始查询   继承关系从上往下递归搜索
+
+初始化：执行构造器 先执行父类在子类 static 执行 
+
+那么Java.lang.NoSuchFieldError错误可能在什么阶段抛出呢？
+很显然是在链接的验证阶段的符号引用验证时会抛出这个异常，或者NoSuchMethodError等异常。
+
+类加载器：
+bootstrapClassLoader   加载java核心类，负责加载lib/rt.jar中的class
+extensions class loader 扩展加载器 加载JRE的扩展目录，lib/ext或者由java.ext.dirs系统属性指定的目录中的JAR包的类
+application class loader）：被称为系统（也称为应用）类加载器  JVM启动时加载来自Java命令的-classpath选项、java.class.path系统属性
+
+JVM的类加载机制主要有如下3种
+全盘负责
+双亲委派：所有类加载工作先用父类加载器加载，父类加载不了再子类继续加载。
+类加载有优先级的层次关系，保证java运行的稳定
+缓存机制
  
     
 

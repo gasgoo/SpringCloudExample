@@ -30,9 +30,5 @@ public class UseThreadJoin implements Runnable{
         OtherThread other=new OtherThread();
         Thread t2=new Thread(other);
         t2.start();
-        Thread t1=new Thread(use);
-        t1.start();
-        t2.join();
-
     }
 }
