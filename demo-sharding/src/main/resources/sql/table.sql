@@ -60,13 +60,24 @@ CREATE TABLE `t_user_02` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
-DROP TABLE IF EXISTS `t_order_0`;
+
+
+DROP TABLE IF EXISTS t_order_0;
 CREATE TABLE t_order_0 (
 order_id bigint(20) NOT NULL,
 user_id bigint(20) NOT NULL,
+user_name VARCHAR(32) NULL DEFAULT NULL COMMENT '用户名',
+passwords VARCHAR(32) NULL DEFAULT NULL COMMENT '密码',
 PRIMARY KEY (order_id)
-DROP TABLE IF EXISTS `t_order_1`;
+);
+
+
+DROP TABLE IF EXISTS t_order_1;
 CREATE TABLE t_order_1 (
+
 order_id bigint(20) NOT NULL,
 user_id bigint(20) NOT NULL,
+user_name VARCHAR(32) NULL DEFAULT NULL COMMENT '用户名',
+passwords VARCHAR(32) NULL DEFAULT NULL COMMENT '密码',
 PRIMARY KEY (order_id)
+)

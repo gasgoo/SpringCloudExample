@@ -5,6 +5,7 @@ import com.shard.mapper.StudentMapper;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * @Desc
@@ -18,6 +19,10 @@ public class StudentService {
 
     public boolean insert(StudentDO student) {
         return studentMapper.insert(student) > 0 ? true : false;
+    }
+
+    public List<StudentDO> findAll() {
+        return studentMapper.findAll();
     }
 
 }

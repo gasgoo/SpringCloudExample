@@ -2,6 +2,7 @@ package com.shard.controller;
 
 import com.shard.domain.Order;
 import com.shard.service.OrderService;
+import com.shard.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,21 +15,28 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/order")
 public class OrderController {
 
+    @Autowired
+    private StudentService studentService;
     @Autowired(required = false)
     private OrderService orderService;
 
+
     @RequestMapping("/add")
     public Object add() {
-        for (int i = 0; i < 10; i++) {
+        for (int i = 1; i < 10; i++) {
             Order order = new Order();
-            order.setUserId(i);
+            order.setUserId((long) i);
             order.setOrderId((long) i);
+            order.setUserName("userName" + i);
+            order.setPassWord("passwords" + i);
             orderService.insert(order);
         }
         for (int i = 10; i < 20; i++) {
             Order order = new Order();
-            order.setUserId(i + 1);
+            order.setUserId((long) (i + 1));
             order.setOrderId((long) i);
+            order.setUserName("userName" + i);
+            order.setPassWord("passwords" + i);
             orderService.insert(order);
         }
         return "success";

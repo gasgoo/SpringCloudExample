@@ -4,10 +4,12 @@
     <resultMap id="resultMap" type="com.shard.domain.Order">
         <result column="user_id" property="userId" jdbcType="INTEGER"/>
         <result column="order_id" property="orderId" jdbcType="BIGINT"/>
+        <result column="user_name" property="userName" jdbcType="VARCHAR"/>
+        <result column="passwords" property="passWord" jdbcType="VARCHAR"/>
     </resultMap>
 
     <insert id="insert">
-    insert into t_order (user_id,order_id) values (#{userId},#{orderId})
+    insert into t_order (user_id,order_id,user_name,passwords) values (#{userId},#{orderId},#{userName},#{passWord})
   </insert>
 
     <select id="findAll" resultMap="resultMap">
@@ -28,6 +30,6 @@
     </select>
 
     <sql id="columnsName">
-     order_id,user_id
+     order_id,user_id,user_name,passwords
   </sql>
 </mapper>

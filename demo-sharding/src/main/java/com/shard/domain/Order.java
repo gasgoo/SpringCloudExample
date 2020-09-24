@@ -11,7 +11,10 @@ import lombok.Setter;
 @Setter
 public class Order {
 
-    private Long orderId;
 
-    private Integer userId;
+    private Long orderId;
+    private Long userId;
+    private String userName;
+    private String passWord;
+
 }

@@ -2,6 +2,7 @@ package com.shard.service;
 
 import com.shard.domain.Order;
 import com.shard.mapper.OrderMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
