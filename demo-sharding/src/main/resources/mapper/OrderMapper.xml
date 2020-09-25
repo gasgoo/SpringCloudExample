@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.shard.mapper.OrderMapper">
     <resultMap id="resultMap" type="com.shard.domain.Order">
-        <result column="user_id" property="userId" jdbcType="INTEGER"/>
+        <result column="user_id" property="userId" jdbcType="BIGINT"/>
         <result column="order_id" property="orderId" jdbcType="BIGINT"/>
         <result column="user_name" property="userName" jdbcType="VARCHAR"/>
         <result column="passwords" property="passWord" jdbcType="VARCHAR"/>
@@ -26,7 +26,12 @@
             #{item}
         </foreach>
         )
+    </select>
 
+    <select id="selectByOrderId" resultMap="resultMap">
+        select
+        <include refid="columnsName"/>
+        from t_order where order_id =#{orderId,jdbcType=BIGINT}
     </select>
 
     <sql id="columnsName">

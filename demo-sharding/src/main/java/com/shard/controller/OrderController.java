@@ -2,7 +2,6 @@ package com.shard.controller;
 
 import com.shard.domain.Order;
 import com.shard.service.OrderService;
-import com.shard.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,8 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/order")
 public class OrderController {
 
-    @Autowired
-    private StudentService studentService;
     @Autowired(required = false)
     private OrderService orderService;
 

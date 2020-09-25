@@ -12,5 +12,7 @@ public interface OrderMapper {
 
     List<Order> findAll();
 
-    List<Order> findByUserIds(List<Integer> userIds);
+    List<Order> findByUserIds(List<Long> userIds);
+
+    Order selectByOrderId(Long orderId);
 }

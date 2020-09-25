@@ -70,8 +70,14 @@ public class DataSourceConfig {
     public ShardingRule shardingRule(DataSourceRule dataSourceRule) {
         //具体分库分表策略
         TableRule orderTableRule = TableRule.builder("t_order")
-                .actualTables(Arrays.asList("t_order_0", "t_order_1"))
-                .tableShardingStrategy(new TableShardingStrategy("order_id", new ModuloTableShardingAlgorithm()))
+                .actualTables(Arrays.asList("t_order_0", "t_order_1", "t_order_2"))
+                .tableShardingStrategy(new TableShardingStrategy("user_id", new ModuloTableShardingAlgorithm()))
+                .dataSourceRule(dataSourceRule)
+                .build();
+        //t_user表分库分表策略
+        TableRule userTableRule = TableRule.builder("t_user")
+                .actualTables(Arrays.asList("t_user_00", "t_user_01", "t_user_02"))
+                .tableShardingStrategy(new TableShardingStrategy("user_id", new ModuloTableShardingAlgorithm()))
                 .dataSourceRule(dataSourceRule)
                 .build();
 
@@ -80,10 +86,10 @@ public class DataSourceConfig {
         bindingTableRules.add(new BindingTableRule(Arrays.asList(orderTableRule)));
         return ShardingRule.builder()
                 .dataSourceRule(dataSourceRule)
-                .tableRules(Arrays.asList(orderTableRule))
+                .tableRules(Arrays.asList(orderTableRule, userTableRule))
                 .bindingTableRules(bindingTableRules)
                 .databaseShardingStrategy(new DatabaseShardingStrategy("user_id", new ModuloDatabaseShardingAlgorithm()))
-                .tableShardingStrategy(new TableShardingStrategy("order_id", new ModuloTableShardingAlgorithm()))
+                .tableShardingStrategy(new TableShardingStrategy("user_id", new ModuloTableShardingAlgorithm()))
                 .build();
     }
 

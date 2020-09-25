@@ -3,7 +3,7 @@
 <mapper namespace="com.shard.mapper.UserMapper">
     <resultMap id="resultMap" type="com.shard.domain.UserDO">
         <id column="id" property="id" jdbcType="INTEGER"/>
-        <result column="user_id" property="userId" jdbcType="INTEGER"/>
+        <result column="user_id" property="userId" jdbcType="BIGINT"/>
         <result column="name" property="name" jdbcType="VARCHAR"/>
         <result column="age" property="age" jdbcType="INTEGER"/>
     </resultMap>

@@ -1,11 +1,9 @@
 package com.shard.service;
 
-import com.shard.domain.StudentDO;
+import com.shard.domain.Order;
 import com.shard.domain.UserDO;
-import com.shard.mapper.StudentMapper;
 import com.shard.mapper.UserMapper;
 import org.springframework.stereotype.Service;
-import org.springframework.test.context.transaction.AfterTransaction;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,7 +23,7 @@ public class UserService {
     public UserMapper userMapper;
 
     @Resource
-    public StudentMapper studentMapper;
+    public OrderService orderService;
 
     public boolean insert(UserDO u) {
         return userMapper.insert(u) > 0 ? true : false;
@@ -42,32 +40,33 @@ public class UserService {
     @Transactional(propagation = Propagation.REQUIRED)
     public void transactionTestSucess() {
         UserDO u = new UserDO();
-        u.setUserId(13);
+        u.setUserId(22L);
         u.setAge(25);
-        u.setName("war3 1.27");
+        u.setName("war3 1.22");
         userMapper.insert(u);
 
-        StudentDO student = new StudentDO();
-        student.setStudentId(21);
-        student.setAge(21);
-        student.setName("hehe");
-        studentMapper.insert(student);
+        Order order = new Order();
+        order.setUserId(22L);
+        order.setOrderId(22L);
+        order.setUserName("userName22");
+        order.setPassWord("password22");
+        orderService.insert(order);
     }
 
     @Transactional(propagation = Propagation.REQUIRED)
     public void transactionTestFailure() throws IllegalAccessException {
         UserDO u = new UserDO();
-        u.setUserId(13);
+        u.setUserId(13L);
         u.setAge(25);
         u.setName("war3 1.27 good");
         userMapper.insert(u);
 
-        StudentDO student = new StudentDO();
-        student = new StudentDO();
-        student.setStudentId(21);
-        student.setAge(21);
-        student.setName("hehe1");
-        studentMapper.insert(student);
+        Order order = new Order();
+        order.setUserId(21L);
+        order.setOrderId(21L);
+        order.setUserName("userName21");
+        order.setPassWord("password21");
+        orderService.insert(order);
         throw new IllegalAccessException();
     }
 

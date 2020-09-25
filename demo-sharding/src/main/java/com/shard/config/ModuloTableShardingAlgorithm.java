@@ -8,14 +8,14 @@ import java.util.Collection;
 import java.util.LinkedHashSet;
 
 /**
- * @Desc 分表规则  order_id%2 = 0的数据存储到t_order_0，为1的存储到t_order_1
+ * @Desc 分表规则  order_id%3 = 0的数据存储到t_order_0，为1的存储到t_order_1
  * @Date 2020/9/24 20:42
  **/
 public class ModuloTableShardingAlgorithm implements SingleKeyTableShardingAlgorithm<Long> {
     @Override
     public String doEqualSharding(Collection<String> tableNames, ShardingValue<Long> shardingValue) {
         for (String each : tableNames) {
-            if (each.endsWith(shardingValue.getValue() % 2 + "")) {
+            if (each.endsWith(shardingValue.getValue() % 3 + "")) {
                 return each;
             }
         }
@@ -28,7 +28,7 @@ public class ModuloTableShardingAlgorithm implements SingleKeyTableShardingAlgor
         Collection<String> result = new LinkedHashSet<>(tableNames.size());
         for (Long value : shardingValue.getValues()) {
             for (String tableName : tableNames) {
-                if (tableName.endsWith(value % 2 + "")) {
+                if (tableName.endsWith(value % 3 + "")) {
                     result.add(tableName);
                 }
             }
@@ -43,7 +43,7 @@ public class ModuloTableShardingAlgorithm implements SingleKeyTableShardingAlgor
         Range<Long> range = (Range<Long>) shardingValue.getValueRange();
         for (Long i = range.lowerEndpoint(); i <= range.upperEndpoint(); i++) {
             for (String each : tableNames) {
-                if (each.endsWith(i % 2 + "")) {
+                if (each.endsWith(i % 3 + "")) {
                     result.add(each);
                 }
             }

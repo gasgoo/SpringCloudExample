@@ -18,11 +18,15 @@ public class OrderService {
     @Resource
     private OrderMapper orderMapper;
 
-     public void insert(Order order){
-         orderMapper.insert(order);
-     }
+    public void insert(Order order) {
+        orderMapper.insert(order);
+    }
 
-    public List<Order> findAll(){
+    public List<Order> findAll() {
         return orderMapper.findAll();
-     }
+    }
+
+    public Order selectByOrderId(Long orderId) {
+        return orderMapper.selectByOrderId(orderId);
+    }
 }
