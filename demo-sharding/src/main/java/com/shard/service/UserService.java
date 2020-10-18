@@ -40,14 +40,14 @@ public class UserService {
     @Transactional(propagation = Propagation.REQUIRED)
     public void transactionTestSucess() {
         UserDO u = new UserDO();
-        u.setUserId(22L);
+        u.setUserId(21L);
         u.setAge(25);
         u.setName("war3 1.22");
         userMapper.insert(u);
 
         Order order = new Order();
-        order.setUserId(22L);
-        order.setOrderId(22L);
+        order.setUserId(21L);
+        order.setOrderId(21L);
         order.setUserName("userName22");
         order.setPassWord("password22");
         orderService.insert(order);

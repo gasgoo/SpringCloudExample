@@ -3,6 +3,7 @@ package com.shard.mapper;
 import com.alibaba.fastjson.JSON;
 import com.shard.ShardingApplication;
 import com.shard.domain.Order;
+import com.shard.domain.UserDO;
 import com.shard.service.UserService;
 import junit.framework.TestCase;
 import org.junit.Test;
@@ -36,8 +37,30 @@ public class OrderMapperTest extends TestCase {
     }
 
     @Test
-    public void testUserInsert() {
+    public void testUserInsertSuccess() {
         userService.transactionTestSucess();
     }
+
+
+    @Test
+    public void testUserInsertFail() throws IllegalAccessException {
+        userService.transactionTestFailure();
+    }
+    @Test
+    public void testUserInsert() {
+        UserDO userDO=new UserDO();
+        userDO.setAge(29);
+        userDO.setId(29L);
+        userDO.setUserId(29L);
+        userDO.setName("29name");
+        userService.insert(userDO);
+        Order order=new Order();
+        order.setOrderId(29L);
+        order.setUserId(29L);
+        order.setUserName("29name");
+        order.setPassWord("29Pwd");
+        orderMapper.insert(order);
+    }
+
 
 }

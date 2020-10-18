@@ -58,7 +58,7 @@ user_id bigint(20) NOT NULL,
 user_name VARCHAR(32) NULL DEFAULT NULL COMMENT '用户名',
 passwords VARCHAR(32) NULL DEFAULT NULL COMMENT '密码',
 PRIMARY KEY (order_id)
-)
+);
 
 DROP TABLE IF EXISTS t_order_2;
 CREATE TABLE t_order_2 (
@@ -68,4 +68,4 @@ user_id bigint(20) NOT NULL,
 user_name VARCHAR(32) NULL DEFAULT NULL COMMENT '用户名',
 passwords VARCHAR(32) NULL DEFAULT NULL COMMENT '密码',
 PRIMARY KEY (order_id)
-)
+);
