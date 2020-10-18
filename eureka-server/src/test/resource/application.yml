@@ -25,10 +25,10 @@ spring:
       ip-address: 127.0.0.1
   #redis配置
   redis:
-    host: 192.168.1.9
+    host: 127.0.0.1
     port: 6379
     password: magfin2018
-    database: 9
+    database: 2
 ##RocketMq
 rocketmq:
   nameServer: 192.168.1.18:9876
