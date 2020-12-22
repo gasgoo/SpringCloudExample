@@ -1,5 +1,6 @@
-package com.myspring;
+package com.cloud.myspring;
 
+import com.cloud.myspring.vo.Car;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 
@@ -27,7 +28,7 @@ public class MyBeanPostProcessor  implements BeanPostProcessor {
 
     @Override
     public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
-        System.out.println("bean后主处理上>>>>end");
+        //System.out.println("bean后主处理上>>>>end"+beanName);
 
         return bean;
     }

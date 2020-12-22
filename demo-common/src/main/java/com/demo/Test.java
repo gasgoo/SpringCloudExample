@@ -2,8 +2,10 @@ package com.demo;
 
 import com.common.utils.DateTimeUtils;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.Objects;
 
 /**
  * @Date 2020/5/16 10:28
@@ -15,22 +17,13 @@ public class Test {
 
     public static void main(String[] args) {
 
-        System.out.println("==========================abc");
-        String str1="abc";
-        String str2=new String("abc");
-        String str3=str2.intern();
-        System.out.println(str1==str2);
-        System.out.println(str2==str3);
-        System.out.println(str1==str3);
-
-
-        Integer n1=128;
-        Integer n2=128;
-        Integer n3=new Integer(123);
-        System.out.println("Integer compare:"+(n1==n2));
-        System.out.println("Integer compare:"+(n1==n3));
-
-
+        BigDecimal amt = new BigDecimal("5000");
+        BigDecimal ab = new BigDecimal("4500");
+        if (amt.compareTo(ab) < 0) {
+            System.out.println("amt====大于");
+        } else {
+            System.out.println("amt====小于ab");
+        }
 
     }
 

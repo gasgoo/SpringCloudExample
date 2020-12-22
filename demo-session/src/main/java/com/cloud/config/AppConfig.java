@@ -1,6 +1,8 @@
-package com.config;
+package com.cloud.config;
 
-import com.myspring.*;
+import com.cloud.myspring.*;
+import com.cloud.myspring.vo.BeanLife;
+import com.cloud.myspring.vo.Car;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -30,16 +32,17 @@ public class AppConfig {
         return new BeanLife();
     }
 
-    @Bean
+    //@Bean
     public MyBeanFactoryPostprocessor beanFactoryPostprocessor(){
         return  new MyBeanFactoryPostprocessor();
     }
 
-    @Bean
+    //@Bean
     public MyBeanPostProcessor beanPostProcessor(){
         return new MyBeanPostProcessor();
     }
-    @Bean
+
+    //@Bean
     public MyApplicationContextAware applicationContextAware(){
         return new MyApplicationContextAware();
     }

@@ -2,40 +2,82 @@ spring-boot配置
 http://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html
 https://www.cnblogs.com/ITtangtang/p/3978349.html 源码解读
 
+org.springframework.context.support.AbstractApplicationContext.refresh 方法详解
+1. obtainFreshBeanFactory() 解析xml标签组装BeanDefinition构建BeanFactory容器
+2.invokeBeanFactoryPostProcessors()方法完成BeanFactoryPostProcessor、BeanDefinitionRegistryPostProcessor 两个接口调用 
+可以完成BeanDefinition对象的增删改查,对象还没有实例化。
+getBeanNamesForType();
+3. registerBeanPostProcessors  把实现了BeanPostProcessor接口的实例化，并且加入到BeanFactory
+ComponentScanBeanDefinitionParser.parse方法中的registerComponents()注册组件
+4. initApplicationEventMulticaster 初始化事件管理器
+5. registerListeners   往事件管理类中注册事件
+6. finishBeanFactoryInitialization 实例化单例对象
+7. finishRefresh 刷新容器 发布启动事件等
+
+
+
 ##Spring容器初始化 
 
  定位-加载-注册-初始化
   实例化Spring容器--> 扫描类-->解析类-->实例化BeanDefinition-->注册BeanDefinition 放到一个map中(beanName,DeanDef)
   调用bean工厂的后置处理器--验证
   验证:如判断这个bean是否是Lazy，是否prototype多列模式，是否是抽象类等。
+ 
+##Spring容器启动细节: refreshBeanFactory  其中涉及 模板模式 委托模式、装饰者模式
+
+
+1.实例化bean工厂 DefaultListableBeanFactory=createBeanFactory()
+2.加载xml配置文件   AbstractXmlApplicationContext.loadBeanDefinitions(DefaultListableBeanFactory)->XmlBeanDefinitionReader.loadBeanDefinitions() 
+ResourceLoader加载配置文件抽象为Resource资源,资源编码为InputResource
+经过 XmlBeanDefintionReader.registerBeanDefinitions()解析文件资源变为Document  
+BeanDefinitionDocumentReader.registerBeanDefinitions()
+解析xml文件 DefaultBeanDefinitionDocumentReader.registerBeanDefinitions()委托给
+BeanDefinitionParserDelegate.parseBeanDefinitionElement()
+DefaultNamespaceHandlerResolver.resolve
+ 自定义标签和默认标签
+3. xml标签解析  
+DefaultBeanDefinitionDocumentReader.parseBeanDefinitions
+解析其他标签设置BeanDefinition的属性 如 meta、 lookup-method、replace-method最后返回 bd对象。
+BeanDefinitionParserDelegate.parseMetaElements
+parseLookupOverrideSubElements()
+ bean标签的子标签解析出来后设置到 BeanDefinitin 中使用了装饰者模式。
+BeanDefinitionParserDelegate.parseCustomElement()--解析返回BeanDefinition
+4.解析出来的bean标签放入 BeanDefinitionMap 中,beanName添加到beanDefinitionNames
+DefaultListableBeanFactory.registerBeanDefinition()
+5. BeanDefinitin 对象有了可以开始 Bean的实例化  
   
-  
-#bean周期开始*** 实例化过程
+##bean周期*** 实例化过程
 AbstractAutowireCapableBeanFactory.createBean()
 AbstractAutowireCapableBeanFactory.doCreateBean()
 
 AbstractAutowireCapableBeanFactory.createBeanInstance()---
 AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethodfatcory()-method工厂的实例化对象、
+
 AbstractAutowireCapableBeanFactory.determineConstructorsFromBeanPostProcessors() 构造函数的处理
-首次调用beanPostProcessor,会扫描找出所有带注解的构造函数然后完成装配
-  有参和无参构造函数的实例化
-AbstractAutowireCapableBeanFactory.applyMergedBeanDefinitionPostProcessors()
+首次调用beanPostProcessor,会扫描找出所有带注解的构造函数然后完成装配  有参和无参构造函数的实例化
+
+AbstractAutowireCapableBeanFactory.applyMergedBeanDefinitionPostProcessors()  
+ 收集的注解类型有 @Autowired  @Value @Resource @PostConstruct @PreDestory
  ---后置处理器执行  收集各种带有注解的方法或属性  放入InjectionMetaData的一个set容器中。
+ 
  ---循环依赖处理---只会出现在单例无参构造函数实例化的情况  **非单例 有参的循环依赖都会抛出异常**
  addSingletonFactory() --从创建中的bean对象缓存中取对象注入依赖的对象
    正在创建的对象缓存(singletonsCurrentlyInCreation)---作用 用来阻断循环依赖  
    
- ---属性注入  根据上面收集的各种注解 如@PostStructured @Autowired
- AbstractAutowireCapableBeanFactory.populateBean() 依赖注册 属性填充
+ ---属性注入  根据上面收集的各种注解 如@PostConstruct @Autowired
+ AbstractAutowireCapableBeanFactory.populateBean() 依赖注册 属性填充  IOC的核心
+ 
  ---初始化  initializeBean()  顺序如下 
  aware类型的接口调用、@PostContruct 、InitializingBean.AfterPropertiesSet() 、 initMethod()
  InitializingBean  类实例化之后做一些事情的接口 加载预热
+  wrappedBean = applyBeanPostProcessorsAfterInitialization(wrappedBean, beanName);
+  在这个方法里面可能会生成业务类的代理
 
  ---注册对象销毁
 单例对象放入对象销毁池 disposableBeans  注册一个销毁bean的对象 DisposableBeanAdapter
 @PreDestory
 ---
-##bean周期开始end
+##bean周期end
 解析xml生成BeanDefinition---
 推断构造方法-通过反射实例化对象- 收集注解信息-暴露一个bean工厂--判断bean是否需要完成属性的注入
 完成属性注入- 回调Aware接口--生命周期回调方法(@PostConstruct)初始化--完成代理AOP--put单例池 ---销毁对象
@@ -48,26 +90,7 @@ Spring容器启动时会注册 AutowiredAnnoationBeanPostProcessor对象；
 bean在实例化和初始化时，会调用BeanPostProcessor对bean初始化 然后注入依赖的bean；
 如果注入的时引用类型则会触发 getBean()调用
 
-##Spring容器启动细节: refreshBeanFactory  其中涉及 模板模式 委托模式、装饰者模式
-org.springframework.context.support.AbstractApplicationContext.refresh
 
-1.实例化bean工厂 DefaultListableBeanFactory=createBeanFactory()
-2.加载xml配置文件 XmlBeanDefinitionReader.loadBeanDefinitions() 
-ResourceLoader加载配置文件抽象为Resource资源,资源编码为InputResource
-经过 XmlBeanDefintionReader.registerBeanDefinitions()解析文件资源变为Document  
-BeanDefinitionDocumentReader.registerBeanDefinitions()
-解析xml文件 DefaultBeanDefinitionDocumentReader.registerBeanDefinitions()委托给
-BeanDefinitionParserDelegate.parseBeanDefinitionElement()
- 自定义标签和默认标签
-3. xml标签解析  
-DefaultBeanDefinitionDocumentReader.parseBeanDefinitions
-解析其他标签设置BeanDefinition的属性 如 meta、 lookup-method、replace-method最后返回 bd对象。
-BeanDefinitionParserDelegate.parseMetaElements
-parseLookupOverrideSubElements()
- bean标签的子标签解析出来后设置到 BeanDefinitin 中使用了装饰者模式。
-4.解析出来的bean标签放入BeanDefinitionMap中,beanName添加到beanDefinitionNames
-DefaultListableBeanFactory.registerBeanDefinition()
-5. BeanDefinitin 对象有了可以开始 Bean的实例化
 
 #自定义标签解析 Namespacehandler接口
 每个标签都对应一个解析类。 spring.handlers文件中配置了命名空间uri和标签处理类的对应
@@ -76,6 +99,8 @@ DefaultListableBeanFactory.registerBeanDefinition()
 ContextNamespaceHandler 自定义的一些标签和对应的处理类
 最终要调用NameSpaceHandler.init()方法，其中表明了标签对应的标签处理类。
 <context:component-scan base-package="com.xx">
+ClassPathXMLApplicationContext 
+org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(org.springframework.core.io.Resource)
 
 ## @ComponentScan  @Bean @import 导入一个类   @importResources导入一个xml文件  注解的支持
 @Bean =Factory-mehtod 
@@ -150,7 +175,7 @@ DefaultListableBeanFactory  默认实现 实现了其他的三个接口
 
  具体的生产bean对象的细节则有不同的IOC容器实现 如
  XmlBeanFactory
- ClasspathXmlApplicationContext
+ ClasspathXmlApplicationContext   oAbstractApplicationContext.obtainFreshBeanFactory-xml解析入口
  ApplicationContext   高级的IOC容器
 
 # BeanDefinition  Spring扫描类解析类信息实例化 BeanDefiniton对象， BeanDefinitionRegistryPostProcessor 管理bd的能力 支持 import componentScan注解等
@@ -287,7 +312,7 @@ BeanFactoryPostProcessor 和 BeanPostProcessor 这两个接口都是初始化bea
 
  bean 生命周期====总结上述过程， 我们可以得到以下执行顺序 ：  
  BeanFactoryPostProcessor ---> 普通Bean构造方法 ---> 设置依赖或属性(属性注入) 
- --->BeanPostProcessor--->@PostConstruct(初始化注解) ---> InitializingBean接口 ---> xml配置中的initMethod
+ --->BeanPostProcessor--->@PostConstruct(初始化注解)-Aware接口 ---> InitializingBean接口 ---> xml配置中的initMethod
   
 
  BeanPostProcessor  SpringBean后置处理器,IOC容器完成bean实例化后，在初始化前后添加一些逻辑。
@@ -304,4 +329,10 @@ BeanFactoryPostProcessor 和 BeanPostProcessor 这两个接口都是初始化bea
 ContextStopedEvent
 
 RequestHandlerEvent  web相关事件
+
+org.springframework.beans.factory.xml.DefaultBeanDefinitionDocumentReader.parseBeanDefinitions
+BeanDefinition- 
+mutablePropertyValue
+LookupOverride
+replaceMethod
 

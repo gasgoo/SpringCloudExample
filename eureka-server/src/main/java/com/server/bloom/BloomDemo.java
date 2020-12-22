@@ -26,7 +26,7 @@ public class BloomDemo {
     @Autowired
     private RedisTemplate redisTemplate;
 
-    private static int size = 10000;//预计要插入多少数据
+    private static int size = 100;//预计要插入多少数据
 
     private static double fpp = 0.01;//期望的误判率
 
@@ -44,8 +44,8 @@ public class BloomDemo {
         }
         int count = 0;
         List<String> successList= Lists.newArrayList();
-        for (int i = 9800; i <=12000; i++) {
-            String key="order"+i;
+        for (int i = 90; i <= 100; i++) {
+            String key = "order" + i;
             if (!bloomFilter.mightContain(key)) {
                 successList.add(key);
             }

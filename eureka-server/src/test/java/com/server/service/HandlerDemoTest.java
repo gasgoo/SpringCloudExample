@@ -37,6 +37,7 @@ public class HandlerDemoTest {
         orders.setPrice(new BigDecimal(500));
         orders.setType("2");
         handlerDemo.handle(orders);
+        handlerDemo.testMap();
     }
 
     @Test

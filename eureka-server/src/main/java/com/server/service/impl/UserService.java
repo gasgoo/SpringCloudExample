@@ -7,6 +7,7 @@ import com.server.annotation.WebLog;
 import com.server.dao.NewsUserDao;
 import com.server.domain.UserBean;
 import com.server.redis.RedisUtils;
+import com.server.service.OrderService;
 import com.server.web.VM.LoginVO;
 import com.common.model.BaseResponse;
 import com.common.model.Constants;
@@ -17,9 +18,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -36,6 +39,7 @@ public class UserService extends BaseService  {
     private NewsUserDao newsUserDao;
     @Autowired
     private RedisUtils redisUtils;
+
 
     public UserBean getUserById(int userId) {
         return newsUserDao.selectByPrimaryKey(userId);

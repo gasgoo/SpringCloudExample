@@ -1,4 +1,4 @@
-package com.server.event;
+package com.server.events;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;

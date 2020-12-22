@@ -1,22 +1,29 @@
 package com.server.bloom;
 
+import com.alibaba.fastjson.JSON;
+import com.google.common.collect.Lists;
 import com.google.common.hash.Funnels;
 import com.google.common.hash.Hashing;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.catalina.Pipeline;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.data.redis.RedisProperties;
 import org.springframework.data.redis.connection.RedisConnection;
+import org.springframework.data.redis.connection.jedis.JedisUtils;
 import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
 
 import java.nio.charset.Charset;
+import java.util.List;
 
 /**
  * @Desc redis bitMap实现布隆过滤器
  * @Date 2020/10/18 10:25
  */
 @Service
+@Slf4j
 public class RedisBitMap {
 
     @Autowired
@@ -93,27 +100,6 @@ public class RedisBitMap {
         }
 
     }
-
-  /*  public static void main(String[] args) {
-        Jedis jedis = new Jedis("192.168.0.109", 6379);
-        for (int i = 0; i < 100; i++) {
-            long[] indexs = getIndexs(String.valueOf(i));
-            for (long index : indexs) {
-                jedis.setbit("codebear:bloom", index, true);
-            }
-        }
-        for (int i = 0; i < 100; i++) {
-            long[] indexs = getIndexs(String.valueOf(i));
-            for (long index : indexs) {
-                Boolean isContain = jedis.getbit("codebear:bloom", index);
-                if (!isContain) {
-                    System.out.println(i + "肯定没有重复");
-                }
-            }
-            System.out.println(i + "可能重复");
-        }
-    }
-*/
 
 
 }

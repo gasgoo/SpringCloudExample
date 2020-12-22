@@ -1,10 +1,9 @@
-package com.myspring;
+package com.cloud.myspring.vo;
 
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
-import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 
@@ -18,7 +17,7 @@ public class BeanLife implements ApplicationContextAware {
 
     //注入car属性
     @Autowired
-    private  Car car;
+    private Car car;
 
 
     public BeanLife(){

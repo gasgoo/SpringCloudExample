@@ -1,7 +1,7 @@
 package com.server;
 
 import com.server.config.ApplicationProperties;
-import com.server.event.MyContextEvent;
+import com.server.events.MyContextEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
@@ -12,14 +12,8 @@ import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.cloud.client.SpringCloudApplication;
 import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
 import org.springframework.cloud.netflix.hystrix.EnableHystrix;
-import org.springframework.cloud.netflix.hystrix.dashboard.EnableHystrixDashboard;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.Bean;
-import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.scheduling.annotation.EnableScheduling;
-import org.springframework.web.servlet.view.InternalResourceViewResolver;
-
-import java.util.concurrent.CountDownLatch;
 
 @SpringCloudApplication
 @EnableConfigurationProperties({ApplicationProperties.class})

@@ -54,19 +54,19 @@ public class ListStreamDemo {
     }
 
     private static void ListStream() {
-        Employee e1 = new Employee(7369L, "SMITH", 800, 20);
-        Employee e2 = new Employee(7499L, "ALLEN", 1600, 30);
-        Employee e3 = new Employee(7521L, "WARD", 1250, 30);
-        Employee e4 = new Employee(7782L, "CLARK", 2450, 10);
-        Employee e5 = new Employee(7876L, "ADAMS", 1100, 20);
-        Employee e6 = new Employee(78776L, "ADAMS", 11000, 20);
+        Employee e1 = new Employee(7369L, "SMITH", 1000, 20);
+        Employee e2 = new Employee(7499L, "ALLEN", 1000, 30);
+        Employee e3 = new Employee(7521L, "WARD", 1000, 30);
+        Employee e4 = new Employee(7782L, "CLARK", 1000, 10);
+        Employee e5 = new Employee(7876L, "ADAMS", 1000, 20);
+        Employee e6 = new Employee(78776L, "ADAMS", 2000, 20);
 
-        List<Employee> employees = Arrays.asList(e1, e2, e3, e4, e5);
-        String json=JSON.toJSONString(e1);
-        JSONArray jsonArray=new JSONArray();
+        List<Employee> employees = Arrays.asList(e1, e2, e3, e4, e5, e6);
+        String json = JSON.toJSONString(e1);
+        JSONArray jsonArray = new JSONArray();
         jsonArray.add(json);
 
-        System.out.println("============================"+jsonArray.toString());
+        System.out.println("============================" + jsonArray.toString());
 
         //遍历
         employees.stream().forEach(System.out::println);
@@ -74,9 +74,14 @@ public class ListStreamDemo {
         List<String> collect = employees.stream().map(employee -> employee.getName()).collect(Collectors.toList());
         System.out.println("====map");
         collect.stream().forEach(System.out::println);
+        employees.stream().forEach(e -> {
+            e.setName(e.getName() + "update");
+            e.setSalary(e.getSalary() + 250);
+
+        });
         //mapToInt/mapToLong/mapToDouble方法  统计
         int sum = employees.stream().mapToInt(em -> em.getSalary()).sum();
-        System.out.println("总薪水:"+sum);
+        System.out.println("总薪水:" + sum);
         //filter方法用于根据设置的条件对stream流中的数据做过滤操作
         List<Employee> collect1 = employees.stream().filter(employee -> employee.getSalary() > 1500).collect(Collectors.toList());
         collect1.stream().forEach(System.out::println);
@@ -87,6 +92,7 @@ public class ListStreamDemo {
         //方法串联
         List<String> names = employees.stream().filter(employee -> !employee.getDeptno().equals(20)).sorted(Comparator.comparing(Employee::getSalary).reversed()).map(employee -> employee.getName()).collect(Collectors.toList());
         System.out.println("-----------"+names.size());
+
 
         Map<String, List<Employee>> collect2 = employees.stream()
                 .collect(Collectors.groupingBy(Employee::getName));

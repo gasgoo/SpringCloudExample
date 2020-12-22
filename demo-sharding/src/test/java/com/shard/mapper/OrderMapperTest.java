@@ -33,7 +33,7 @@ public class OrderMapperTest extends TestCase {
     @Test
     public void testFindAll() {
         List<Order> all = orderMapper.findAll();
-        System.out.println(JSON.toJSONString(all));
+        System.out.println(">>>>>size:" + all.size() + JSON.toJSONString(all));
     }
 
     @Test

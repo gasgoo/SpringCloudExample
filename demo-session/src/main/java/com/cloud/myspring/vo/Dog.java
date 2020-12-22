@@ -1,4 +1,4 @@
-package com.myspring;
+package com.cloud.myspring.vo;
 
 import lombok.Getter;
 import lombok.Setter;

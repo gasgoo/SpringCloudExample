@@ -1,6 +1,7 @@
-package com.myspring;
+package com.cloud.myspring;
 
 
+import com.cloud.myspring.vo.Car;
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.stereotype.Component;
 
@@ -10,7 +11,6 @@ import org.springframework.stereotype.Component;
  * @name MyFactoryBean
  */
 
-@Component("myFactoryBean")
 public class MyFactoryBean implements FactoryBean {
 
     @Override

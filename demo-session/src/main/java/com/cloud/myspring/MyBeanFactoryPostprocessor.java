@@ -1,6 +1,5 @@
-package com.myspring;
+package com.cloud.myspring;
 
-import com.common.model.Employee;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
@@ -25,10 +24,7 @@ public class MyBeanFactoryPostprocessor implements BeanFactoryPostProcessor {
         carBean.setScope("prototype");
        //动态注册一个beanDefintion  没有扫描到的class  Employee
         DefaultListableBeanFactory df= (DefaultListableBeanFactory) beanFactory;
-        GenericBeanDefinition gb=new GenericBeanDefinition();
-        gb.setBeanClass(Employee.class);
-        df.registerBeanDefinition("employee",gb);
-        gb.getPropertyValues().add("empno",10086L);
+
 
     }
 }

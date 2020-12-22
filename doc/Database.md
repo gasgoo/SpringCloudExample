@@ -10,6 +10,10 @@ mysql体系: 自上而下 连接池组件-管理服务和工具组件- (sql接�
   服务：提供各种用户使用的接口 select update；  提供sql优化器 
   引擎：提供了各种存储数据的方式 
   存储：数据存储 事物管理
+ 
+ 
+show variables like '%max_connections%';
+查看数据库支持最大的数据库连接数
 
 #show engines; 查看引擎 存储引起是基于表的非数据库。 
 select * from information_schema.engines;
