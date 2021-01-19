@@ -2,6 +2,7 @@ package com.cloud.myspring;
 
 import com.cloud.anno.MyService;
 import com.cloud.myspring.vo.BeanDefBean;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.MutablePropertyValues;
 import org.springframework.beans.factory.config.BeanDefinition;
@@ -20,15 +21,17 @@ import org.springframework.stereotype.Component;
  * @Date 2020/12/17 11:17
  **/
 @Component
+@Slf4j
 public class MyBeanDefinitionRegistryPostProcessor implements BeanDefinitionRegistryPostProcessor, PriorityOrdered {
 
 
     @Override
     public void postProcessBeanDefinitionRegistry(BeanDefinitionRegistry registry) throws BeansException {
         final String[] beanDefinitionNames = registry.getBeanDefinitionNames();
+        log.info(">>>>bean size:{}", beanDefinitionNames.length);
         for (String beanDefName : beanDefinitionNames) {
             BeanDefinition beanDefinition = registry.getBeanDefinition(beanDefName);
-            System.out.println("all Bean>>>>" + beanDefinition);
+            //log.info("all Bean>>>>" + beanDefinition);
         }
 
         //动态注册一个beanDefintion 并设置属性

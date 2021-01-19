@@ -22,6 +22,7 @@ spring:
     database: 2
 
 
+
 ##注册中心配置
 eureka:
   server:
@@ -50,4 +51,5 @@ ribbon:
   eureka:
     enabled: true
 
-
+app:
+  name: demo-session

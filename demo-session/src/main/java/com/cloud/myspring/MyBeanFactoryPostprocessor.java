@@ -17,7 +17,7 @@ public class MyBeanFactoryPostprocessor implements BeanFactoryPostProcessor {
     @Override
     public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException {
         //简单理解spring当中的BeanDefinition就是java当中的Class
-        //描述springbean当中的scope、lazy，以及属性和方法等等其他信息
+        //描述springbean当中的、lazy，以及属性和方法等等其他信息
         BeanDefinition carBean = beanFactory.getBeanDefinition("car");
         System.out.println("MyBeanFactoryPostprocessor修改car的属性>>>"+carBean.getBeanClassName());
         carBean.getPropertyValues().add("name","BgValue");

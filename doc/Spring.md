@@ -46,7 +46,7 @@ BeanDefinitionParserDelegate.parseCustomElement()--解析返回BeanDefinition
 DefaultListableBeanFactory.registerBeanDefinition()
 5. BeanDefinitin 对象有了可以开始 Bean的实例化  
   
-##bean周期*** 实例化过程
+##bean周期*** 实例化过程   非抽象的非懒加载的单例对象
 AbstractAutowireCapableBeanFactory.createBean()
 AbstractAutowireCapableBeanFactory.doCreateBean()
 
@@ -62,10 +62,14 @@ AbstractAutowireCapableBeanFactory.applyMergedBeanDefinitionPostProcessors()
  
  ---循环依赖处理---只会出现在单例无参构造函数实例化的情况  **非单例 有参的循环依赖都会抛出异常**
  addSingletonFactory() --从创建中的bean对象缓存中取对象注入依赖的对象
+ 三级缓存this.singletonFactories.put(beanName, singletonFactory)  建立bean和 beanFactory的映射
    正在创建的对象缓存(singletonsCurrentlyInCreation)---作用 用来阻断循环依赖  
+   @Lazy不会有循环依赖问题,不会触发第二次getBean操作，返回代理对象。
+   多例对象循环依赖抛出异常，因为singletonsCurrentlyInCreation 是Set容器，无法重复添加一个对象。
    
- ---属性注入  根据上面收集的各种注解 如@PostConstruct @Autowired
+ ---属性注入  根据上面收集的各种注解 如@PostConstruct @Autowired @Value
  AbstractAutowireCapableBeanFactory.populateBean() 依赖注册 属性填充  IOC的核心
+
  
  ---初始化  initializeBean()  顺序如下 
  aware类型的接口调用、@PostContruct 、InitializingBean.AfterPropertiesSet() 、 initMethod()
@@ -75,7 +79,9 @@ AbstractAutowireCapableBeanFactory.applyMergedBeanDefinitionPostProcessors()
 
  ---注册对象销毁
 单例对象放入对象销毁池 disposableBeans  注册一个销毁bean的对象 DisposableBeanAdapter
-@PreDestory
+@PreDestory    CommonAnnotationBeanPostProcessors处理
+自定义实现 DisposableBean 接口的bean
+destoryMethod
 ---
 ##bean周期end
 解析xml生成BeanDefinition---
@@ -104,7 +110,20 @@ org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinition
 
 ## @ComponentScan  @Bean @import 导入一个类   @importResources导入一个xml文件  注解的支持
 @Bean =Factory-mehtod 
-ConfigurationClassPostProcessor
+收集有@Bean注解的类放入 BeanMethods Set容器中
+ConfigurationClassPostProcessor  操作BeanDefinition  实现了BeanDefinitonRegistryPostProcessor 优先级最低
+
+
+#配置解析  PropertySourcesPlaceholderConfigurer  
+属性配置来源本地配置（systemProperties）和 ENV（systemEnvironment）环境  
+org.springframework.core.env.StandardEnvironment.customizePropertySources 
+MutablePropertySources中有一个来源列表 MutablePropertySources
+重写 PropertyResourceConfigurer.postProcessBeanFactory 接口
+
+>>@Value的实现过程   读取配置来源的数据注入属性中。
+A构造函数中依赖B，则实例化的时候会异常 实例化A的时候触发了B的getBean 则会有循环依赖的问题
+@lazy 懒加载 添加注解后返回 B的代理对象则可以成功构造A对象，没有触发B的getBean方法则没有循环依赖。
+
 
 #AOP 原理解读
 <aop:aspectj-autoproxy >开启注解aop配置
@@ -189,9 +208,11 @@ bean解析就是对配置文件的解析， 涉及到的类：
  
  
 
-FileSystemXmlApplication
-ClassPathXmlApplication
+FileSystemXmlApplicationContext
+ClassPathXmlApplicationContext
 XmlWebApplication
+AnnotationConfigApplicationContext
+AnnotationConfigWebApplicationContext
 上下文可以嵌套，先检查当前上下文，然后逐级向父级查找bean
 Class 在Spring容器中变为 bean的过程
 Class-beanDefinition-put到Map中---BeanDefinition--new --bean
@@ -273,6 +294,7 @@ DispatcherServlet机制和原理
 3. ImportBeanDefinitionRegistrar.registerBeanDefinitions()
 4. xml配置bean标签方式 不推荐使用
 5. 常用的注解@Component @Service @Controller等间接方式
+6. BeanFactory.registerSingleton("beanName",new Bean);
 
 #如何让Spring扫描自定义的注解类
 写一个class实现BeanDefinitionRegistryPostProcessor 获取对BeanDefiniton修改 添加 的能力。
@@ -280,9 +302,9 @@ DispatcherServlet机制和原理
 
 
 
-FactoryBean 是Spring提供的工厂bean的一个接口 定制化bean的创建逻辑。
+##FactoryBean 是Spring提供的工厂bean的一个接口 定制化bean的创建逻辑。 涉及到的一个缓存  factoryBeanObjectCache
  FactoryBean接口有三个方法用来创建对象
- getObject(); 返回这个FactoryBean所创建的对象
+ getObject(); 返回这个FactoryBean所创建的对象 对象缓存到 factoryBeanObjectCache  FactoryBean本身缓存到一级缓存 SingletonObjects
  getObjectType(); 返回这个FactoryBean所创建的对象的类型
  isSingleton()
  
