@@ -1,9 +1,15 @@
 package com.common.service;
 
+import com.alibaba.fastjson.JSON;
+import com.common.OrderEnum;
 import com.common.utils.AESUtil;
 import com.demo.TreeMapDemo;
 import org.junit.Test;
 
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
 
 
 /**
@@ -24,6 +30,15 @@ public class BaseServiceTest {
 
         System.out.println(phone.replaceAll("(\\d{3})\\d{6}(\\d{2})", "$1****$2"));
         System.out.println(">>>>>" + phone.replace(phone.substring(3, 9), "****"));
+
+    }
+
+    @Test
+    public void testSortEnum() {
+        OrderEnum[] values = OrderEnum.values();
+        List<OrderEnum> lists = Arrays.asList(values);
+        List<OrderEnum> sortList = lists.stream().sorted(Comparator.comparing(OrderEnum::getIndex)).collect(Collectors.toList());
+        System.out.println(">>>>" + JSON.toJSONString(sortList));
 
     }
 

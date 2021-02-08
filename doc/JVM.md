@@ -160,7 +160,44 @@ JVM的类加载机制主要有如下3种
 类加载有优先级的层次关系，保证java运行的稳定
 缓存机制
  
-    
+##Arthas 使用命令
+java -jar arthas-boot.jar --target-ip 0.0.0.0
+
+sysprop 打印所有的System properties的信息
+
+jad com.xxx.xx.classname  反编译代码
+ognl '@java.lang.System@out.println("hello ognl")'  调用static函数
+sc 查找类的 classloader hash
+watch com.xxx.class * '{params,throwExp}'   查看异常函数
+>>在线热更新代码的步骤>>
+jad --source-only com.xxx.UserController >/tmp/userController.java 反编译类保存到某个路径
+然后 vi编辑 反编译后的 java文件.
+sc -d *userController |grep classLoaderHash 查找类的ClassLoader
+mc(memory Compiler)命令来编译 并指定classLoaderClass
+mc --classLoaderClass org.springframework.boot.loader.launchedURlClassLoader /tmp/UserController.java -d /tmp
+redefine /tmp/com/example/demo/arthas/user/UserController.class 重新加载新编译的class
+>
+>
+##k8s  部署应用
+准备镜像-deployment.yaml文件编写
+Kubectl apply -f ~/deploy.yaml 部署应用
+kubectl -n ${namespaveValue} get pod get pod 查看部署的应用 status =running
+
+部署服务
+service.yaml
+kubectl apply -f ~/service.yaml  部署服务
+kubectl get service -n  ${namespaveValue}  查看部署的服务
+
+暴露服务
+ingress.yaml
+kubectl apply -f ~/ingress.yaml
+卸载资源
+
+kubectl delete ingress example-ingress -n ${namespaveValue}  卸载 ingress
+kubectl delete service myapp-service -n ${namespaveValue}  卸载 service
+kubectl delete deployment myapp-deployment -n  ${namespaveValue} 卸载 deployment
+
+
 
 
 

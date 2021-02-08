@@ -113,6 +113,9 @@ org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinition
 收集有@Bean注解的类放入 BeanMethods Set容器中
 ConfigurationClassPostProcessor  操作BeanDefinition  实现了BeanDefinitonRegistryPostProcessor 优先级最低
 
+@Import({xxxx.class})把某个类导入Spring容器，注册成BD实例化。导入第三方jar中的class然后实例化。
+@RefreshScope 客户端收到服务端的配置更新后会销毁当前bean然后重新实例化填充最新属性 从而获取最新的配置。
+Bean 的生命周期方法回调  @PostContruct @PreDestory
 
 #配置解析  PropertySourcesPlaceholderConfigurer  
 属性配置来源本地配置（systemProperties）和 ENV（systemEnvironment）环境  
